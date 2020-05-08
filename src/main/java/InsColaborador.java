@@ -72,18 +72,20 @@ public class InsColaborador {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		
 		frame = new JFrame();
 		frame.setTitle("Inserir Colaboradores");
 		frame.getContentPane().setFont(new Font("Calibri", Font.PLAIN, 16));
 		frame.getContentPane().addContainerListener(new ContainerAdapter() {
 			@Override
 			public void componentRemoved(ContainerEvent arg0) {
+				
 			}
 		});
+		
 		frame.setBounds(100, 100, 700, 780);
 		frame.getContentPane().setLayout(null);
 		
-
 		JPanel panel = new JPanel();
 		panel.setBounds(0, 0, 430, 470);
 		frame.getContentPane().add(panel);
@@ -98,8 +100,6 @@ public class InsColaborador {
 		Colaborador_Label.setFont(new Font("Calibri", Font.PLAIN, 30));
 		Colaborador_Label.setBounds(10, 10, 645, 60);
 		frame.getContentPane().add(Colaborador_Label);
-		
-		
 		
 		JButton btnEditar = new JButton("Editar");
 		btnEditar.setFont(new Font("Calibri", Font.PLAIN, 16));
@@ -118,18 +118,15 @@ public class InsColaborador {
 		
 		JButton btnpesquisar = new JButton("Pesquisar");
 		btnpesquisar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				
-				try
-				{
+			public void actionPerformed(ActionEvent arg0) {				
+				try {
 					
 					String query = ("SELECT * FROM fopagdb.cadastrotb WHERE `cpf` = " + txtcpf.getText()); 
 		            ResultSet resultado = Fopag.connection.getData(query);
 		            
 		            // Apresentando os valores nos campos
 		            
-		            while (resultado.next())
-		            {
+		            while (resultado.next()) {
 		                txtcpf.setText(resultado.getString("cpf"));
 		                txtnome.setText(resultado.getString("nome"));
 		                txtrg.setText(resultado.getString("rg"));
@@ -151,22 +148,18 @@ public class InsColaborador {
 		                txtcargo.setText(resultado.getString("cargo"));
 		                txtadmissao.setText(resultado.getString("admissao"));
 		                
-		                // Descobrir qual index do combobox contém o item que retorna do resultado
+		                // Descobrir qual index do combobox contï¿½m o item que retorna do resultado
 		                //comboBanco.setSelectedIndex(0);
 		                
 		            }
 					
 				}
-				catch (Exception ex)
-				{
+				catch (Exception ex) {
 				    ex.printStackTrace();
 				}
-				
-				
-					
-				
 			}
 		});
+		
 		btnpesquisar.setFont(new Font("Calibri", Font.PLAIN, 18));
 		btnpesquisar.setBounds(548, 122, 120, 29);
 		frame.getContentPane().add(btnpesquisar);
@@ -448,13 +441,13 @@ public class InsColaborador {
 		            "`rua`,\n" +
 		            "`bairro`,\n" +
 		            "`cidade`,\n" +
-		            "`estado`,\n" +
+		            //"`estado`,\n" +
 		            "`cep`,\n"+
-		            "`ufnasc`,\n" +
+		            //"`ufnasc`,\n" +
 		            "`rg`,\n" +
 		            "`dn`,\n" +
-		            "`sexo`,\n" +
-		            "`civil`,\n" +
+		            //"`sexo`,\n" +
+		            //"`civil`,\n" +
 		            "`mae`,\n" +
 		            "`ddd`,\n" +
 		            "`telefone`,\n" +
@@ -474,13 +467,13 @@ public class InsColaborador {
 		            "'" + txtrua.getText() + "',\n" +
 		            "'" + txtbairro.getText() + "',\n" +
 		            "'" + txtcidade.getText() + "',\n" +
-		            "'" + comboEstado.getSelectedItem().toString() + "',\n" +
+		            //"'" + comboEstado.getSelectedItem().toString() + "',\n" +
 		            "" + txtcep.getText() + ",\n" +
-		            "'" + comboUf.getSelectedItem().toString() + "',\n" +
+		            //"'" + comboUf.getSelectedItem().toString() + "',\n" +
 		            "" + txtrg.getText() + ",\n" +
 		            "" + txtdn.getText() + ",\n" +
-		            "'" + comboSexo.getSelectedItem().toString() + "',\n" +
-		            "'" + comboCivil.getSelectedItem().toString() + "',\n" +
+		            //"'" + comboSexo.getSelectedItem().toString() + "',\n" +
+		            //"'" + comboCivil.getSelectedItem().toString() + "',\n" +
 		            "'" + txtmae.getText() + "',\n" +
 		            "" + txtddd.getText() + ",\n" +
 		            "" + txttelefone.getText() + ",\n" +
@@ -492,8 +485,10 @@ public class InsColaborador {
 		            "'" + txtcargo.getText() + "',\n" +
 		            "" + txtdv.getText() + ")";
 		            
+		            System.out.println(query);
+		            
 					Fopag.connection.insertData(query);
-					JOptionPane.showMessageDialog(btnGravar, "Opa... Tudo certo até aqui!!!.");
+					JOptionPane.showMessageDialog(btnGravar, "Opa... Tudo certo atï¿½ aqui!!!.");
 					//System.out.println ("Tudo certo! podemos continuar.");
 				}
 				catch (SQLException ex)
@@ -502,6 +497,7 @@ public class InsColaborador {
 					//System.out.println("HUMMM!!! parece que algo deu errado. " + ex.getMessage());
 	            ex.printStackTrace();
 				}
+					/*
 				  	txtnome.setText("");  // Criei todos os campos
 				  	txtcpf.setText("");   // Verificar onde adicionar 
 				  	txtbanco.setText(""); 
@@ -527,6 +523,7 @@ public class InsColaborador {
 				  	txtadmissao.setText("");
 				  	txtcargo.setText("");
 				  	txtdv.setText("");
+				  	*/
 			}
 		});
 		btnGravar.setFont(new Font("Calibri", Font.PLAIN, 16));

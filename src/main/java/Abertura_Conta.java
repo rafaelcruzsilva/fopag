@@ -1,29 +1,24 @@
 import java.awt.EventQueue;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import java.awt.Font;
-import javax.swing.SwingConstants;
-import javax.swing.JRadioButton;
-import javax.swing.JPanel;
-import javax.swing.UIManager;
-import javax.swing.JTextArea;
-import javax.swing.JButton;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Date;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.awt.event.ActionEvent;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
 import java.util.Calendar;
-import java.time.Clock;
-import java.time.LocalTime;
-import java.time.LocalDate;
+import java.util.Date;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 
 
 
@@ -233,14 +228,19 @@ public class Abertura_Conta {
 		btnIncColaborador.setBounds(15, 138, 302, 30);
 		panelColaborador.add(btnIncColaborador);
 		btnIncColaborador.setFont(new Font("Calibri", Font.PLAIN, 16));
+		
 		btnIncColaborador.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				System.out.println("Chamando cadastro");
+				
 				try
 				{
 				String query = "INSERT INTO `fopagdb`.`contastb`\n" +  // Aqui inicia a Query de cadastro
 			            "(`codigobco`,\n" +
 			            "`inscricao`,\n" +
 			            "`cnpj`,\n" +
+			            /*
 			            "`convenio`,\n" +
 			            "`agenciaemp`,\n" +
 			            "`contaemp`,\n" +
@@ -274,11 +274,13 @@ public class Abertura_Conta {
 			            "`contacolab`,\n" +
 			            "`dvcolab`,\n" +
 			            "`ocorrencias`)\n" +
-			            //"`data`)\n" +
+			            */
+			            "`data`)\n" +
 			            "VALUES\n" +
 			            "(" + txtcodigobco.getText() + ",\n" +
 			            "" + txtinscricao.getText() + ",\n" +
 			            "" + txtcnpj.getText() + ",\n" +
+			            /*
 			            "" + txtconvenio.getText() + ",\n" +
 			            "" + txtagencia.getText() + ",\n" +
 			            "" + txtconta.getText() + ",\n" +
@@ -311,18 +313,22 @@ public class Abertura_Conta {
 			            "" + txtagenciacolab.getText() + ",\n" +
 			            "" + txtcontacolab.getText() + ",\n" +
 			            "" + txtdvcolab.getText() + ",\n" +
-			            //"" + dataFormatada.getText() + ",\n" +
-			            "'" + txtocorrencias.getText() + "')";
-				
+			            */
+			            //"" + txtocorrencias.getText() + ",\n" +
+			            "'" + new SimpleDateFormat("ddMMYYYY").format(new Date()) + "')";
+			            
+			            
+				System.out.println(query);
 				
 				Fopag.connection.insertData(query);
 				JOptionPane.showMessageDialog(btnIncColaborador, "Colaborador inserido!!!!!!.");
 			}
 			catch (SQLException ex)
 			{
-				JOptionPane.showMessageDialog(btnIncColaborador, "Algo deu errado, confira as posiçoes por favor!!!");
+				JOptionPane.showMessageDialog(btnIncColaborador, "Algo deu errado, confira as posiï¿½oes por favor!!!");
             ex.printStackTrace();
 			}
+				/*
 			  	txtcodigobco.setText("");  // Inicio do Limpa Campo
 			  	txtinscricao.setText("");   
 			  	txtcnpj.setText("");
@@ -359,6 +365,7 @@ public class Abertura_Conta {
 			  	txtcontacolab.setText("");
 			  	txtdvcolab.setText("");
 			  	txtocorrencias.setText("");
+			  	*/
 			  	
 			  	
 			}
