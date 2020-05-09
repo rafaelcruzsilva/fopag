@@ -5,7 +5,6 @@ import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -42,18 +41,13 @@ public class Gera_Conta {
 		});
 	}
 
-	/**
-	 * Create the application.
-	 */
 	public Gera_Conta() {
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.setTitle("Abertura de conta sal\u00E1rio");
 		frame.setBounds(100, 100, 700, 870);
 		frame.getContentPane().setLayout(null);
 		
@@ -117,7 +111,7 @@ public class Gera_Conta {
 					String contaempresa;
 					String dvempresa;
 					String empresa;
-					String Banco;
+					String banco;
 					String remessa;
 					String nsa;
 					String colaborador;
@@ -128,7 +122,7 @@ public class Gera_Conta {
 					String sexo;
 					String civil;
 					String mae;
-					String rua;
+					String ruacolab;
 					String nresidcolab;
 					String compresidcolab;
 					String bairrocolab;
@@ -138,7 +132,7 @@ public class Gera_Conta {
 					String emailcolab;
 					String dddcolab;
 					String telefonecolab;
-					String salariocolab;
+					String salario;
 					String admissao;
 					String cargo;
 					String agenciacolab;
@@ -149,39 +143,56 @@ public class Gera_Conta {
 					 while (resultado.next()) {
 						 data = StringUtils.leftPad(resultado.getString("data"), 8, ".");
 						 codigobco = StringUtils.leftPad(resultado.getString("codigobco"), 3, ".");
-						 inscricao = StringUtils.leftPad(resultado.getString(""), 1, ".");
+						 inscricao = StringUtils.leftPad(resultado.getString("inscricao"), 1, ".");
 						 cnpj = StringUtils.leftPad(resultado.getString("cnpj"), 14, ".");
 						 convenio = StringUtils.leftPad(resultado.getString("convenio"), 20, ".");
-						 inscricao = StringUtils.leftPad(resultado.getString("inscricao"), 15, ".");
+						 agenciaempresa = StringUtils.leftPad(resultado.getString("agenciaemp"), 5, ".");
+						 contaempresa = StringUtils.leftPad(resultado.getString("contaemp"), 9, ".");
+						 dvempresa = StringUtils.leftPad(resultado.getString("dvemp"), 1, ".");
+						 empresa = StringUtils.leftPad(resultado.getString("empresa"), 30, ".");
+						 banco = StringUtils.leftPad(resultado.getString("bancoemp"), 30, ".");
+						 remessa = StringUtils.leftPad(resultado.getString("remessa"), 1, ".");
+						 nsa = StringUtils.leftPad(resultado.getString("nsa"), 6, ".");
+						 colaborador = StringUtils.leftPad(resultado.getString("nome"), 40, ".");
+						 cpf = StringUtils.leftPad(resultado.getString("cpf"), 11, ".");
+						 ufnasc = StringUtils.leftPad(resultado.getString("ufnasc"), 2, ".");
+						 rg = StringUtils.leftPad(resultado.getString("rg"), 20, ".");
+						 dn = StringUtils.leftPad(resultado.getString("dn"), 8, ".");
+						 sexo = StringUtils.leftPad(resultado.getString("sexo"), 1, ".");
+						 civil = StringUtils.leftPad(resultado.getString("civil"), 2, ".");
+						 mae = StringUtils.leftPad(resultado.getString("mae"), 30, ".");
+						 ruacolab = StringUtils.leftPad(resultado.getString("ruacolab"), 30, ".");
+						 nresidcolab = StringUtils.leftPad(resultado.getString("nresidcolab"), 5, ".");
+						 compresidcolab = StringUtils.leftPad(resultado.getString("compresidcolab"), 15, ".");
+						 bairrocolab = StringUtils.leftPad(resultado.getString("bairrocolab"), 15, ".");
+						 cidadecolab = StringUtils.leftPad(resultado.getString("cidadecolab"), 20, ".");
+						 estadocolab = StringUtils.leftPad(resultado.getString("estadocolab"), 2, ".");
+						 cepcolab = StringUtils.leftPad(resultado.getString("cepcolab"), 8, ".");
+						 emailcolab = StringUtils.leftPad(resultado.getString("emailcolab"), 80, ".");
+						 dddcolab = StringUtils.leftPad(resultado.getString("dddcolab"), 2, ".");
+						 telefonecolab = StringUtils.leftPad(resultado.getString("telefonecolab"), 9, ".");
+						 salario = StringUtils.leftPad(resultado.getString("salario"), 9, ".");
+						 admissao = StringUtils.leftPad(resultado.getString("admissao"), 8, ".");
+						 cargo = StringUtils.leftPad(resultado.getString("cargo"), 4, ".");
+						 agenciacolab = StringUtils.leftPad(resultado.getString("agenciacolab"), 5, ".");
+						 contasalario = StringUtils.leftPad(resultado.getString("contacolab"), 9, ".");
+						 dvcolab = StringUtils.leftPad(resultado.getString("dvcolab"), 1, ".");
+						 ocorrencias = StringUtils.leftPad(resultado.getString("ocorrencias"), 1, ".");
 						 
-						 System.out.println(codigobco.concat(cnpj).concat(data).concat(inscricao));
+						 System.out.println(data.concat(codigobco).concat(inscricao).concat(cnpj).concat(convenio).concat(agenciaempresa)
+								 .concat(contaempresa).concat(dvempresa).concat(empresa).concat(banco).concat(remessa).concat(nsa)
+								 .concat(colaborador).concat(cpf).concat(ufnasc).concat(rg).concat(dn).concat(sexo)
+								 .concat(civil).concat(mae).concat(ruacolab).concat(nresidcolab).concat(compresidcolab).concat(bairrocolab)
+								 .concat(cidadecolab).concat(estadocolab).concat(cepcolab).concat(emailcolab).concat(dddcolab).concat(telefonecolab)
+								 .concat(salario).concat(admissao).concat(cargo).concat(agenciacolab).concat(contasalario).concat(dvcolab)
+								 .concat(ocorrencias));
 					 }
-					
-					
-					/*
-			    	//ResultSet resultado = Fopag.connection.getData("SELECT * FROM fopagdb.contastb WHERE `data` = 07052020");
-			    
-				    while (resultado.next())
-		            {
-		                txtCnab.setText(resultado.getString("codigobco")); // Apresentando os valores nos campos
-		                txtCnab.setText(resultado.getString("inscricao"));
-		                txtCnab.setText(resultado.getString("cnpj"));
-		                txtCnab.setText(resultado.getString("convenio"));
-		                txtCnab.setText(resultado.getString("agencia"));
-		                txtCnab.setText(resultado.getString("conta"));
-		                txtCnab.setText(resultado.getString("dv"));
-		                txtCnab.setText(resultado.getString("empresa"));
-		                txtCnab.setText(resultado.getString("banco"));
-		                //txtremessa.setText(resultado.getString("remessa"));
-		                //txtnsa.setText(resultado.getString("nsa"));
-		            }
-		            */
 			    }
 			    catch (Exception ex) {
 				    ex.printStackTrace();
 				}
 
-				JOptionPane.showMessageDialog(null, "Gerando arquivo com data atual");
+				JOptionPane.showMessageDialog(null, "Processamento concluído!");
 				
 			}
 		});
@@ -194,9 +205,5 @@ public class Gera_Conta {
 		btnCancelar.setFont(new Font("Calibri", Font.PLAIN, 18));
 		btnCancelar.setBounds(529, 751, 120, 30);
 		frame.getContentPane().add(btnCancelar);
-		
-		JTextArea txtCnab = new JTextArea();
-		txtCnab.setBounds(20, 255, 635, 464);
-		frame.getContentPane().add(txtCnab);
 	}
 }

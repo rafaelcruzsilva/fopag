@@ -6,27 +6,16 @@ import javax.swing.JScrollPane;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import java.awt.Font;
-import java.awt.TrayIcon.MessageType;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ContainerAdapter;
-import java.awt.event.ContainerEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-
-import br.com.caelum.stella.validation.CPFValidator;
-
 
 public class InsColaborador {
 
@@ -149,6 +138,7 @@ public class InsColaborador {
 		                txttelefone.setText(resultado.getString("telefone"));
 		                txtcargo.setText(resultado.getString("cargo"));
 		                txtadmissao.setText(resultado.getString("admissao"));
+		                txtsalario.setText(resultado.getString("salario"));
 		                
 		            }
 				}
@@ -207,8 +197,6 @@ public class InsColaborador {
 		
 		JComboBox<Sexo> comboSexo = new JComboBox<Sexo>();
 		comboSexo.setFont(new Font("Calibri", Font.PLAIN, 16));
-		
-		// Precisa criar a classe tal como foi criada a classe Sexo
 		comboSexo.addItem(new Sexo("1", "Masculino"));
 		comboSexo.addItem(new Sexo("2", "Feminino"));
 		comboSexo.setBounds(281, 315, 120, 25);
@@ -219,9 +207,11 @@ public class InsColaborador {
 		lbcivil.setBounds(423, 315, 120, 25);
 		frame.getContentPane().add(lbcivil);
 		
-		JComboBox comboCivil = new JComboBox();
+		JComboBox<Civil> comboCivil = new JComboBox<Civil>();
 		comboCivil.setFont(new Font("Calibri", Font.PLAIN, 16));
-		comboCivil.setModel(new DefaultComboBoxModel(new String[] {"Solteiro(a)", "Casado(a)"}));
+		comboCivil.addItem(new Civil("01", "Solteiro"));
+		comboCivil.addItem(new Civil("02", "Casado"));
+		comboCivil.addItem(new Civil("03", "Divorciado"));
 		comboCivil.setBounds(548, 315, 120, 25);
 		frame.getContentPane().add(comboCivil);
 		
@@ -419,11 +409,153 @@ public class InsColaborador {
 		lbadmissao.setBounds(423, 650, 120, 25);
 		frame.getContentPane().add(lbadmissao);
 		
-		txtcargo = new JTextField();
-		txtcargo.setFont(new Font("Calibri", Font.PLAIN, 16));
-		txtcargo.setColumns(10);
-		txtcargo.setBounds(281, 650, 120, 25);
-		frame.getContentPane().add(txtcargo);
+		JComboBox<Cargo> comboCargo = new JComboBox<Cargo>();
+		comboCargo.setFont(new Font("Calibri", Font.PLAIN, 16));
+		comboCargo.addItem(new Cargo("0001", "Administrador"));
+		comboCargo.addItem(new Cargo("0002", "Administrador público"));
+		comboCargo.addItem(new Cargo("0003", "Agropecuarista"));
+		comboCargo.addItem(new Cargo("0004", "Contabilista"));
+		comboCargo.addItem(new Cargo("0005", "Economista"));
+		comboCargo.addItem(new Cargo("0006", "Especialista em comércio exterior"));
+		comboCargo.addItem(new Cargo("0007", "Chef"));
+		comboCargo.addItem(new Cargo("0008", "Gerente comercial"));
+		comboCargo.addItem(new Cargo("0009", "Gestor de recursos humanos"));
+		comboCargo.addItem(new Cargo("0010", "Gestor de turismo"));
+		comboCargo.addItem(new Cargo("0011", "Gestor público"));
+		comboCargo.addItem(new Cargo("0012", "Hoteleiro"));
+		comboCargo.addItem(new Cargo("0013", "Piloto de avião"));
+		comboCargo.addItem(new Cargo("0014", "Turismólogo"));
+		comboCargo.addItem(new Cargo("0015", "Artes e Design"));
+		comboCargo.addItem(new Cargo("0016", "Animador"));
+		comboCargo.addItem(new Cargo("0017", "Arquiteto"));
+		comboCargo.addItem(new Cargo("0018", "Artista plástico"));
+		comboCargo.addItem(new Cargo("0019", "Ator"));
+		comboCargo.addItem(new Cargo("0020", "Dançarino"));
+		comboCargo.addItem(new Cargo("0021", "Designer"));
+		comboCargo.addItem(new Cargo("0022", "Designer de games"));
+		comboCargo.addItem(new Cargo("0023", "Designer de interiores"));
+		comboCargo.addItem(new Cargo("0024", "Designer de moda"));
+		comboCargo.addItem(new Cargo("0025", "Fotógrafo"));
+		comboCargo.addItem(new Cargo("0026", "Historiador da arte"));
+		comboCargo.addItem(new Cargo("0027", "Músico"));
+		comboCargo.addItem(new Cargo("0028", "Produtor cênico"));
+		comboCargo.addItem(new Cargo("0029", "Produtor fonográfico"));
+		comboCargo.addItem(new Cargo("0030", "Ciências Biológicas e da Terra"));
+		comboCargo.addItem(new Cargo("0031", "Agrônomo"));
+		comboCargo.addItem(new Cargo("0032", "Bioquímico"));
+		comboCargo.addItem(new Cargo("0033", "Biotecnólogo"));
+		comboCargo.addItem(new Cargo("0034", "Ecologista"));
+		comboCargo.addItem(new Cargo("0035", "Geofísico"));
+		comboCargo.addItem(new Cargo("0036", "Geólogo"));
+		comboCargo.addItem(new Cargo("0037", "Gestor ambiental"));
+		comboCargo.addItem(new Cargo("0038", "Veterinário"));
+		comboCargo.addItem(new Cargo("0039", "Meteorologista"));
+		comboCargo.addItem(new Cargo("0040", "Oceanógrafo"));
+		comboCargo.addItem(new Cargo("0041", "Zootecnólogo"));
+		comboCargo.addItem(new Cargo("0042", "Informática"));
+		comboCargo.addItem(new Cargo("0043", "Analista e desenvolvedor de sistemas"));
+		comboCargo.addItem(new Cargo("0044", "Astrônomo"));
+		comboCargo.addItem(new Cargo("0045", "Cientista da computação"));
+		comboCargo.addItem(new Cargo("0046", "Estatístico"));
+		comboCargo.addItem(new Cargo("0047", "Físico"));
+		comboCargo.addItem(new Cargo("0048", "Gestor da tecnologia da informação"));
+		comboCargo.addItem(new Cargo("0049", "Matemático"));
+		comboCargo.addItem(new Cargo("0050", "Nanotecnólogo"));
+		comboCargo.addItem(new Cargo("0051", "Químico"));
+		comboCargo.addItem(new Cargo("0052", "Ciências Sociais e Humanas"));
+		comboCargo.addItem(new Cargo("0053", "Advogado"));
+		comboCargo.addItem(new Cargo("0054", "Arqueólogo"));
+		comboCargo.addItem(new Cargo("0055", "Cooperativista"));
+		comboCargo.addItem(new Cargo("0056", "Filósofo"));
+		comboCargo.addItem(new Cargo("0057", "Geógrafo"));
+		comboCargo.addItem(new Cargo("0058", "Historiador"));
+		comboCargo.addItem(new Cargo("0059", "Linguista"));
+		comboCargo.addItem(new Cargo("0060", "Museologista"));
+		comboCargo.addItem(new Cargo("0061", "Pedagogo"));
+		comboCargo.addItem(new Cargo("0062", "Professor"));
+		comboCargo.addItem(new Cargo("0063", "Psicopedagogo"));
+		comboCargo.addItem(new Cargo("0064", "Relações internacionais"));
+		comboCargo.addItem(new Cargo("0065", "Sociólogo"));
+		comboCargo.addItem(new Cargo("0066", "Teólogo"));
+		comboCargo.addItem(new Cargo("0067", "Tradutor e intérprete"));
+		comboCargo.addItem(new Cargo("0068", "Comunicação e Informação"));
+		comboCargo.addItem(new Cargo("0069", "Arquivologista"));
+		comboCargo.addItem(new Cargo("0070", "Biblioteconomista"));
+		comboCargo.addItem(new Cargo("0071", "Educomunicador"));
+		comboCargo.addItem(new Cargo("0072", "Jornalista"));
+		comboCargo.addItem(new Cargo("0073", "Produtor audiovisual"));
+		comboCargo.addItem(new Cargo("0074", "Produtor cultural"));
+		comboCargo.addItem(new Cargo("0075", "Produtor editorial"));
+		comboCargo.addItem(new Cargo("0076", "Produtor multimídia"));
+		comboCargo.addItem(new Cargo("0077", "Produtor publicitário"));
+		comboCargo.addItem(new Cargo("0078", "Publicitário"));
+		comboCargo.addItem(new Cargo("0079", "Radialista"));
+		comboCargo.addItem(new Cargo("0080", "Relações públicas"));
+		comboCargo.addItem(new Cargo("0081", "Secretária"));
+		comboCargo.addItem(new Cargo("0082", "Secretária executiva"));
+		comboCargo.addItem(new Cargo("0083", "Engenharia e Produção"));
+		comboCargo.addItem(new Cargo("0084", "Agricultor"));
+		comboCargo.addItem(new Cargo("0085", "Construtor civil"));
+		comboCargo.addItem(new Cargo("0086", "Construtor naval"));
+		comboCargo.addItem(new Cargo("0087", "Engenheiro acústico"));
+		comboCargo.addItem(new Cargo("0088", "Engenheiro aeronáutico"));
+		comboCargo.addItem(new Cargo("0089", "Engenheiro agrícola"));
+		comboCargo.addItem(new Cargo("0090", "Engenheiro ambiental e sanitário"));
+		comboCargo.addItem(new Cargo("0091", "Engenheiro biomédico"));
+		comboCargo.addItem(new Cargo("0092", "Engenheiro civil"));
+		comboCargo.addItem(new Cargo("0093", "Engenheiro da computação"));
+		comboCargo.addItem(new Cargo("0094", "Engenheiro de alimentos"));
+	    comboCargo.addItem(new Cargo("0095", "Engenheiro de biossistemas"));
+		comboCargo.addItem(new Cargo("0096", "Engenheiro de controle e automação"));
+		comboCargo.addItem(new Cargo("0097", "Engenheiro de energia"));
+		comboCargo.addItem(new Cargo("0098", "Engenheiro de inovação"));
+		comboCargo.addItem(new Cargo("0099", "Engenheiro de materiais"));
+		comboCargo.addItem(new Cargo("0100", "Engenheiro de minas"));
+	    comboCargo.addItem(new Cargo("0101", "Engenheiro de pesca"));
+		comboCargo.addItem(new Cargo("0102", "Engenheiro de petróleo"));
+		comboCargo.addItem(new Cargo("0103", "Engenheiro de produção"));
+	    comboCargo.addItem(new Cargo("0104", "Engenheiro de segurança do trabalho"));
+	    comboCargo.addItem(new Cargo("0105", "Engenheiro de sistemas"));
+		comboCargo.addItem(new Cargo("0106", "Engenheiro de software"));
+		comboCargo.addItem(new Cargo("0107", "Engenheiro de telecomunicações"));
+		comboCargo.addItem(new Cargo("0108", "Engenheiro de transporte e mobilidade"));
+		comboCargo.addItem(new Cargo("0109", "Engenheiro elétrico"));
+		comboCargo.addItem(new Cargo("0110", "Engenheiro eletrônico"));
+		comboCargo.addItem(new Cargo("0111", "Engenheiro físico"));
+		comboCargo.addItem(new Cargo("0112", "Engenheiro florestal"));
+		comboCargo.addItem(new Cargo("0113", "Engenheiro hídrico"));
+		comboCargo.addItem(new Cargo("0114", "Engenheiro mecânico"));
+		comboCargo.addItem(new Cargo("0115", "Engenheiro mecatrônico"));
+		comboCargo.addItem(new Cargo("0116", "Engenheiro naval"));
+		comboCargo.addItem(new Cargo("0117", "Engenheiro químico"));
+	    comboCargo.addItem(new Cargo("0118", "Gestor da qualidade"));
+		comboCargo.addItem(new Cargo("0119", "Minerador"));
+		comboCargo.addItem(new Cargo("0120", "Militar da Marinha"));
+        comboCargo.addItem(new Cargo("0121", "Militar do Exército"));
+	    comboCargo.addItem(new Cargo("0122", "Militar da Aeronáutico"));
+		comboCargo.addItem(new Cargo("0123", "Militar do Policia"));
+		comboCargo.addItem(new Cargo("0124", "Policial Civil"));
+		comboCargo.addItem(new Cargo("0125", "Silvicultor"));
+		comboCargo.addItem(new Cargo("0126", "Biomédico"));
+		comboCargo.addItem(new Cargo("0127", "Dentista"));
+		comboCargo.addItem(new Cargo("0128", "Educador físico"));
+		comboCargo.addItem(new Cargo("0129", "Enfermeiro"));
+		comboCargo.addItem(new Cargo("0130", "Esteticista"));
+		comboCargo.addItem(new Cargo("0131", "Farmacêutico"));
+		comboCargo.addItem(new Cargo("0132", "Fisioterapeuta"));
+		comboCargo.addItem(new Cargo("0133", "Fonoaudiólogo"));
+	    comboCargo.addItem(new Cargo("0134", "Gerontólogo"));
+		comboCargo.addItem(new Cargo("0135", "Gestor em saúde"));
+		comboCargo.addItem(new Cargo("0136", "Gestor hospitalar"));
+		comboCargo.addItem(new Cargo("0137", "Médico"));
+		comboCargo.addItem(new Cargo("0138", "Musicoterapeuta"));
+	    comboCargo.addItem(new Cargo("0139", "Nutricionista"));
+		comboCargo.addItem(new Cargo("0140", "Psicólogo"));
+		comboCargo.addItem(new Cargo("0141", "Radiologista"));
+		comboCargo.addItem(new Cargo("0142", "Terapeuta ocupacional"));
+		comboCargo.addItem(new Cargo("0143", "Outros"));
+		comboCargo.setBounds(281, 650, 120, 25);
+		frame.getContentPane().add(comboCargo);
 		
 		txtadmissao = new JTextField();
 		txtadmissao.setFont(new Font("Calibri", Font.PLAIN, 16));
@@ -438,7 +570,7 @@ public class InsColaborador {
 				try {
 					
 					if (!FopagUtils.isCPFValido(txtcpf.getText())) {
-						JOptionPane.showMessageDialog(null, "CPF invÃ¡lido", "Dados invÃ¡lidos", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, "CPF inválido", "Dados inválidos", JOptionPane.ERROR_MESSAGE);
 					}
 					
 		            String query = "INSERT INTO `fopagdb`.`cadastrotb`\n" +  // Aqui inicia a Query de cadastro
@@ -450,13 +582,13 @@ public class InsColaborador {
 		            "`rua`,\n" +
 		            "`bairro`,\n" +
 		            "`cidade`,\n" +
-		            //"`estado`,\n" +
+		            "`estado`,\n" +
 		            "`cep`,\n"+
-		            //"`ufnasc`,\n" +
+		            "`ufnasc`,\n" +
 		            "`rg`,\n" +
 		            "`dn`,\n" +
 		            "`sexo`,\n" +
-		            //"`civil`,\n" +
+		            "`civil`,\n" +
 		            "`mae`,\n" +
 		            "`ddd`,\n" +
 		            "`telefone`,\n" +
@@ -471,33 +603,33 @@ public class InsColaborador {
 		            "('" + txtnome.getText() + "',\n" +
 		            "'" + txtcpf.getText() + "',\n" +
 		            "'" + txtbanco.getText() + "',\n" +
-		            "" + txtagencia.getText() + ",\n" +
-		            "" + txtconta.getText() + ",\n" +
+		            "'" + txtagencia.getText() + "',\n" +
+		            "'" + txtconta.getText() + "',\n" +
 		            "'" + txtrua.getText() + "',\n" +
 		            "'" + txtbairro.getText() + "',\n" +
 		            "'" + txtcidade.getText() + "',\n" +
-		            //"'" + comboEstado.getSelectedItem().toString() + "',\n" +
-		            "" + txtcep.getText() + ",\n" +
-		            //"'" + comboUf.getSelectedItem().toString() + "',\n" +
-		            "" + txtrg.getText() + ",\n" +
-		            "" + txtdn.getText() + ",\n" +
+		            "'" + comboEstado.getSelectedItem().toString() + "',\n" +
+		            "'" + txtcep.getText() + "',\n" +
+		            "'" + comboUf.getSelectedItem().toString() + "',\n" +
+		            "'" + txtrg.getText() + "',\n" +
+		            "'" + txtdn.getText() + "',\n" +
 		            "'" + ((Sexo) comboSexo.getSelectedItem()).getKey() + "',\n" +
-		            //"'" + comboCivil.getSelectedItem().toString() + "',\n" +
+		            "'" + ((Civil) comboCivil.getSelectedItem()).getKey() + "',\n" +
 		            "'" + txtmae.getText() + "',\n" +
-		            "" + txtddd.getText() + ",\n" +
-		            "" + txttelefone.getText() + ",\n" +
+		            "'" + txtddd.getText() + "',\n" +
+		            "'" + txttelefone.getText() + "',\n" +
 		            "'" + txtnresid.getText() + "',\n" +
 		            "'" + txtcompresid.getText() + "',\n" +
 		            "'" + txtemail.getText() + "',\n" +
 		            "'" + txtsalario.getText() + "',\n" +
-		            "" + txtadmissao.getText() + ",\n" +
-		            "'" + txtcargo.getText() + "',\n" +
-		            "" + txtdv.getText() + ")";
+		            "'" + txtadmissao.getText() + "',\n" +
+		            "'" + ((Cargo) comboCargo.getSelectedItem()).getKey() + "',\n" +
+		            "'" + txtdv.getText() + "')";
 		            
 		            System.out.println(query);
 		            
 					Fopag.connection.insertData(query);
-					JOptionPane.showMessageDialog(btnGravar, "Opa... Tudo certo atï¿½ aqui!!!.");
+					JOptionPane.showMessageDialog(btnGravar, "Opa... Tudo certo até aqui!!!.");
 				}
 				catch (SQLException ex)
 				{
@@ -514,22 +646,22 @@ public class InsColaborador {
 				  	txtrua.setText("");
 				  	txtbairro.setText("");
 				  	txtcidade.setText("");
-				  	//comboEstado.setText("");
+				  	comboEstado.getSelectedItem();
 				  	txtcep.setText("");
-				  	//comboUf.setText("");
+				  	comboUf.getSelectedItem();
 				  	txtrg.setText("");
 				  	txtdn.setText("");
-				  	//comboSexo.setText("");
-				  	//comboCivil.setText("");
+				  	comboSexo.getSelectedItem();
+				  	comboCivil.getSelectedItem();
 				  	txtmae.setText("");
 				  	txtddd.setText("");
 				  	txttelefone.setText("");
 				  	txtnresid.setText("");
 				  	txtcompresid.setText("");
 				  	txtemail.setText("");
-				  	//txtsalario.setText("");
+				  	txtsalario.setText("");
 				  	txtadmissao.setText("");
-				  	txtcargo.setText("");
+				  	comboCargo.getSelectedItem();
 				  	txtdv.setText("");
 				  	
 			}

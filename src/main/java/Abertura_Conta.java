@@ -11,7 +11,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -115,7 +114,7 @@ public class Abertura_Conta {
 			    {
 					
 					if (!FopagUtils.isCNPJValido(cnpjEmpresaConsulta.getText())) {
-						JOptionPane.showMessageDialog(null, "CNPJ inv√°lido", "Erro", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, "CNPJ inv·lido", "Erro", JOptionPane.ERROR_MESSAGE);
 						return;
 					}
 					
@@ -270,42 +269,42 @@ public class Abertura_Conta {
 			            "`ocorrencias`)\n" +
 			            "`data`)\n" +
 			            "VALUES\n" +
-			            "(" + txtcodigobco.getText() + ",\n" +
-			            "" + txtinscricao.getText() + ",\n" +
-			            "" + txtcnpj.getText() + ",\n" +
-			            "" + txtconvenio.getText() + ",\n" +
-			            "" + txtagencia.getText() + ",\n" +
-			            "" + txtconta.getText() + ",\n" +
-			            "" + txtdv.getText() + ",\n" +
+			            "('" + txtcodigobco.getText() + "',\n" +
+			            "'" + txtinscricao.getText() + "',\n" +
+			            "'" + txtcnpj.getText() + "',\n" +
+			            "'" + txtconvenio.getText() + "',\n" +
+			            "'" + txtagencia.getText() + "',\n" +
+			            "'" + txtconta.getText() + "',\n" +
+			            "'" + txtdv.getText() + "',\n" +
 			            "'" + txtempresa.getText() + "',\n" +
 			            "'" + txtbanco.getText() + "',\n" +
-			            //"" + txtremessa.getText() + ",\n" +
+			            //"'" + txtremessa.getText() + "',\n" +
 			            //"'" + txtnsa.getText() + "',\n" +
 			            "'" + txtnome.getText() + "',\n" +
-			            "" + txt_cpf.getText() + ",\n" +
+			            "'" + txt_cpf.getText() + "',\n" +
 			            "'" + txtufnasc.getText() + "',\n" +
-			            "" + txtrg.getText() + ",\n" +
-			            "" + txtdn.getText() + ",\n" +
+			            "'" + txtrg.getText() + "',\n" +
+			            "'" + txtdn.getText() + "',\n" +
 			            "'" + txtsexo.getText() + "',\n" +
 			            "'" + txtcivil.getText() + "',\n" +
 			            "'" + txtmae.getText() + "',\n" +
 			            "'" + txtrua.getText() + "',\n" +
-			            "" + txtnresid.getText() + ",\n" +
+			            "'" + txtnresid.getText() + "',\n" +
 			            "'" + txtcompresid.getText() + "',\n" +
 			            "'" + txtbairro.getText() + "',\n" +
 			            "'" + txtcidade.getText() + "',\n" +
 			            "'" + txtestado.getText() + "',\n" +
-			            "" + txtcep.getText() + ",\n" +
+			            "'" + txtcep.getText() + "',\n" +
 			            "'" + txtemail.getText() + "',\n" +
-			            "" + txtddd.getText() + ",\n" +
-			            "" + txttelefone.getText() + ",\n" +
-			            "" + txtsalario.getText() + ",\n" +
-			            "" + txtadmissao.getText() + ",\n" +
-			            "" + txtcargo.getText() + ",\n" +
-			            "" + txtagenciacolab.getText() + ",\n" +
-			            "" + txtcontacolab.getText() + ",\n" +
-			            "" + txtdvcolab.getText() + ",\n" +
-			            //"" + txtocorrencias.getText() + ",\n" +
+			            "'" + txtddd.getText() + "',\n" +
+			            "'" + txttelefone.getText() + "',\n" +
+			            "'" + txtsalario.getText() + "',\n" +
+			            "'" + txtadmissao.getText() + "',\n" +
+			            "'" + txtcargo.getText() + "',\n" +
+			            "'" + txtagenciacolab.getText() + "',\n" +
+			            "'" + txtcontacolab.getText() + "',\n" +
+			            "'" + txtdvcolab.getText() + "',\n" +
+			            "'" + txtocorrencias.getText() + "',\n" +
 			            "'" + new SimpleDateFormat("ddMMYYYY").format(new Date()) + "')";
 			            
 			            

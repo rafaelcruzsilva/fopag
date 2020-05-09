@@ -23,7 +23,7 @@ public class Fopag {
 		try
 		{
 			connection = new SQLConnection();
-			connection.connect("jdbc:mysql://localhost:3306/fopagdb?useTimezone=true&serverTimezone=UTC", "root", "Mudar123");
+			connection.connect("jdbc:mysql://localhost:3306/fopagdb?useTimezone=true&serverTimezone=UTC", "root", "");
 		}
 		catch (SQLException | ClassNotFoundException ex)
 		{
