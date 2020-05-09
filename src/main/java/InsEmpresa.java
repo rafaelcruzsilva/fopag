@@ -76,79 +76,6 @@ public class InsEmpresa {
 		frame.getContentPane().add(lbempresa);
 		
 		JButton btnGravar = new JButton("Gravar");
-		btnGravar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				try {
-		            String query = "INSERT INTO `fopagdb`.`empresatb`\n" +  // Aqui inicia a Query de cadastro
-		            "(`cnpj`,\n" +
-		            "`empresa`,\n" +
-		            "`convenio`,\n" +
-		            "`rua`,\n" +
-		            "`nresid`,\n" +
-		            "`compresid`,\n" +
-		            "`bairro`,\n" +
-		            "`cidade`,\n" +
-		            "`cep`,\n" +
-		            "`estado`,\n"+
-		            "`banco`,\n" +
-		            "`agencia`,\n" +
-		            "`conta`,\n" +
-		            "`dv`,\n" +
-		            "`ddd`,\n" +
-		            "`telefone`,\n" +
-		            "`inscricao`,\n" +
-		            "`codigobco`,\n" +
-		            "`email`)\n" +
-		            "VALUES\n" +
-		            "('" + txtcnpj.getText() + "',\n" +
-		            "'" + txtempresa.getText() + "',\n" +
-		            "'" + txtconvenio.getText() + "',\n" +
-		            "'" + txtrua.getText() + "',\n" +
-		            "'" + txtnresid.getText() + "',\n" +
-		            "'" + txtcompresid.getText() + "',\n" +
-		            "'" + txtbairro.getText() + "',\n" +
-		            "'" + txtcidade.getText() + "',\n" +
-		            "'" + txtcep.getText() + "',\n" +
-		            "'" + comboEstado.getSelectedItem().toString() + "',\n" +
-		            "'" + txtbanco.getText() + "',\n" +
-		            "'" + txtagencia.getText() + "',\n" +
-		            "'" + txtconta.getText() + "',\n" +
-		            "'" + txtdv.getText() + "',\n" +
-		            "'" + txtddd.getText() + "',\n" +
-		            "'" + txttelefone.getText() + "',\n" +
-		            "'" + ((Inscricao) comboInscricao.getSelectedItem()).getKey() + "',\n" +
-		            "'" + ((Bancos) comboBancos.getSelectedItem()).getKey() + "',\n" +
-		            "'" + txtemail.getText() + "')";
-		            
-					Fopag.connection.insertData(query);
-					JOptionPane.showMessageDialog(btnGravar, "Opa... Tudo certo até aqui!!!.");
-				}
-				catch (SQLException ex)
-				{
-					JOptionPane.showMessageDialog(btnGravar, "Hum... algo deu errado!!!");
-	            ex.printStackTrace();
-				}
-				  	txtcnpj.setText("");  		// Criei todos os campos
-				  	txtempresa.setText("");   	// Verificar onde adicionar 
-				  	txtconvenio.setText(""); 
-				  	txtrua.setText("");
-				  	txtnresid.setText("");
-				  	txtcompresid.setText("");
-				  	txtbairro.setText("");
-				  	txtcidade.setText("");
-				  	txtcep.setText("");
-				  	comboEstado.getSelectedItem();
-				  	txtbanco.setText("");
-				  	txtagencia.setText("");
-				  	txtconta.setText("");
-				  	txtdv.setText("");
-				  	txtddd.setText("");
-				  	txttelefone.setText("");
-				  	comboInscricao.getSelectedItem();
-				  	comboBancos.getSelectedItem();
-				  	txtemail.setText("");
-			}
-		});
 		btnGravar.setFont(new Font("Calibri", Font.PLAIN, 16));
 		btnGravar.setBounds(10, 120, 120, 30);
 		frame.getContentPane().add(btnGravar);
@@ -367,8 +294,8 @@ public class InsEmpresa {
 		
 		JComboBox<Inscricao> comboInscricao = new JComboBox<Inscricao>();
 		comboInscricao.setFont(new Font("Calibri", Font.PLAIN, 16));
-		comboInscricao.addItem(new Inscricao("1", "Pessoa Física"));
-		comboInscricao.addItem(new Inscricao("2", "Pessoa Jurídica"));
+		comboInscricao.addItem(new Inscricao("1", "Pessoa Fï¿½sica"));
+		comboInscricao.addItem(new Inscricao("2", "Pessoa Jurï¿½dica"));
 		comboInscricao.setBounds(266, 505, 120, 25);
 		frame.getContentPane().add(comboInscricao);
 		
@@ -383,5 +310,79 @@ public class InsEmpresa {
 		comboBancos.addItem(new Bancos("000", "..."));
 		comboBancos.setBounds(266, 540, 120, 25);
 		frame.getContentPane().add(comboBancos);
+		
+		btnGravar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+		            String query = "INSERT INTO `fopagdb`.`empresatb`\n" +  // Aqui inicia a Query de cadastro
+		            "(`cnpj`,\n" +
+		            "`empresa`,\n" +
+		            "`convenio`,\n" +
+		            "`rua`,\n" +
+		            "`nresid`,\n" +
+		            "`compresid`,\n" +
+		            "`bairro`,\n" +
+		            "`cidade`,\n" +
+		            "`cep`,\n" +
+		            "`estado`,\n"+
+		            "`banco`,\n" +
+		            "`agencia`,\n" +
+		            "`conta`,\n" +
+		            "`dv`,\n" +
+		            "`ddd`,\n" +
+		            "`telefone`,\n" +
+		            "`inscricao`,\n" +
+		            "`codigobco`,\n" +
+		            "`email`)\n" +
+		            "VALUES\n" +
+		            "('" + txtcnpj.getText() + "',\n" +
+		            "'" + txtempresa.getText() + "',\n" +
+		            "'" + txtconvenio.getText() + "',\n" +
+		            "'" + txtrua.getText() + "',\n" +
+		            "'" + txtnresid.getText() + "',\n" +
+		            "'" + txtcompresid.getText() + "',\n" +
+		            "'" + txtbairro.getText() + "',\n" +
+		            "'" + txtcidade.getText() + "',\n" +
+		            "'" + txtcep.getText() + "',\n" +
+		            "'" + comboEstado.getSelectedItem().toString() + "',\n" +
+		            "'" + txtbanco.getText() + "',\n" +
+		            "'" + txtagencia.getText() + "',\n" +
+		            "'" + txtconta.getText() + "',\n" +
+		            "'" + txtdv.getText() + "',\n" +
+		            "'" + txtddd.getText() + "',\n" +
+		            "'" + txttelefone.getText() + "',\n" +
+		            "'" + ((Inscricao) comboInscricao.getSelectedItem()).getKey() + "',\n" +
+		            "'" + ((Bancos) comboBancos.getSelectedItem()).getKey() + "',\n" +
+		            "'" + txtemail.getText() + "')";
+		            
+					Fopag.connection.insertData(query);
+					JOptionPane.showMessageDialog(btnGravar, "Opa... Tudo certo atï¿½ aqui!!!.");
+				}
+				catch (SQLException ex)
+				{
+					JOptionPane.showMessageDialog(btnGravar, "Hum... algo deu errado!!!");
+	            ex.printStackTrace();
+				}
+				  	txtcnpj.setText("");  		// Criei todos os campos
+				  	txtempresa.setText("");   	// Verificar onde adicionar 
+				  	txtconvenio.setText(""); 
+				  	txtrua.setText("");
+				  	txtnresid.setText("");
+				  	txtcompresid.setText("");
+				  	txtbairro.setText("");
+				  	txtcidade.setText("");
+				  	txtcep.setText("");
+				  	comboEstado.getSelectedItem();
+				  	txtbanco.setText("");
+				  	txtagencia.setText("");
+				  	txtconta.setText("");
+				  	txtdv.setText("");
+				  	txtddd.setText("");
+				  	txttelefone.setText("");
+				  	comboInscricao.getSelectedItem();
+				  	comboBancos.getSelectedItem();
+				  	txtemail.setText("");
+			}
+		});
 	}
 }

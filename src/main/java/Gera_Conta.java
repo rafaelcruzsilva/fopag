@@ -106,13 +106,13 @@ public class Gera_Conta {
 					final Integer directoryOption = fileChooser.showOpenDialog(frame);
 					
 					if (directoryOption != JFileChooser.APPROVE_OPTION) {
-						JOptionPane.showMessageDialog(null, "Diretório inválido", "Erro", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Diretï¿½rio invï¿½lido", "Erro", JOptionPane.ERROR_MESSAGE);
 						return;
 					}
 					
 					
-					//String teste = String.format("Olá %s. Sua conta é %s, seu saldo é %s", "Iago", conta, saldo);					
-					//"Olá Iago. Sua conta é 123, seu saldo é 500";
+					//String teste = String.format("Olï¿½ %s. Sua conta ï¿½ %s, seu saldo ï¿½ %s", "Iago", conta, saldo);					
+					//"Olï¿½ Iago. Sua conta ï¿½ 123, seu saldo ï¿½ 500";
 					
 					final String nomeArquivo = String.format("TCYS_%s_%s.txt", "1", DATE_FORMAT_US.format(new Date()));
 					
@@ -181,6 +181,8 @@ public class Gera_Conta {
 						
 					final FileWriter fileWriter = new FileWriter(file);
 					
+					Boolean setHeader = Boolean.TRUE;
+					
 					 while (resultado.next()) {
 						 
 						 data = StringUtils.leftPad(resultado.getString("data"), 8, "0");
@@ -234,40 +236,42 @@ public class Gera_Conta {
 						 filler15 = StringUtils.leftPad(resultado.getString("filler15") == null ? "0" : resultado.getString("filler15"), 15, "0"); //valor fixo
 						 filler20 = StringUtils.leftPad(resultado.getString("filler20") == null ? "0" : resultado.getString("filler20"), 20, "0"); //valor fixo
 						 
-						 
-						 fileWriter.write(codigobco); 		//Header
-						 fileWriter.write(lotesvc); 		//Header
-						 fileWriter.write(tiporegistro); 	//Header
-						 fileWriter.write(filler5); 		//Header
-						 fileWriter.write(filler2); 		//Header
-						 fileWriter.write(filler2); 		//Header
-						 fileWriter.write(inscricao); 		//Header
-						 fileWriter.write(cnpj);			//Header
-						 fileWriter.write(convenio);		//Header
-						 fileWriter.write(agenciaempresa);	//Header
-						 fileWriter.write(filler1); 		//Header
-						 fileWriter.write(contaempresa);	//Header
-						 fileWriter.write(dvempresa);		//Header
-						 fileWriter.write(filler1); 		//Header
-						 fileWriter.write(empresa);			//Header
-						 fileWriter.write(banco);			//Header
-						 fileWriter.write(filler10); 		//Header
-						 fileWriter.write(remessa);			//Header
-						 fileWriter.write(data);			//Header
-						 //fileWriter.write(hora);			//Header
-						 fileWriter.write(nsa);				//Header
-						 fileWriter.write(layout);			//Header
-						 fileWriter.write(filler5); 		//Header
-						 fileWriter.write(filler20); 		//Header Reservado Banco
-						 fileWriter.write(filler20); 		//Header Reservado Empresa
-						 fileWriter.write(filler20); 		//Header
-						 fileWriter.write(filler5); 		//Header
-						 fileWriter.write(filler2); 		//Header
-						 fileWriter.write(filler2); 		//Header
-						 fileWriter.write(ocorrencias); 	//Header
-						 
-						 
-						 
+						 if (setHeader) {
+							 
+							 setHeader = Boolean.FALSE;
+							 
+							 fileWriter.write(codigobco); 		//Header
+							 fileWriter.write(lotesvc); 		//Header
+							 fileWriter.write(tiporegistro); 	//Header
+							 fileWriter.write(filler5); 		//Header
+							 fileWriter.write(filler2); 		//Header
+							 fileWriter.write(filler2); 		//Header
+							 fileWriter.write(inscricao); 		//Header
+							 fileWriter.write(cnpj);			//Header
+							 fileWriter.write(convenio);		//Header
+							 fileWriter.write(agenciaempresa);	//Header
+							 fileWriter.write(filler1); 		//Header
+							 fileWriter.write(contaempresa);	//Header
+							 fileWriter.write(dvempresa);		//Header
+							 fileWriter.write(filler1); 		//Header
+							 fileWriter.write(empresa);			//Header
+							 fileWriter.write(banco);			//Header
+							 fileWriter.write(filler10); 		//Header
+							 fileWriter.write(remessa);			//Header
+							 fileWriter.write(data);			//Header
+							 //fileWriter.write(hora);			//Header
+							 fileWriter.write(nsa);				//Header
+							 fileWriter.write(layout);			//Header
+							 fileWriter.write(filler5); 		//Header
+							 fileWriter.write(filler20); 		//Header Reservado Banco
+							 fileWriter.write(filler20); 		//Header Reservado Empresa
+							 fileWriter.write(filler20); 		//Header
+							 fileWriter.write(filler5); 		//Header
+							 fileWriter.write(filler2); 		//Header
+							 fileWriter.write(filler2); 		//Header
+							 fileWriter.write(ocorrencias); 	//Header
+						 }
+						 						 
 						 fileWriter.write(codigobco);		//Seg D
 						 fileWriter.write(lotesvc);			//Seg D
 						 fileWriter.write(tiporegistro); 	//Seg D Ajustar
@@ -315,6 +319,7 @@ public class Gera_Conta {
 						 fileWriter.write(contasalario);	//Seg E
 						 fileWriter.write(dvcolab);			//Seg E
 						 fileWriter.write(ocorrencias);		//Seg E
+						 
 						 fileWriter.write("\n");
 					 }
 					 
@@ -324,7 +329,7 @@ public class Gera_Conta {
 				    ex.printStackTrace();
 				}
 
-				JOptionPane.showMessageDialog(null, "Processamento concluído!");
+				JOptionPane.showMessageDialog(null, "Processamento concluï¿½do!");
 				
 			}
 		});
