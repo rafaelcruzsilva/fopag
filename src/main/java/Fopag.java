@@ -15,14 +15,15 @@ public class Fopag {
 	public static SQLConnection connection;
 
 	/**
-	 * Launch the application.
+	 * OriginalApp
 	 */
+	
 	public static void main(String[] args) {
 		
 		try
 		{
 			connection = new SQLConnection();
-			connection.connect("jdbc:mysql://localhost:3306/fopagdb?useTimezone=true&serverTimezone=UTC", "root", "Mudar123");
+			connection.connect("jdbc:mysql://localhost:3306/fopagdb?useTimezone=true&serverTimezone=UTC", "root", "");
 		}
 		catch (SQLException | ClassNotFoundException ex)
 		{
@@ -41,16 +42,10 @@ public class Fopag {
 		});
 	}
 
-	/**
-	 * Create the application.
-	 */
 	public Fopag() {
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	private void initialize() {
 		frmFolhaDePagamento = new JFrame();
 		frmFolhaDePagamento.setTitle("Folha de Pagamento - OriginalApp");

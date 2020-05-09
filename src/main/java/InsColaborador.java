@@ -1,4 +1,10 @@
 import java.awt.EventQueue;
+import javax.swing.JFrame;
+import java.awt.event.ContainerAdapter;
+import java.awt.event.ContainerEvent;
+import javax.swing.JScrollPane;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import java.awt.Font;
 import java.awt.TrayIcon.MessageType;
 import java.awt.event.ActionEvent;
@@ -64,16 +70,10 @@ public class InsColaborador {
 		});
 	}
 
-	/**
-	 * Create the application.
-	 */
 	public InsColaborador() {
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	private void initialize() {
 		
 		frame = new JFrame();
@@ -127,10 +127,9 @@ public class InsColaborador {
 					String query = ("SELECT * FROM fopagdb.cadastrotb WHERE `cpf` = " + txtcpf.getText()); 
 		            ResultSet resultado = Fopag.connection.getData(query);
 		            
-		            // Apresentando os valores nos campos
-		            
 		            while (resultado.next()) {
-		                txtcpf.setText(resultado.getString("cpf"));
+		            	
+		                txtcpf.setText(resultado.getString("cpf")); // Apresentando os valores nos campos
 		                txtnome.setText(resultado.getString("nome"));
 		                txtrg.setText(resultado.getString("rg"));
 		                txtdn.setText(resultado.getString("dn"));
@@ -151,13 +150,11 @@ public class InsColaborador {
 		                txtcargo.setText(resultado.getString("cargo"));
 		                txtadmissao.setText(resultado.getString("admissao"));
 		                
-		                // Descobrir qual index do combobox cont�m o item que retorna do resultado
-		                //comboBanco.setSelectedIndex(0);
-		                
 		            }
-					
 				}
+				
 				catch (Exception ex) {
+					
 				    ex.printStackTrace();
 				}
 			}
@@ -437,6 +434,7 @@ public class InsColaborador {
 		JButton btnGravar = new JButton("Gravar");
 		btnGravar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				
 				try {
 					
 					if (!FopagUtils.isCPFValido(txtcpf.getText())) {
@@ -500,15 +498,14 @@ public class InsColaborador {
 		            
 					Fopag.connection.insertData(query);
 					JOptionPane.showMessageDialog(btnGravar, "Opa... Tudo certo at� aqui!!!.");
-					//System.out.println ("Tudo certo! podemos continuar.");
 				}
 				catch (SQLException ex)
 				{
 					JOptionPane.showMessageDialog(btnGravar, "Hum... algo deu errado!!!");
-					//System.out.println("HUMMM!!! parece que algo deu errado. " + ex.getMessage());
+					
 	            ex.printStackTrace();
 				}
-					/*
+					
 				  	txtnome.setText("");  // Criei todos os campos
 				  	txtcpf.setText("");   // Verificar onde adicionar 
 				  	txtbanco.setText(""); 
@@ -534,7 +531,7 @@ public class InsColaborador {
 				  	txtadmissao.setText("");
 				  	txtcargo.setText("");
 				  	txtdv.setText("");
-				  	*/
+				  	
 			}
 		});
 		btnGravar.setFont(new Font("Calibri", Font.PLAIN, 16));

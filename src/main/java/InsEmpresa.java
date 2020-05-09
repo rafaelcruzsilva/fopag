@@ -1,10 +1,8 @@
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
@@ -52,16 +50,10 @@ public class InsEmpresa {
 		});
 	}
 
-	/**
-	 * Create the application.
-	 */
 	public InsEmpresa() {
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	private void initialize() {
 		frame = new JFrame();
 		frame.getContentPane().setFont(new Font("Calibri", Font.PLAIN, 16));
@@ -111,30 +103,28 @@ public class InsEmpresa {
 		            "'" + txtcompresid.getText() + "',\n" +
 		            "'" + txtbairro.getText() + "',\n" +
 		            "'" + txtcidade.getText() + "',\n" +
-		            "" + txtcep.getText() + ",\n" +
+		            "'" + txtcep.getText() + "',\n" +
 		            //"'" + comboEstado.getSelectedItem().toString() + "',\n" +
 		            "'" + txtbanco.getText() + "',\n" +
-		            "" + txtagencia.getText() + ",\n" +
-		            "" + txtconta.getText() + ",\n" +
-		            "" + txtdv.getText() + ",\n" +
-		            "" + txtddd.getText() + ",\n" +
-		            "" + txttelefone.getText() + ",\n" +
-		            "" + txtinscricao.getText() + ",\n" +
-		            //"" + txtcodigobco.getText() + ",\n" +
+		            "'" + txtagencia.getText() + "',\n" +
+		            "'" + txtconta.getText() + "',\n" +
+		            "'" + txtdv.getText() + "',\n" +
+		            "'" + txtddd.getText() + "',\n" +
+		            "'" + txttelefone.getText() + "',\n" +
+		            "'" + txtinscricao.getText() + "',\n" +
+		            //"'" + txtcodigobco.getText() + "',\n" +
 		            "'" + txtemail.getText() + "')";
 		            
 					Fopag.connection.insertData(query);
 					JOptionPane.showMessageDialog(btnGravar, "Opa... Tudo certo até aqui!!!.");
-					//System.out.println ("Tudo certo! podemos continuar.");
 				}
 				catch (SQLException ex)
 				{
 					JOptionPane.showMessageDialog(btnGravar, "Hum... algo deu errado!!!");
-					//System.out.println("HUMMM!!! parece que algo deu errado. " + ex.getMessage());
 	            ex.printStackTrace();
 				}
-				  	txtcnpj.setText("");  // Criei todos os campos
-				  	txtempresa.setText("");   // Verificar onde adicionar 
+				  	txtcnpj.setText("");  		// Criei todos os campos
+				  	txtempresa.setText("");   	// Verificar onde adicionar 
 				  	txtconvenio.setText(""); 
 				  	txtrua.setText("");
 				  	txtnresid.setText("");
