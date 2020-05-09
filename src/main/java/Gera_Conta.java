@@ -2,11 +2,15 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileWriter;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -20,6 +24,10 @@ import javax.swing.UIManager;
 import org.apache.commons.lang3.StringUtils;
 
 public class Gera_Conta {
+	
+	private static final SimpleDateFormat DATE_FORMAT_BR = new SimpleDateFormat("ddMMYYYY");
+	
+	private static final SimpleDateFormat DATE_FORMAT_US = new SimpleDateFormat("YYYYMMdd");
 
 	public JFrame frame;
 	public JTextField txtData;
@@ -91,9 +99,27 @@ public class Gera_Conta {
 		btnEnviar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				final String dataConsulta = rdbtnDataatual.isSelected() ? new SimpleDateFormat("ddMMYYYY").format(new Date()) : txtData.getText();
-				
 				try {
+					
+					final JFileChooser fileChooser = new JFileChooser();					
+					fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+					final Integer directoryOption = fileChooser.showOpenDialog(frame);
+					
+					if (directoryOption != JFileChooser.APPROVE_OPTION) {
+						JOptionPane.showMessageDialog(null, "Diretório inválido", "Erro", JOptionPane.ERROR_MESSAGE);
+						return;
+					}
+					
+					
+					//String teste = String.format("Olá %s. Sua conta é %s, seu saldo é %s", "Iago", conta, saldo);					
+					//"Olá Iago. Sua conta é 123, seu saldo é 500";
+					
+					final String nomeArquivo = String.format("TCYS_%s_%s.txt", "1", DATE_FORMAT_US.format(new Date()));
+					
+					final File file = new File(fileChooser.getSelectedFile(), nomeArquivo);
+					
+					final String dataConsulta = rdbtnDataatual.isSelected() ? DATE_FORMAT_BR.format(new Date()) : txtData.getText();
+					
 					System.out.println("Chamando consulta");
 					
 					String query = String.format("SELECT * FROM fopagdb.contastb WHERE data LIKE '%s'", dataConsulta);
@@ -138,9 +164,12 @@ public class Gera_Conta {
 					String agenciacolab;
 					String contasalario;
 					String dvcolab;
-					String ocorrencias;
+					String ocorrencias;	
+						
+					final FileWriter fileWriter = new FileWriter(file);
 					
 					 while (resultado.next()) {
+						 
 						 data = StringUtils.leftPad(resultado.getString("data"), 8, ".");
 						 codigobco = StringUtils.leftPad(resultado.getString("codigobco"), 3, ".");
 						 inscricao = StringUtils.leftPad(resultado.getString("inscricao"), 1, ".");
@@ -151,8 +180,8 @@ public class Gera_Conta {
 						 dvempresa = StringUtils.leftPad(resultado.getString("dvemp"), 1, ".");
 						 empresa = StringUtils.leftPad(resultado.getString("empresa"), 30, ".");
 						 banco = StringUtils.leftPad(resultado.getString("bancoemp"), 30, ".");
-						 remessa = StringUtils.leftPad(resultado.getString("remessa"), 1, ".");
-						 nsa = StringUtils.leftPad(resultado.getString("nsa"), 6, ".");
+						 remessa = StringUtils.leftPad(resultado.getString("remessa") == null ? "1" : resultado.getString("remessa"), 1, ".");
+						 nsa = StringUtils.leftPad(resultado.getString("nsa") == null ? "1" : resultado.getString("nsa"), 6, ".");
 						 colaborador = StringUtils.leftPad(resultado.getString("nome"), 40, ".");
 						 cpf = StringUtils.leftPad(resultado.getString("cpf"), 11, ".");
 						 ufnasc = StringUtils.leftPad(resultado.getString("ufnasc"), 2, ".");
@@ -179,14 +208,17 @@ public class Gera_Conta {
 						 dvcolab = StringUtils.leftPad(resultado.getString("dvcolab"), 1, ".");
 						 ocorrencias = StringUtils.leftPad(resultado.getString("ocorrencias"), 1, ".");
 						 
-						 System.out.println(data.concat(codigobco).concat(inscricao).concat(cnpj).concat(convenio).concat(agenciaempresa)
-								 .concat(contaempresa).concat(dvempresa).concat(empresa).concat(banco).concat(remessa).concat(nsa)
-								 .concat(colaborador).concat(cpf).concat(ufnasc).concat(rg).concat(dn).concat(sexo)
-								 .concat(civil).concat(mae).concat(ruacolab).concat(nresidcolab).concat(compresidcolab).concat(bairrocolab)
-								 .concat(cidadecolab).concat(estadocolab).concat(cepcolab).concat(emailcolab).concat(dddcolab).concat(telefonecolab)
-								 .concat(salario).concat(admissao).concat(cargo).concat(agenciacolab).concat(contasalario).concat(dvcolab)
-								 .concat(ocorrencias));
+						 fileWriter.write(cpf);
+						 fileWriter.write(colaborador);
+						 fileWriter.write(data);
+						 fileWriter.write(codigobco);
+						 fileWriter.write(inscricao);
+						 fileWriter.write(cnpj);
+						 fileWriter.write(convenio);
+						 fileWriter.write("\n");
 					 }
+					 
+					 fileWriter.close();
 			    }
 			    catch (Exception ex) {
 				    ex.printStackTrace();
@@ -207,3 +239,4 @@ public class Gera_Conta {
 		frame.getContentPane().add(btnCancelar);
 	}
 }
+

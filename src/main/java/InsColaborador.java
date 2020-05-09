@@ -566,11 +566,11 @@ public class InsColaborador {
 		JButton btnGravar = new JButton("Gravar");
 		btnGravar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
 				try {
 					
 					if (!FopagUtils.isCPFValido(txtcpf.getText())) {
 						JOptionPane.showMessageDialog(null, "CPF inválido", "Dados inválidos", JOptionPane.ERROR_MESSAGE);
+						return;
 					}
 					
 		            String query = "INSERT INTO `fopagdb`.`cadastrotb`\n" +  // Aqui inicia a Query de cadastro

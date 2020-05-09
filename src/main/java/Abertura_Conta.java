@@ -266,7 +266,7 @@ public class Abertura_Conta {
 			            "`agenciacolab`,\n" +
 			            "`contacolab`,\n" +
 			            "`dvcolab`,\n" +
-			            "`ocorrencias`)\n" +
+			            "`ocorrencias`,\n" +
 			            "`data`)\n" +
 			            "VALUES\n" +
 			            "('" + txtcodigobco.getText() + "',\n" +
