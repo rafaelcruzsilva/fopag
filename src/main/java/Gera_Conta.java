@@ -74,6 +74,7 @@ public class Gera_Conta {
 		JRadioButton rdbtnDataatual = new JRadioButton("Data Atual");
 		rdbtnDataatual.setFont(new Font("Calibri", Font.PLAIN, 18));
 		rdbtnDataatual.setBounds(11, 52, 200, 30);
+		rdbtnDataatual.setSelected(Boolean.TRUE);
 		panelBanco.add(rdbtnDataatual);
 		
 		JLabel ldSelecaodata = new JLabel("Insira a data da solicita\u00E7ao da Conta Sal\u00E1rio");
@@ -187,8 +188,12 @@ public class Gera_Conta {
 						 
 						 data = StringUtils.leftPad(resultado.getString("data"), 8, "0");
 						 codigobco = StringUtils.leftPad(resultado.getString("codigobco"), 3, "0");
+						 /*
 						 lotesvc = StringUtils.leftPad(resultado.getString("lotesvc") == null ? "0000" : resultado.getString("lotesvc"), 4, "0");
 						 tiporegistro = StringUtils.leftPad(resultado.getString("tiporegistro") == null ? "0" : resultado.getString("tiporegistro"), 1, "0");
+						 */
+						 lotesvc = "0000";
+						 tiporegistro = "0";
 						 inscricao = StringUtils.leftPad(resultado.getString("inscricao"), 1, "0");
 						 cnpj = StringUtils.leftPad(resultado.getString("cnpj"), 14, "0");
 						 convenio = StringUtils.leftPad(resultado.getString("convenio"), 20, "0");
@@ -199,7 +204,8 @@ public class Gera_Conta {
 						 banco = StringUtils.leftPad(resultado.getString("bancoemp"), 30, "0");
 						 remessa = StringUtils.leftPad(resultado.getString("remessa") == null ? "1" : resultado.getString("remessa"), 1, "0");
 						 nsa = StringUtils.leftPad(resultado.getString("nsa") == null ? "1" : resultado.getString("nsa"), 6, "0");
-						 layout = StringUtils.leftPad(resultado.getString("layout") == null ? "100" : resultado.getString("nsa"), 3, "0"); //valor fixo
+						 //layout = StringUtils.leftPad(resultado.getString("layout") == null ? "100" : resultado.getString("nsa"), 3, "0"); //valor fixo
+						 layout = StringUtils.leftPad("100", 3, "0"); //valor fixo
 						 colaborador = StringUtils.leftPad(resultado.getString("nome"), 40, "0");
 						 cpf = StringUtils.leftPad(resultado.getString("cpf"), 11, "0");
 						 ufnasc = StringUtils.leftPad(resultado.getString("ufnasc"), 2, "0");
@@ -225,7 +231,10 @@ public class Gera_Conta {
 						 contasalario = StringUtils.leftPad(resultado.getString("contacolab"), 9, "0");
 						 dvcolab = StringUtils.leftPad(resultado.getString("dvcolab"), 1, "0");
 						 ocorrencias = StringUtils.leftPad(resultado.getString("ocorrencias"), 10, "0");
-						 segmentod = StringUtils.leftPad(resultado.getString("segmentod") == null ? "D" : resultado.getString("segmentod"), 1, "0"); //valor fixo
+						 
+						 /*
+						 
+						  segmentod = StringUtils.leftPad(resultado.getString("segmentod") == null ? "D" : resultado.getString("segmentod"), 1, "0"); //valor fixo
 						 segmentoe = StringUtils.leftPad(resultado.getString("segmentoe") == null ? "E" : resultado.getString("segmentoe"), 1, "0"); //valor fixo
 						 movimento = StringUtils.leftPad(resultado.getString("movimento") == null ? "0" : resultado.getString("movimento"), 1, "0"); //valor fixo
 						 cxpostal = StringUtils.leftPad(resultado.getString("cxpostal") == null ? "0" : resultado.getString("cxpostal"), 9, "0"); //valor fixo
@@ -235,6 +244,19 @@ public class Gera_Conta {
 						 filler10 = StringUtils.leftPad(resultado.getString("filler10") == null ? "0" : resultado.getString("filler10"), 10, "0"); //valor fixo
 						 filler15 = StringUtils.leftPad(resultado.getString("filler15") == null ? "0" : resultado.getString("filler15"), 15, "0"); //valor fixo
 						 filler20 = StringUtils.leftPad(resultado.getString("filler20") == null ? "0" : resultado.getString("filler20"), 20, "0"); //valor fixo
+						  
+						  */
+						 
+						 segmentod = StringUtils.leftPad("D", 1, "0"); //valor fixo
+						 segmentoe = StringUtils.leftPad("E", 1, "0"); //valor fixo
+						 movimento = StringUtils.leftPad("0", 1, "0"); //valor fixo
+						 cxpostal = StringUtils.leftPad("0", 9, "0"); //valor fixo
+						 filler1 = StringUtils.leftPad("0", 1, "0"); //valor fixo
+						 filler2 = StringUtils.leftPad("0", 2, "0"); //valor fixo
+						 filler5 = StringUtils.leftPad("0", 5, "0"); //valor fixo
+						 filler10 = StringUtils.leftPad("0", 10, "0"); //valor fixo
+						 filler15 = StringUtils.leftPad("0", 15, "0"); //valor fixo
+						 filler20 = StringUtils.leftPad("0", 20, "0"); //valor fixo
 						 
 						 if (setHeader) {
 							 
@@ -270,6 +292,8 @@ public class Gera_Conta {
 							 fileWriter.write(filler2); 		//Header
 							 fileWriter.write(filler2); 		//Header
 							 fileWriter.write(ocorrencias); 	//Header
+							 
+							 fileWriter.write("\n");
 						 }
 						 						 
 						 fileWriter.write(codigobco);		//Seg D
@@ -327,9 +351,11 @@ public class Gera_Conta {
 			    }
 			    catch (Exception ex) {
 				    ex.printStackTrace();
+				    JOptionPane.showMessageDialog(null, "Erro ao gerar arquivo", "Erro", JOptionPane.ERROR_MESSAGE);
+				    return;
 				}
 
-				JOptionPane.showMessageDialog(null, "Processamento conclu�do!");
+				JOptionPane.showMessageDialog(null, "Processamento conclu�do!", "Sucesso", JOptionPane.DEFAULT_OPTION);
 				
 			}
 		});
