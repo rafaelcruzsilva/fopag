@@ -205,9 +205,12 @@ public class InsColaborador {
 		lbsexo.setBounds(160, 315, 120, 25);
 		frame.getContentPane().add(lbsexo);
 		
-		JComboBox comboSexo = new JComboBox();
+		JComboBox<Sexo> comboSexo = new JComboBox<Sexo>();
 		comboSexo.setFont(new Font("Calibri", Font.PLAIN, 16));
-		comboSexo.setModel(new DefaultComboBoxModel(new String[] {"Masculino", "Feminino"}));
+		
+		// Precisa criar a classe tal como foi criada a classe Sexo
+		comboSexo.addItem(new Sexo("1", "Masculino"));
+		comboSexo.addItem(new Sexo("2", "Feminino"));
 		comboSexo.setBounds(281, 315, 120, 25);
 		frame.getContentPane().add(comboSexo);
 		
@@ -432,6 +435,7 @@ public class InsColaborador {
 		btnGravar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
+					
 		            String query = "INSERT INTO `fopagdb`.`cadastrotb`\n" +  // Aqui inicia a Query de cadastro
 		            "(`nome`,\n" +
 		            "`cpf`,\n" +
@@ -446,7 +450,7 @@ public class InsColaborador {
 		            //"`ufnasc`,\n" +
 		            "`rg`,\n" +
 		            "`dn`,\n" +
-		            //"`sexo`,\n" +
+		            "`sexo`,\n" +
 		            //"`civil`,\n" +
 		            "`mae`,\n" +
 		            "`ddd`,\n" +
@@ -472,7 +476,7 @@ public class InsColaborador {
 		            //"'" + comboUf.getSelectedItem().toString() + "',\n" +
 		            "" + txtrg.getText() + ",\n" +
 		            "" + txtdn.getText() + ",\n" +
-		            //"'" + comboSexo.getSelectedItem().toString() + "',\n" +
+		            "'" + ((Sexo) comboSexo.getSelectedItem()).getKey() + "',\n" +
 		            //"'" + comboCivil.getSelectedItem().toString() + "',\n" +
 		            "'" + txtmae.getText() + "',\n" +
 		            "" + txtddd.getText() + ",\n" +
