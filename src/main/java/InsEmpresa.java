@@ -12,6 +12,10 @@ import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
+import java.awt.event.ContainerAdapter;
+import java.awt.event.ContainerEvent;
+import java.sql.ResultSet;
+import javax.swing.JPanel;
 
 public class InsEmpresa {
 
@@ -32,7 +36,8 @@ public class InsEmpresa {
 	private JTextField txtemail;
 	private JTextField txtconta;
 	private JTextField txttelefone;
-	private JTextField txtinscricao;
+	
+
 
 	/**
 	 * OriginalApp
@@ -84,7 +89,7 @@ public class InsEmpresa {
 		            "`bairro`,\n" +
 		            "`cidade`,\n" +
 		            "`cep`,\n" +
-		            //"`estado`,\n"+
+		            "`estado`,\n"+
 		            "`banco`,\n" +
 		            "`agencia`,\n" +
 		            "`conta`,\n" +
@@ -92,7 +97,7 @@ public class InsEmpresa {
 		            "`ddd`,\n" +
 		            "`telefone`,\n" +
 		            "`inscricao`,\n" +
-		            //"`codigobco`,\n" +
+		            "`codigobco`,\n" +
 		            "`email`)\n" +
 		            "VALUES\n" +
 		            "('" + txtcnpj.getText() + "',\n" +
@@ -104,15 +109,15 @@ public class InsEmpresa {
 		            "'" + txtbairro.getText() + "',\n" +
 		            "'" + txtcidade.getText() + "',\n" +
 		            "'" + txtcep.getText() + "',\n" +
-		            //"'" + comboEstado.getSelectedItem().toString() + "',\n" +
+		            "'" + comboEstado.getSelectedItem().toString() + "',\n" +
 		            "'" + txtbanco.getText() + "',\n" +
 		            "'" + txtagencia.getText() + "',\n" +
 		            "'" + txtconta.getText() + "',\n" +
 		            "'" + txtdv.getText() + "',\n" +
 		            "'" + txtddd.getText() + "',\n" +
 		            "'" + txttelefone.getText() + "',\n" +
-		            "'" + txtinscricao.getText() + "',\n" +
-		            //"'" + txtcodigobco.getText() + "',\n" +
+		            "'" + ((Inscricao) comboInscricao.getSelectedItem()).getKey() + "',\n" +
+		            "'" + ((Bancos) comboBancos.getSelectedItem()).getKey() + "',\n" +
 		            "'" + txtemail.getText() + "')";
 		            
 					Fopag.connection.insertData(query);
@@ -132,15 +137,15 @@ public class InsEmpresa {
 				  	txtbairro.setText("");
 				  	txtcidade.setText("");
 				  	txtcep.setText("");
-				  	//comboEstado.setText("");
+				  	comboEstado.getSelectedItem();
 				  	txtbanco.setText("");
 				  	txtagencia.setText("");
 				  	txtconta.setText("");
 				  	txtdv.setText("");
 				  	txtddd.setText("");
 				  	txttelefone.setText("");
-				  	txtinscricao.setText("");
-				  	//comboBanco.setText("");
+				  	comboInscricao.getSelectedItem();
+				  	comboBancos.getSelectedItem();
 				  	txtemail.setText("");
 			}
 		});
@@ -360,26 +365,23 @@ public class InsEmpresa {
 		lblNewLabel.setBounds(145, 505, 120, 25);
 		frame.getContentPane().add(lblNewLabel);
 		
-		txtinscricao = new JTextField();
-		txtinscricao.setFont(new Font("Calibri", Font.PLAIN, 16));
-		txtinscricao.setBounds(266, 505, 120, 25);
-		frame.getContentPane().add(txtinscricao);
-		txtinscricao.setColumns(10);
-		
-		JLabel lblNewLabel_1 = new JLabel("Ex.: 01 - Pessoa F\u00EDsica e 02 - Pessoa Jur\u00EDdica");
-		lblNewLabel_1.setFont(new Font("Calibri", Font.PLAIN, 11));
-		lblNewLabel_1.setBounds(399, 505, 252, 30);
-		frame.getContentPane().add(lblNewLabel_1);
+		JComboBox<Inscricao> comboInscricao = new JComboBox<Inscricao>();
+		comboInscricao.setFont(new Font("Calibri", Font.PLAIN, 16));
+		comboInscricao.addItem(new Inscricao("1", "Pessoa Física"));
+		comboInscricao.addItem(new Inscricao("2", "Pessoa Jurídica"));
+		comboInscricao.setBounds(266, 505, 120, 25);
+		frame.getContentPane().add(comboInscricao);
 		
 		JLabel lblNewLabel_2 = new JLabel("C\u00F3digo Banco");
 		lblNewLabel_2.setFont(new Font("Calibri", Font.PLAIN, 16));
 		lblNewLabel_2.setBounds(145, 540, 120, 25);
 		frame.getContentPane().add(lblNewLabel_2);
 		
-		JComboBox comboBanco = new JComboBox();
-		comboBanco.setModel(new DefaultComboBoxModel(new String[] {"212"}));
-		comboBanco.setFont(new Font("Calibri", Font.PLAIN, 16));
-		comboBanco.setBounds(266, 540, 120, 25);
-		frame.getContentPane().add(comboBanco);
+		JComboBox<Bancos> comboBancos = new JComboBox<Bancos>();
+		comboBancos.setFont(new Font("Calibri", Font.PLAIN, 16));
+		comboBancos.addItem(new Bancos("212", "Banco Original S.A."));
+		comboBancos.addItem(new Bancos("000", "..."));
+		comboBancos.setBounds(266, 540, 120, 25);
+		frame.getContentPane().add(comboBancos);
 	}
 }

@@ -130,6 +130,8 @@ public class Gera_Conta {
 					
 					String data;
 					String codigobco;
+					String lotesvc;
+					String tiporegistro;
 					String inscricao;
 					String cnpj;
 					String convenio;
@@ -140,6 +142,7 @@ public class Gera_Conta {
 					String banco;
 					String remessa;
 					String nsa;
+					String layout;
 					String colaborador;
 					String cpf;
 					String ufnasc;
@@ -165,56 +168,153 @@ public class Gera_Conta {
 					String contasalario;
 					String dvcolab;
 					String ocorrencias;	
+					String segmentod;
+					String segmentoe;
+					String movimento;
+					String cxpostal;
+					String filler1;
+					String filler2;
+					String filler5;
+					String filler10;
+					String filler15;
+					String filler20;
 						
 					final FileWriter fileWriter = new FileWriter(file);
 					
 					 while (resultado.next()) {
 						 
-						 data = StringUtils.leftPad(resultado.getString("data"), 8, ".");
-						 codigobco = StringUtils.leftPad(resultado.getString("codigobco"), 3, ".");
-						 inscricao = StringUtils.leftPad(resultado.getString("inscricao"), 1, ".");
-						 cnpj = StringUtils.leftPad(resultado.getString("cnpj"), 14, ".");
-						 convenio = StringUtils.leftPad(resultado.getString("convenio"), 20, ".");
-						 agenciaempresa = StringUtils.leftPad(resultado.getString("agenciaemp"), 5, ".");
-						 contaempresa = StringUtils.leftPad(resultado.getString("contaemp"), 9, ".");
-						 dvempresa = StringUtils.leftPad(resultado.getString("dvemp"), 1, ".");
-						 empresa = StringUtils.leftPad(resultado.getString("empresa"), 30, ".");
-						 banco = StringUtils.leftPad(resultado.getString("bancoemp"), 30, ".");
-						 remessa = StringUtils.leftPad(resultado.getString("remessa") == null ? "1" : resultado.getString("remessa"), 1, ".");
-						 nsa = StringUtils.leftPad(resultado.getString("nsa") == null ? "1" : resultado.getString("nsa"), 6, ".");
-						 colaborador = StringUtils.leftPad(resultado.getString("nome"), 40, ".");
-						 cpf = StringUtils.leftPad(resultado.getString("cpf"), 11, ".");
-						 ufnasc = StringUtils.leftPad(resultado.getString("ufnasc"), 2, ".");
-						 rg = StringUtils.leftPad(resultado.getString("rg"), 20, ".");
-						 dn = StringUtils.leftPad(resultado.getString("dn"), 8, ".");
-						 sexo = StringUtils.leftPad(resultado.getString("sexo"), 1, ".");
-						 civil = StringUtils.leftPad(resultado.getString("civil"), 2, ".");
-						 mae = StringUtils.leftPad(resultado.getString("mae"), 30, ".");
-						 ruacolab = StringUtils.leftPad(resultado.getString("ruacolab"), 30, ".");
-						 nresidcolab = StringUtils.leftPad(resultado.getString("nresidcolab"), 5, ".");
-						 compresidcolab = StringUtils.leftPad(resultado.getString("compresidcolab"), 15, ".");
-						 bairrocolab = StringUtils.leftPad(resultado.getString("bairrocolab"), 15, ".");
-						 cidadecolab = StringUtils.leftPad(resultado.getString("cidadecolab"), 20, ".");
-						 estadocolab = StringUtils.leftPad(resultado.getString("estadocolab"), 2, ".");
-						 cepcolab = StringUtils.leftPad(resultado.getString("cepcolab"), 8, ".");
-						 emailcolab = StringUtils.leftPad(resultado.getString("emailcolab"), 80, ".");
-						 dddcolab = StringUtils.leftPad(resultado.getString("dddcolab"), 2, ".");
-						 telefonecolab = StringUtils.leftPad(resultado.getString("telefonecolab"), 9, ".");
-						 salario = StringUtils.leftPad(resultado.getString("salario"), 9, ".");
-						 admissao = StringUtils.leftPad(resultado.getString("admissao"), 8, ".");
-						 cargo = StringUtils.leftPad(resultado.getString("cargo"), 4, ".");
-						 agenciacolab = StringUtils.leftPad(resultado.getString("agenciacolab"), 5, ".");
-						 contasalario = StringUtils.leftPad(resultado.getString("contacolab"), 9, ".");
-						 dvcolab = StringUtils.leftPad(resultado.getString("dvcolab"), 1, ".");
-						 ocorrencias = StringUtils.leftPad(resultado.getString("ocorrencias"), 1, ".");
+						 data = StringUtils.leftPad(resultado.getString("data"), 8, "0");
+						 codigobco = StringUtils.leftPad(resultado.getString("codigobco"), 3, "0");
+						 lotesvc = StringUtils.leftPad(resultado.getString("lotesvc") == null ? "0000" : resultado.getString("lotesvc"), 4, "0");
+						 tiporegistro = StringUtils.leftPad(resultado.getString("tiporegistro") == null ? "0" : resultado.getString("tiporegistro"), 1, "0");
+						 inscricao = StringUtils.leftPad(resultado.getString("inscricao"), 1, "0");
+						 cnpj = StringUtils.leftPad(resultado.getString("cnpj"), 14, "0");
+						 convenio = StringUtils.leftPad(resultado.getString("convenio"), 20, "0");
+						 agenciaempresa = StringUtils.leftPad(resultado.getString("agenciaemp"), 5, "0");
+						 contaempresa = StringUtils.leftPad(resultado.getString("contaemp"), 9, "0");
+						 dvempresa = StringUtils.leftPad(resultado.getString("dvemp"), 1, "0");
+						 empresa = StringUtils.leftPad(resultado.getString("empresa"), 30, "0");
+						 banco = StringUtils.leftPad(resultado.getString("bancoemp"), 30, "0");
+						 remessa = StringUtils.leftPad(resultado.getString("remessa") == null ? "1" : resultado.getString("remessa"), 1, "0");
+						 nsa = StringUtils.leftPad(resultado.getString("nsa") == null ? "1" : resultado.getString("nsa"), 6, "0");
+						 layout = StringUtils.leftPad(resultado.getString("layout") == null ? "100" : resultado.getString("nsa"), 3, "0"); //valor fixo
+						 colaborador = StringUtils.leftPad(resultado.getString("nome"), 40, "0");
+						 cpf = StringUtils.leftPad(resultado.getString("cpf"), 11, "0");
+						 ufnasc = StringUtils.leftPad(resultado.getString("ufnasc"), 2, "0");
+						 rg = StringUtils.leftPad(resultado.getString("rg"), 20, "0");
+						 dn = StringUtils.leftPad(resultado.getString("dn"), 8, "0");
+						 sexo = StringUtils.leftPad(resultado.getString("sexo"), 1, "0");
+						 civil = StringUtils.leftPad(resultado.getString("civil"), 2, "0");
+						 mae = StringUtils.leftPad(resultado.getString("mae"), 30, "0");
+						 ruacolab = StringUtils.leftPad(resultado.getString("ruacolab"), 30, "0");
+						 nresidcolab = StringUtils.leftPad(resultado.getString("nresidcolab"), 5, "0");
+						 compresidcolab = StringUtils.leftPad(resultado.getString("compresidcolab"), 15, "0");
+						 bairrocolab = StringUtils.leftPad(resultado.getString("bairrocolab"), 15, "0");
+						 cidadecolab = StringUtils.leftPad(resultado.getString("cidadecolab"), 20, "0");
+						 estadocolab = StringUtils.leftPad(resultado.getString("estadocolab"), 2, "0");
+						 cepcolab = StringUtils.leftPad(resultado.getString("cepcolab"), 8, "0");
+						 emailcolab = StringUtils.leftPad(resultado.getString("emailcolab"), 80, "0");
+						 dddcolab = StringUtils.leftPad(resultado.getString("dddcolab"), 2, "0");
+						 telefonecolab = StringUtils.leftPad(resultado.getString("telefonecolab"), 9, "0");
+						 salario = StringUtils.leftPad(resultado.getString("salario"), 9, "0");
+						 admissao = StringUtils.leftPad(resultado.getString("admissao"), 8, "0");
+						 cargo = StringUtils.leftPad(resultado.getString("cargo"), 4, "0");
+						 agenciacolab = StringUtils.leftPad(resultado.getString("agenciacolab"), 5, "0");
+						 contasalario = StringUtils.leftPad(resultado.getString("contacolab"), 9, "0");
+						 dvcolab = StringUtils.leftPad(resultado.getString("dvcolab"), 1, "0");
+						 ocorrencias = StringUtils.leftPad(resultado.getString("ocorrencias"), 10, "0");
+						 segmentod = StringUtils.leftPad(resultado.getString("segmentod") == null ? "D" : resultado.getString("segmentod"), 1, "0"); //valor fixo
+						 segmentoe = StringUtils.leftPad(resultado.getString("segmentoe") == null ? "E" : resultado.getString("segmentoe"), 1, "0"); //valor fixo
+						 movimento = StringUtils.leftPad(resultado.getString("movimento") == null ? "0" : resultado.getString("movimento"), 1, "0"); //valor fixo
+						 cxpostal = StringUtils.leftPad(resultado.getString("cxpostal") == null ? "0" : resultado.getString("cxpostal"), 9, "0"); //valor fixo
+						 filler1 = StringUtils.leftPad(resultado.getString("filler1") == null ? "0" : resultado.getString("filler1"), 1, "0"); //valor fixo
+						 filler2 = StringUtils.leftPad(resultado.getString("filler2") == null ? "0" : resultado.getString("filler2"), 2, "0"); //valor fixo
+						 filler5 = StringUtils.leftPad(resultado.getString("filler5") == null ? "0" : resultado.getString("filler5"), 5, "0"); //valor fixo
+						 filler10 = StringUtils.leftPad(resultado.getString("filler10") == null ? "0" : resultado.getString("filler10"), 10, "0"); //valor fixo
+						 filler15 = StringUtils.leftPad(resultado.getString("filler15") == null ? "0" : resultado.getString("filler15"), 15, "0"); //valor fixo
+						 filler20 = StringUtils.leftPad(resultado.getString("filler20") == null ? "0" : resultado.getString("filler20"), 20, "0"); //valor fixo
 						 
-						 fileWriter.write(cpf);
-						 fileWriter.write(colaborador);
-						 fileWriter.write(data);
-						 fileWriter.write(codigobco);
-						 fileWriter.write(inscricao);
-						 fileWriter.write(cnpj);
-						 fileWriter.write(convenio);
+						 
+						 fileWriter.write(codigobco); 		//Header
+						 fileWriter.write(lotesvc); 		//Header
+						 fileWriter.write(tiporegistro); 	//Header
+						 fileWriter.write(filler5); 		//Header
+						 fileWriter.write(filler2); 		//Header
+						 fileWriter.write(filler2); 		//Header
+						 fileWriter.write(inscricao); 		//Header
+						 fileWriter.write(cnpj);			//Header
+						 fileWriter.write(convenio);		//Header
+						 fileWriter.write(agenciaempresa);	//Header
+						 fileWriter.write(filler1); 		//Header
+						 fileWriter.write(contaempresa);	//Header
+						 fileWriter.write(dvempresa);		//Header
+						 fileWriter.write(filler1); 		//Header
+						 fileWriter.write(empresa);			//Header
+						 fileWriter.write(banco);			//Header
+						 fileWriter.write(filler10); 		//Header
+						 fileWriter.write(remessa);			//Header
+						 fileWriter.write(data);			//Header
+						 //fileWriter.write(hora);			//Header
+						 fileWriter.write(nsa);				//Header
+						 fileWriter.write(layout);			//Header
+						 fileWriter.write(filler5); 		//Header
+						 fileWriter.write(filler20); 		//Header Reservado Banco
+						 fileWriter.write(filler20); 		//Header Reservado Empresa
+						 fileWriter.write(filler20); 		//Header
+						 fileWriter.write(filler5); 		//Header
+						 fileWriter.write(filler2); 		//Header
+						 fileWriter.write(filler2); 		//Header
+						 fileWriter.write(ocorrencias); 	//Header
+						 
+						 
+						 
+						 fileWriter.write(codigobco);		//Seg D
+						 fileWriter.write(lotesvc);			//Seg D
+						 fileWriter.write(tiporegistro); 	//Seg D Ajustar
+						 fileWriter.write(nsa);				//Seg D
+						 fileWriter.write(segmentod);		//Seg D
+						 fileWriter.write(movimento);		//Seg D
+						 fileWriter.write(colaborador);		//Seg D
+						 fileWriter.write(cpf);				//Seg D
+						 fileWriter.write(ufnasc);			//Seg D
+						 fileWriter.write(rg);				//Seg D
+						 fileWriter.write(dn);				//Seg D
+						 fileWriter.write(sexo);			//Seg D
+						 fileWriter.write(civil);			//Seg D
+						 fileWriter.write(filler5);			//Seg D
+						 fileWriter.write(filler1);			//Seg D
+						 fileWriter.write(mae);				//Seg D
+						 fileWriter.write(ruacolab);		//Seg D
+						 fileWriter.write(nresidcolab);		//Seg D
+						 fileWriter.write(compresidcolab);	//Seg D
+						 fileWriter.write(bairrocolab);		//Seg D
+						 fileWriter.write(cidadecolab);		//Seg D
+						 fileWriter.write(estadocolab);		//Seg D
+						 fileWriter.write(cepcolab);		//Seg D
+						 
+						 fileWriter.write(codigobco);		//Seg E
+						 fileWriter.write(lotesvc);			//Seg E
+						 fileWriter.write(tiporegistro); 	//Seg E Ajustar
+						 fileWriter.write(filler1);			//Seg E
+						 fileWriter.write(nsa);				//Seg E
+						 fileWriter.write(segmentoe);		//Seg E
+						 fileWriter.write(emailcolab);		//Seg E
+						 fileWriter.write(filler20);		//Seg E
+						 fileWriter.write(dddcolab);		//Seg E
+						 fileWriter.write(telefonecolab);	//Seg E
+						 fileWriter.write(filler10);		//Seg E
+						 fileWriter.write(cxpostal);		//Seg E
+						 fileWriter.write(salario);			//Seg E
+						 fileWriter.write(filler10);		//Seg E
+						 fileWriter.write(admissao);		//Seg E
+						 fileWriter.write(filler20);		//Seg E
+						 fileWriter.write(cargo);			//Seg E
+						 fileWriter.write(filler15);		//Seg E
+						 fileWriter.write(agenciacolab);	//Seg E
+						 fileWriter.write(filler1);			//Seg E
+						 fileWriter.write(contasalario);	//Seg E
+						 fileWriter.write(dvcolab);			//Seg E
+						 fileWriter.write(ocorrencias);		//Seg E
 						 fileWriter.write("\n");
 					 }
 					 

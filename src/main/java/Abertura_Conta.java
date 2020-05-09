@@ -315,7 +315,7 @@ public class Abertura_Conta {
 			}
 			catch (SQLException ex)
 			{
-				JOptionPane.showMessageDialog(btnIncColaborador, "Algo deu errado, confira as posiï¿½oes por favor!!!");
+				JOptionPane.showMessageDialog(btnIncColaborador, "Algo deu errado, confira as posições por favor!!!");
             ex.printStackTrace();
 			}
 			  	txtcodigobco.setText("");  // Inicio do Limpa Campo
