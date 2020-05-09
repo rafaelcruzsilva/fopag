@@ -108,15 +108,50 @@ public class Gera_Conta {
 					
 					ResultSet resultado = Fopag.connection.getData(query);
 					
-					String codigobco;
-					String cnpj;
 					String data;
+					String codigobco;
 					String inscricao;
+					String cnpj;
+					String convenio;
+					String agenciaempresa;
+					String contaempresa;
+					String dvempresa;
+					String empresa;
+					String Banco;
+					String remessa;
+					String nsa;
+					String colaborador;
+					String cpf;
+					String ufnasc;
+					String rg;
+					String dn;
+					String sexo;
+					String civil;
+					String mae;
+					String rua;
+					String nresidcolab;
+					String compresidcolab;
+					String bairrocolab;
+					String cidadecolab;
+					String estadocolab;
+					String cepcolab;
+					String emailcolab;
+					String dddcolab;
+					String telefonecolab;
+					String salariocolab;
+					String admissao;
+					String cargo;
+					String agenciacolab;
+					String contasalario;
+					String dvcolab;
+					String ocorrencias;
 					
 					 while (resultado.next()) {
-						 codigobco = StringUtils.leftPad(resultado.getString("codigobco"), 15, ".");
-						 cnpj = StringUtils.leftPad(resultado.getString("cnpj"), 20, ".");
-						 data = StringUtils.leftPad(resultado.getString("data"), 15, ".");
+						 data = StringUtils.leftPad(resultado.getString("data"), 8, ".");
+						 codigobco = StringUtils.leftPad(resultado.getString("codigobco"), 3, ".");
+						 inscricao = StringUtils.leftPad(resultado.getString(""), 1, ".");
+						 cnpj = StringUtils.leftPad(resultado.getString("cnpj"), 14, ".");
+						 convenio = StringUtils.leftPad(resultado.getString("convenio"), 20, ".");
 						 inscricao = StringUtils.leftPad(resultado.getString("inscricao"), 15, ".");
 						 
 						 System.out.println(codigobco.concat(cnpj).concat(data).concat(inscricao));
