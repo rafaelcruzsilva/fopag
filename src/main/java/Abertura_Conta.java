@@ -57,6 +57,7 @@ public class Abertura_Conta {
 	private JTextField txtagenciacolab;
 	private JTextField txtcargo;
 	private JTextField txtcep;
+	private JTextField cnpjEmpresaConsulta;
 
 	/**
 	 * OriginalApp
@@ -97,45 +98,52 @@ public class Abertura_Conta {
 		frame.getContentPane().add(panelBanco);
 		panelBanco.setLayout(null);
 		
-		JRadioButton rdbtnBanco = new JRadioButton("Importar dados da Empresa");
-		rdbtnBanco.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				if (rdbtnBanco.isSelected())
-				{
-				    try
-				    {
-				    	ResultSet resultado = Fopag.connection.getData("SELECT * FROM fopagdb.empresatb WHERE `12345671234567`");
-				    	
-					    while (resultado.next())
-			            {
-			                txtcodigobco.setText(resultado.getString("codigobco")); // Apresentando os valores nos campos
-			                txtinscricao.setText(resultado.getString("inscricao"));
-			                txtcnpj.setText(resultado.getString("cnpj"));
-			                txtconvenio.setText(resultado.getString("convenio"));
-			                txtagencia.setText(resultado.getString("agencia"));
-			                txtconta.setText(resultado.getString("conta"));
-			                txtdv.setText(resultado.getString("dv"));
-			                txtempresa.setText(resultado.getString("empresa"));
-			                txtbanco.setText(resultado.getString("banco"));
-			                //txtremessa.setText(resultado.getString("remessa"));
-			                //txtnsa.setText(resultado.getString("nsa"));
-			            }
-				    }
-				    catch (Exception ex)
-					{
-					    ex.printStackTrace();
-					}
-				}	
-			}
-		});
-		rdbtnBanco.setBounds(11, 52, 139, 31);
-		panelBanco.add(rdbtnBanco);
-		rdbtnBanco.setFont(new Font("Calibri", Font.PLAIN, 16));
-		
-		JLabel lbEmpresa = new JLabel("Selecione a Empresa");
+		JLabel lbEmpresa = new JLabel("CNPJ da Empresa");
 		lbEmpresa.setFont(new Font("Calibri", Font.BOLD, 16));
 		lbEmpresa.setBounds(15, 16, 288, 24);
 		panelBanco.add(lbEmpresa);
+		
+		cnpjEmpresaConsulta = new JTextField();
+		cnpjEmpresaConsulta.setBounds(15, 52, 208, 19);
+		panelBanco.add(cnpjEmpresaConsulta);
+		cnpjEmpresaConsulta.setColumns(10);
+		
+		JButton btnPesquisar = new JButton("Pesquisar");
+		btnPesquisar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try
+			    {
+					
+					if (!FopagUtils.isCNPJValido(cnpjEmpresaConsulta.getText())) {
+						JOptionPane.showMessageDialog(null, "CNPJ inválido", "Erro", JOptionPane.ERROR_MESSAGE);
+						return;
+					}
+					
+			    	ResultSet resultado = Fopag.connection.getData(String.format("SELECT * FROM fopagdb.empresatb WHERE cnpj LIKE '%s'", cnpjEmpresaConsulta.getText()));
+			    	
+				    while (resultado.next())
+		            {
+		                txtcodigobco.setText(resultado.getString("codigobco")); // Apresentando os valores nos campos
+		                txtinscricao.setText(resultado.getString("inscricao"));
+		                txtcnpj.setText(resultado.getString("cnpj"));
+		                txtconvenio.setText(resultado.getString("convenio"));
+		                txtagencia.setText(resultado.getString("agencia"));
+		                txtconta.setText(resultado.getString("conta"));
+		                txtdv.setText(resultado.getString("dv"));
+		                txtempresa.setText(resultado.getString("empresa"));
+		                txtbanco.setText(resultado.getString("banco"));
+		                //txtremessa.setText(resultado.getString("remessa"));
+		                //txtnsa.setText(resultado.getString("nsa"));
+		            }
+			    }
+			    catch (Exception ex)
+				{
+				    ex.printStackTrace();
+				}
+			}
+		});
+		btnPesquisar.setBounds(386, 49, 117, 25);
+		panelBanco.add(btnPesquisar);
 		
 		JPanel panelColaborador = new JPanel();
 		panelColaborador.setLayout(null);
