@@ -12,10 +12,6 @@ import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
-import java.awt.event.ContainerAdapter;
-import java.awt.event.ContainerEvent;
-import java.sql.ResultSet;
-import javax.swing.JPanel;
 
 public class InsEmpresa {
 
