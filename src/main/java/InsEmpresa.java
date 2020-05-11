@@ -290,8 +290,8 @@ public class InsEmpresa {
 		
 		JComboBox<Inscricao> comboInscricao = new JComboBox<Inscricao>();
 		comboInscricao.setFont(new Font("Calibri", Font.PLAIN, 16));
-		comboInscricao.addItem(new Inscricao("1", "Pessoa F�sica"));
-		comboInscricao.addItem(new Inscricao("2", "Pessoa Jur�dica"));
+		comboInscricao.addItem(new Inscricao("1", "Pessoa Fisica"));
+		comboInscricao.addItem(new Inscricao("2", "Pessoa Juridica"));
 		comboInscricao.setBounds(266, 505, 120, 25);
 		frame.getContentPane().add(comboInscricao);
 		

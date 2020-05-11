@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -57,6 +58,7 @@ public class Abertura_Conta {
 	private JTextField txtcargo;
 	private JTextField txtcep;
 	private JTextField cnpjEmpresaConsulta;
+	private JTextField txtTpmovimento;
 
 	/**
 	 * OriginalApp
@@ -85,6 +87,8 @@ public class Abertura_Conta {
 		frame.setBounds(100, 100, 700, 780);
 		frame.getContentPane().setLayout(null);
 		
+		
+		
 		JLabel lbcnab = new JLabel("Gera\u00E7\u00E3o do Arquivo CNAB 240 - Abertura de Conta");
 		lbcnab.setBounds(10, 10, 645, 60);
 		lbcnab.setHorizontalAlignment(SwingConstants.CENTER);
@@ -103,11 +107,13 @@ public class Abertura_Conta {
 		panelBanco.add(lbEmpresa);
 		
 		cnpjEmpresaConsulta = new JTextField();
-		cnpjEmpresaConsulta.setBounds(15, 52, 208, 19);
+		cnpjEmpresaConsulta.setFont(new Font("Calibri", Font.PLAIN, 16));
+		cnpjEmpresaConsulta.setBounds(15, 49, 208, 25);
 		panelBanco.add(cnpjEmpresaConsulta);
 		cnpjEmpresaConsulta.setColumns(10);
 		
 		JButton btnPesquisar = new JButton("Pesquisar");
+		btnPesquisar.setFont(new Font("Calibri", Font.PLAIN, 16));
 		btnPesquisar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try
@@ -157,13 +163,22 @@ public class Abertura_Conta {
 		
 		JTextArea txtcpf = new JTextArea();
 		txtcpf.setFont(new Font("Calibri", Font.PLAIN, 16));
-		txtcpf.setBounds(15, 92, 343, 30);
+		txtcpf.setBounds(15, 92, 343, 25);
 		panelColaborador.add(txtcpf);
 		
 		JLabel lblNewLabel = new JLabel("Digite o cpf do colaborador (apenas n\u00FAmeros)");
 		lblNewLabel.setFont(new Font("Calibri", Font.PLAIN, 16));
 		lblNewLabel.setBounds(15, 56, 343, 20);
 		panelColaborador.add(lblNewLabel);
+		
+		JComboBox<Tpmovimento> comboTpmovimento = new JComboBox<Tpmovimento>();
+		comboTpmovimento.setFont(new Font("Calibri", Font.PLAIN, 16));
+		comboTpmovimento.addItem(new Tpmovimento("0", "Inclusao"));
+		comboTpmovimento.addItem(new Tpmovimento("5", "Alteraçao"));
+		comboTpmovimento.addItem(new Tpmovimento("7", "Liquidaçao"));
+		comboTpmovimento.addItem(new Tpmovimento("9", "Exclusao"));
+		comboTpmovimento.setBounds(160, 606, 140, 25);
+		frame.getContentPane().add(comboTpmovimento);
 		
 		JButton btnPesqColaborador = new JButton("Pesquisar");
 		btnPesqColaborador.addActionListener(new ActionListener() {
@@ -267,6 +282,7 @@ public class Abertura_Conta {
 			            "`contacolab`,\n" +
 			            "`dvcolab`,\n" +
 			            "`ocorrencias`,\n" +
+			            "`tpmovimento`)\n" +
 			            "`data`)\n" +
 			            "VALUES\n" +
 			            "('" + txtcodigobco.getText() + "',\n" +
@@ -305,6 +321,7 @@ public class Abertura_Conta {
 			            "'" + txtcontacolab.getText() + "',\n" +
 			            "'" + txtdvcolab.getText() + "',\n" +
 			            "'" + txtocorrencias.getText() + "',\n" +
+			            "'" + ((Tpmovimento) comboTpmovimento.getSelectedItem()).getKey() + "',\n" +
 			            "'" + new SimpleDateFormat("ddMMYYYY").format(new Date()) + "')";
 			            
 			            
@@ -354,6 +371,7 @@ public class Abertura_Conta {
 			  	txtcontacolab.setText("");
 			  	txtdvcolab.setText("");
 			  	txtocorrencias.setText("");
+			  	comboTpmovimento.getSelectedItem();
 			}
 		});
 		
@@ -632,5 +650,15 @@ public class Abertura_Conta {
 		txtcodigobco.setHorizontalAlignment(SwingConstants.CENTER);
 		txtcodigobco.setFont(new Font("Calibri", Font.PLAIN, 16));
 		txtcodigobco.setColumns(10);
+		
+		JLabel lbtipomovimento = new JLabel("Tipo de Movimento");
+		lbtipomovimento.setFont(new Font("Calibri", Font.BOLD, 16));
+		lbtipomovimento.setBounds(20, 606, 140, 25);
+		frame.getContentPane().add(lbtipomovimento);
+		
+		txtTpmovimento = new JTextField();
+		txtTpmovimento.setBounds(160, 606, 140, 25);
+		frame.getContentPane().add(txtTpmovimento);
+		txtTpmovimento.setColumns(10);
 	}
 }
