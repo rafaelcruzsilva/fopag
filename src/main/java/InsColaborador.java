@@ -209,9 +209,10 @@ public class InsColaborador {
 		
 		JComboBox<Civil> comboCivil = new JComboBox<Civil>();
 		comboCivil.setFont(new Font("Calibri", Font.PLAIN, 16));
-		comboCivil.addItem(new Civil("01", "Solteiro"));
-		comboCivil.addItem(new Civil("02", "Casado"));
-		comboCivil.addItem(new Civil("03", "Divorciado"));
+		comboCivil.addItem(new Civil("1", "Solteiro (a)"));
+		comboCivil.addItem(new Civil("2", "casado (a)"));
+		comboCivil.addItem(new Civil("3", "Uniao Estável"));
+		comboCivil.addItem(new Civil("4", "Divorciado (a)"));
 		comboCivil.setBounds(548, 315, 120, 25);
 		frame.getContentPane().add(comboCivil);
 		
