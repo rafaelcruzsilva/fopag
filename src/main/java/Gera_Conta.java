@@ -5,11 +5,13 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileWriter;
 import java.sql.ResultSet;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -19,6 +21,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
+import javax.swing.text.MaskFormatter;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -55,6 +58,16 @@ public class Gera_Conta {
 	}
 
 	private void initialize() {
+		
+		MaskFormatter dataMascara = null;
+		
+		try {
+			dataMascara = new MaskFormatter("##/##/####");
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 		frame = new JFrame();
 		frame.setTitle("Abertura de conta sal\u00E1rio");
 		frame.setBounds(100, 100, 700, 870);
@@ -87,7 +100,7 @@ public class Gera_Conta {
 		rdbtnInserirdata.setBounds(230, 52, 200, 30);
 		panelBanco.add(rdbtnInserirdata);
 		
-		txtData = new JTextField();
+		txtData = new JFormattedTextField(dataMascara);
 		txtData.setFont(new Font("Calibri", Font.PLAIN, 16));
 		txtData.setBounds(441, 53, 120, 30);
 		panelBanco.add(txtData);
@@ -108,7 +121,12 @@ public class Gera_Conta {
 					final Integer directoryOption = fileChooser.showOpenDialog(frame);
 					
 					if (directoryOption != JFileChooser.APPROVE_OPTION) {
-						JOptionPane.showMessageDialog(null, "Diretório inválido", "Erro", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Diretï¿½rio invï¿½lido", "Erro", JOptionPane.ERROR_MESSAGE);
+						return;
+					}
+					
+					if (!rdbtnDataatual.isSelected() && !FopagUtils.isDataValida(txtData.getText())) {
+						JOptionPane.showMessageDialog(null, "Data invÃ¡lida", "Erro", JOptionPane.ERROR_MESSAGE);
 						return;
 					}
 					
@@ -119,7 +137,7 @@ public class Gera_Conta {
 					
 					final File file = new File(fileChooser.getSelectedFile(), nomeArquivo);
 					
-					final String dataConsulta = rdbtnDataatual.isSelected() ? DATE_FORMAT_BR.format(new Date()) : txtData.getText();
+					final String dataConsulta = rdbtnDataatual.isSelected() ? DATE_FORMAT_BR.format(new Date()) : FopagUtils.getSomenteDigitos(txtData.getText());
 					
 					System.out.println("Chamando consulta");
 					
@@ -202,10 +220,13 @@ public class Gera_Conta {
 					
 					Boolean setFileHeader = Boolean.TRUE;
 					Boolean setBatchHeader = Boolean.TRUE;
+					Boolean hasLines = Boolean.FALSE;
 					
 					Integer contador = 0;
 					
 					 while (resultado.next()) {
+						 
+						 hasLines = Boolean.TRUE;
 						 
 						 contador++;
 						 
@@ -248,23 +269,6 @@ public class Gera_Conta {
 						 dvcolab = StringUtils.leftPad(resultado.getString("dvcolab"), 1, "0");
 						 ocorrencias = StringUtils.leftPad(resultado.getString("ocorrencias"), 10, "0");
 						 tpmovimento = StringUtils.leftPad(resultado.getString("tpmovimento"), 1, "0");
-						 
-						 
-						 /*
-						 segmentod = StringUtils.leftPad(resultado.getString("segmentod") == null ? "D" : resultado.getString("segmentod"), 1, "0"); //valor fixo
-						 segmentoe = StringUtils.leftPad(resultado.getString("segmentoe") == null ? "E" : resultado.getString("segmentoe"), 1, "0"); //valor fixo
-						 movimento = StringUtils.leftPad(resultado.getString("movimento") == null ? "0" : resultado.getString("movimento"), 1, "0"); //valor fixo
-						 cxpostal = StringUtils.leftPad(resultado.getString("cxpostal") == null ? "0" : resultado.getString("cxpostal"), 9, "0"); //valor fixo
-						 filler1 = StringUtils.leftPad(resultado.getString("filler1") == null ? "0" : resultado.getString("filler1"), 1, "0"); //valor fixo
-						 filler2 = StringUtils.leftPad(resultado.getString("filler2") == null ? "0" : resultado.getString("filler2"), 2, "0"); //valor fixo
-						 filler5 = StringUtils.leftPad(resultado.getString("filler5") == null ? "0" : resultado.getString("filler5"), 5, "0"); //valor fixo
-						 filler10 = StringUtils.leftPad(resultado.getString("filler10") == null ? "0" : resultado.getString("filler10"), 10, "0"); //valor fixo
-						 filler15 = StringUtils.leftPad(resultado.getString("filler15") == null ? "0" : resultado.getString("filler15"), 15, "0"); //valor fixo
-						 filler20 = StringUtils.leftPad(resultado.getString("filler20") == null ? "0" : resultado.getString("filler20"), 20, "0"); //valor fixo
-						 layout = StringUtils.leftPad(resultado.getString("layout") == null ? "100" : resultado.getString("nsa"), 3, "0"); //valor fixo
-						 lotesvc = StringUtils.leftPad(resultado.getString("lotesvc") == null ? "0000" : resultado.getString("lotesvc"), 4, "0");
-						 tiporegistro = StringUtils.leftPad(resultado.getString("tiporegistro") == null ? "0" : resultado.getString("tiporegistro"), 1, "0");
-						 */
 						 
 						 lotesvcheader = "0000";							//valor fixo
 						 lotesvctrailer = "9999";							//valor fixo
@@ -419,37 +423,39 @@ public class Gera_Conta {
 					 }
 					 
 					
+					 if (hasLines) {
 					
-			 		fileWriter.write(codigobco);			//Trailer lote
-			 		fileWriter.write(lotesvctrailerlote);	//Trailer lote 
-			 		fileWriter.write(tptrailerlote); 		//Trailer lote
-			 		fileWriter.write(filler5);				//Trailer lote
-			 		fileWriter.write(filler2);				//Trailer lote
-			 		fileWriter.write(filler2);				//Trailer lote
-			 		fileWriter.write(StringUtils.leftPad(String.valueOf(contador), 6, "0"));			//Trailer lote
-			 		fileWriter.write(filler100);			//Trailer lote
-			 		fileWriter.write(filler100);			//Trailer lote
-			 		fileWriter.write(filler5);				//Trailer lote
-			 		fileWriter.write(filler2);				//Trailer lote
-			 		fileWriter.write(ocorrencias);			//Trailer lote
-			 		
-			 		fileWriter.write("\r\n");
-					 
-			 		
-				 	fileWriter.write(codigobco);		//Trailer arquivo
-				 	fileWriter.write(lotesvctrailer);	//Trailer arquivo
-				 	fileWriter.write(tptrailer);		//Trailer arquivo
-				 	fileWriter.write(filler5);			//Trailer arquivo
-				 	fileWriter.write(filler2);			//Trailer arquivo
-				 	fileWriter.write(filler2);			//Trailer arquivo
-				 	fileWriter.write(StringUtils.leftPad(String.valueOf(contador), 6, "0"));			//Trailer arquivo
-				 	fileWriter.write(StringUtils.leftPad(String.valueOf(contador), 6, "0"));			//Trailer arquivo
-				 	fileWriter.write(filler100);		//Trailer arquivo
-				 	fileWriter.write(filler100);		//Trailer arquivo
-				 	fileWriter.write(filler10);			//Trailer arquivo
-				 	fileWriter.write(filler1);			//Trailer arquivo
-				 	
-				 	fileWriter.write("\r\n");
+				 		fileWriter.write(codigobco);			//Trailer lote
+				 		fileWriter.write(lotesvctrailerlote);	//Trailer lote 
+				 		fileWriter.write(tptrailerlote); 		//Trailer lote
+				 		fileWriter.write(filler5);				//Trailer lote
+				 		fileWriter.write(filler2);				//Trailer lote
+				 		fileWriter.write(filler2);				//Trailer lote
+				 		fileWriter.write(StringUtils.leftPad(String.valueOf(contador), 6, "0"));			//Trailer lote
+				 		fileWriter.write(filler100);			//Trailer lote
+				 		fileWriter.write(filler100);			//Trailer lote
+				 		fileWriter.write(filler5);				//Trailer lote
+				 		fileWriter.write(filler2);				//Trailer lote
+				 		fileWriter.write(ocorrencias);			//Trailer lote
+				 		
+				 		fileWriter.write("\r\n");
+						 
+				 		
+					 	fileWriter.write(codigobco);		//Trailer arquivo
+					 	fileWriter.write(lotesvctrailer);	//Trailer arquivo
+					 	fileWriter.write(tptrailer);		//Trailer arquivo
+					 	fileWriter.write(filler5);			//Trailer arquivo
+					 	fileWriter.write(filler2);			//Trailer arquivo
+					 	fileWriter.write(filler2);			//Trailer arquivo
+					 	fileWriter.write(StringUtils.leftPad(String.valueOf(contador), 6, "0"));			//Trailer arquivo
+					 	fileWriter.write(StringUtils.leftPad(String.valueOf(contador), 6, "0"));			//Trailer arquivo
+					 	fileWriter.write(filler100);		//Trailer arquivo
+					 	fileWriter.write(filler100);		//Trailer arquivo
+					 	fileWriter.write(filler10);			//Trailer arquivo
+					 	fileWriter.write(filler1);			//Trailer arquivo
+					 	
+					 	fileWriter.write("\r\n");
+					 }
 					 
 					fileWriter.close();
 			    }

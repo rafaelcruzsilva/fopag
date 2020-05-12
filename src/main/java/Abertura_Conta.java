@@ -120,7 +120,7 @@ public class Abertura_Conta {
 			    {
 					
 					if (!FopagUtils.isCNPJValido(cnpjEmpresaConsulta.getText())) {
-						JOptionPane.showMessageDialog(null, "CNPJ inválido", "Erro", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, "CNPJ invï¿½lido", "Erro", JOptionPane.ERROR_MESSAGE);
 						return;
 					}
 					
@@ -174,8 +174,8 @@ public class Abertura_Conta {
 		JComboBox<Tpmovimento> comboTpmovimento = new JComboBox<Tpmovimento>();
 		comboTpmovimento.setFont(new Font("Calibri", Font.PLAIN, 16));
 		comboTpmovimento.addItem(new Tpmovimento("0", "Inclusao"));
-		comboTpmovimento.addItem(new Tpmovimento("5", "Alteraçao"));
-		comboTpmovimento.addItem(new Tpmovimento("7", "Liquidaçao"));
+		comboTpmovimento.addItem(new Tpmovimento("5", "Alteraï¿½ao"));
+		comboTpmovimento.addItem(new Tpmovimento("7", "Liquidaï¿½ao"));
 		comboTpmovimento.addItem(new Tpmovimento("9", "Exclusao"));
 		comboTpmovimento.setBounds(160, 606, 140, 25);
 		frame.getContentPane().add(comboTpmovimento);
@@ -282,7 +282,7 @@ public class Abertura_Conta {
 			            "`contacolab`,\n" +
 			            "`dvcolab`,\n" +
 			            "`ocorrencias`,\n" +
-			            "`tpmovimento`)\n" +
+			            "`tpmovimento`,\n" +
 			            "`data`)\n" +
 			            "VALUES\n" +
 			            "('" + txtcodigobco.getText() + "',\n" +
@@ -332,7 +332,7 @@ public class Abertura_Conta {
 			}
 			catch (SQLException ex)
 			{
-				JOptionPane.showMessageDialog(btnIncColaborador, "Algo deu errado, confira as posições por favor!!!");
+				JOptionPane.showMessageDialog(btnIncColaborador, "Algo deu errado, confira as posiï¿½ï¿½es por favor!!!");
             ex.printStackTrace();
 			}
 			  	txtcodigobco.setText("");  // Inicio do Limpa Campo
@@ -660,5 +660,44 @@ public class Abertura_Conta {
 		txtTpmovimento.setBounds(160, 606, 140, 25);
 		frame.getContentPane().add(txtTpmovimento);
 		txtTpmovimento.setColumns(10);
+		
+		txtcodigobco.setEditable(false);
+		txtinscricao.setEditable(false);
+		txtcnpj.setEditable(false);
+		txtagencia.setEditable(false);
+		txtconta.setEditable(false);
+		txtconvenio.setEditable(false);
+		txtdv.setEditable(false);
+		txtempresa.setEditable(false);
+		txtbanco.setEditable(false);
+		txtremessa.setEditable(false);
+		txtnsa.setEditable(false);
+		txtnome.setEditable(false);
+		txt_cpf.setEditable(false);
+		txtufnasc.setEditable(false);
+		txtrg.setEditable(false);
+		txtdn.setEditable(false);
+		txtsexo.setEditable(false);
+		txtcivil.setEditable(false);
+		txtmae.setEditable(false);
+		txtrua.setEditable(false);
+		txtnresid.setEditable(false);
+		txtcompresid.setEditable(false);
+		txtbairro.setEditable(false);
+		txtcidade.setEditable(false);
+		txtestado.setEditable(false);
+		txtadmissao.setEditable(false);
+		txtocorrencias.setEditable(false);
+		txtsalario.setEditable(false);
+		txttelefone.setEditable(false);
+		txtdvcolab.setEditable(false);
+		txtcontacolab.setEditable(false);
+		txtddd.setEditable(false);
+		txtemail.setEditable(false);
+		txtagenciacolab.setEditable(false);
+		txtcargo.setEditable(false);
+		txtcep.setEditable(false);
+		txtTpmovimento.setEditable(false);
+		
 	}
 }
