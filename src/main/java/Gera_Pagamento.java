@@ -256,6 +256,7 @@ public class Gera_Pagamento {
 						 
 						 // Campos variáveis
 						 
+						 data = StringUtils.leftPad(resultado.getString("data"), 8, "0");
 						 codigobcoemp = StringUtils.leftPad(resultado.getString("codigobcoemp"), 3, "0");
 						 tpinscricao = StringUtils.leftPad(resultado.getString("tpinscricao"), 1, " ");
 						 cnpj = StringUtils.leftPad(resultado.getString("cnpj"), 14, "0");
@@ -267,7 +268,7 @@ public class Gera_Pagamento {
 						 bancoemp = StringUtils.rightPad(resultado.getString("bancoemp"), 30, " ");
 						 tpremessa = StringUtils.rightPad(resultado.getString("tpremessa"), 1, " ");
 						 //nsa = StringUtils.leftPad(resultado.getString("nsa") == null ? "1" : resultado.getString("nsa"), 6, "0");
-						 ocorrencias = StringUtils.leftPad(resultado.getString("ocorrencias"), 10, " ");
+						 ocorrencias = StringUtils.leftPad(resultado.getString("ocorrencias") != null ? resultado.getString("ocorrencias") : "", 10, " "); // Então neste caso é porque o retorno do banco está sendo NULL						 
 						 tpservico = StringUtils.leftPad(resultado.getString("tpservico"), 2, " ");
 						 tplancamento = StringUtils.leftPad(resultado.getString("tplancamento"), 1, "0");
 						 tpidentificacao = StringUtils.rightPad(resultado.getString("tpidentificacao"), 20, " ");
@@ -404,7 +405,8 @@ public class Gera_Pagamento {
 			 			fileWriter.write(tpregsegmentoa);
 			 			fileWriter.write(nrseqregistrolotea);
 			 			fileWriter.write(segmentoa);
-			 			fileWriter.write(tpmovimento);
+			 			tpmovimento = ""; // vai fazer com que pare de dar erro
+			 			fileWriter.write(tpmovimento); // mesmo erro de antes, o objeto está como null, não é possível escrever um objeto nulo
 			 			fileWriter.write(filler5);
 			 			fileWriter.write(codigobcocolab );
 			 			fileWriter.write(agenciacolab);

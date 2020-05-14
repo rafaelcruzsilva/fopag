@@ -255,13 +255,13 @@ public class Gera_Conta {
 						 
 						 contador++;
 						 
-						 data = StringUtils.leftPad(resultado.getString("data"), 8, "0"); //
-						 hora = HH_MM_SS_FORMAT.format(new Date()); //
-						 codigobco = StringUtils.leftPad(resultado.getString("codigobco"), 3, "0"); //
-						 inscricao = StringUtils.leftPad(resultado.getString("inscricao"), 1, "0"); //
-						 cnpj = StringUtils.leftPad(resultado.getString("cnpj"), 14, "0"); //
-						 convenio = StringUtils.rightPad(resultado.getString("convenio"), 20, " "); //
-						 agenciaempresa = StringUtils.leftPad(resultado.getString("agenciaemp"), 5, "0"); //
+						 data = StringUtils.leftPad(resultado.getString("data"), 8, "0"); 
+						 hora = HH_MM_SS_FORMAT.format(new Date()); 
+						 codigobco = StringUtils.leftPad(resultado.getString("codigobco"), 3, "0");
+						 inscricao = StringUtils.leftPad(resultado.getString("inscricao"), 1, "0");
+						 cnpj = StringUtils.leftPad(resultado.getString("cnpj"), 14, "0");
+						 convenio = StringUtils.rightPad(resultado.getString("convenio"), 20, " ");
+						 agenciaempresa = StringUtils.leftPad(resultado.getString("agenciaemp"), 5, "0");
 						 contaempresa = StringUtils.leftPad(resultado.getString("contaemp"), 12, "0"); //
 						 dvempresa = StringUtils.leftPad(resultado.getString("dvemp"), 1, "0"); //
 						 empresa = StringUtils.rightPad(resultado.getString("empresa"), 30, " "); //
