@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JButton;
@@ -12,53 +13,89 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
+import javax.swing.text.MaskFormatter;
+import javax.swing.JFormattedTextField;
 
 public class Abertura_Conta {
 
 	public JFrame frame;
-	private JTextField txtcodigobco;
-	private JTextField txtinscricao;
-	private JTextField txtcnpj;
-	private JTextField txtagencia;
-	private JTextField txtconta;
-	private JTextField txtconvenio;
-	private JTextField txtdv;
-	private JTextField txtempresa;
-	private JTextField txtbanco;
-	private JTextField txtremessa;
-	private JTextField txtnsa;
-	private JTextField txtnome;
-	private JTextField txt_cpf;
-	private JTextField txtufnasc;
-	private JTextField txtrg;
-	private JTextField txtdn;
-	private JTextField txtsexo;
-	private JTextField txtcivil;
-	private JTextField txtmae;
-	private JTextField txtrua;
-	private JTextField txtnresid;
-	private JTextField txtcompresid;
-	private JTextField txtbairro;
-	private JTextField txtcidade;
-	private JTextField txtestado;
-	private JTextField txtadmissao;
-	private JTextField txtocorrencias;
-	private JTextField txtsalario;
-	private JTextField txttelefone;
-	private JTextField txtdvcolab;
-	private JTextField txtcontacolab;
-	private JTextField txtddd;
-	private JTextField txtemail;
-	private JTextField txtagenciacolab;
-	private JTextField txtcargo;
-	private JTextField txtcep;
-	private JTextField cnpjEmpresaConsulta;
-	private JTextField txtTpmovimento;
+	private JTextField txtCodigobcoemp;
+	private JTextField txtTpinscricao;
+	private JTextField txtAgenciaemp;
+	private JTextField txtContacorrenteemp;
+	private JTextField txtConvenio;
+	private JTextField txtDvemp;
+	private JTextField txtEmpresa;
+	private JTextField txtBancoemp;
+	private JTextField txtColaborador;
+	private JTextField txtUfnasc;
+	private JTextField txtRg;
+	private JTextField txtCnpj;
+	private JLabel lblGeraoDoArquivo;
+	private JPanel panelDadosempresa;
+	private JLabel lbcnpj;
+	private JLabel lbdadosempresa;
+	private JLabel lbtpinscricao;
+	private JLabel lbconvenio;
+	private JLabel lbempresa;
+	private JPanel panelDadosconta;
+	private JLabel lbAgencia;
+	private JLabel lbcontacorrenteemp;
+	private JLabel lbdv;
+	private JLabel lbContacorrente;
+	private JLabel lbCodbanco;
+	private JLabel lbNomebanco;
+	private JPanel panelDadoscolab;
+	private JLabel lbdadosdobeneficiário;
+	private JLabel lbcpf;
+	private JTextField txtCpf;
+	private JButton btnPesquisarcpf;
+	private JLabel lbcolaborador;
+	private JLabel lbruacolab;
+	private JLabel lbnresidcolab;
+	private JLabel lbcompresidcolab;
+	private JLabel lbcidadecolab;
+	private JLabel lbcepcolab;
+	private JLabel lbestadocolab;
+	private JPanel panelDadoscomplementarescolab;
+	private JLabel lbrg;
+	private JLabel lbcotadestino;
+	private JLabel lbsexo;
+	private JLabel lbdatanascimento;
+	private JLabel lbufnascimento;
+	private JLabel lbmae;
+	private JPanel panelDadoscomplementaresCS;
+	private JLabel lbconta;
+	private JLabel lbdadospagto;
+	private JLabel lbdvcolab_1;
+	private JLabel lbcccolab;
+	private JLabel lbagencia;
+	private JButton btnGravarpagto;
+	private JButton btnCancelarpagto;
+	private JTextField txtRuacolab;
+	private JTextField txtNresidcolab;
+	private JTextField txtCompresidcolab;
+	private JTextField txtCidadecolab;
+	private JTextField txtCepcolab;
+	private JTextField txtEstadocolab;
+	private JTextField txtBairrocolab;
+	private JTextField txtDn;
+	private JTextField txtSexo;
+	private JTextField txtMae;
+	private JTextField txtEmailcolab;
+	private JTextField txtDddcolab;
+	private JTextField txtTelefonecolab;
+	private JTextField txtSalario;
+	private JTextField txtAdmissao;
+	private JTextField txtCargo;
+	private JTextField txtAgenciacolab;
+	private JTextField txtContasalariocolab;
+	private JLabel lbtpremessa;
+	private JLabel lbestadocivil;
+	private JTextField txtCivil;
 
 	/**
 	 * OriginalApp
@@ -84,61 +121,112 @@ public class Abertura_Conta {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setTitle("Abertura de Conta");
-		frame.setBounds(100, 100, 700, 780);
+		frame.setBounds(100, 100, 660, 930);
 		frame.getContentPane().setLayout(null);
 		
+//		MaskFormatter dataMascara = null;
 		
+//		try {
+//			dataMascara = new MaskFormatter("##/##/####");
+//		} catch (ParseException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
 		
-		JLabel lbcnab = new JLabel("Gera\u00E7\u00E3o do Arquivo CNAB 240 - Abertura de Conta");
-		lbcnab.setBounds(10, 10, 645, 60);
-		lbcnab.setHorizontalAlignment(SwingConstants.CENTER);
-		lbcnab.setFont(new Font("Calibri", Font.PLAIN, 30));
-		frame.getContentPane().add(lbcnab);
+		lblGeraoDoArquivo = new JLabel("Gera\u00E7\u00E3o do Arquivo CNAB 240 - Abertura de Conta Sal\u00E1rio");
+		lblGeraoDoArquivo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblGeraoDoArquivo.setFont(new Font("Calibri", Font.PLAIN, 25));
+		lblGeraoDoArquivo.setBounds(5, 0, 635, 60);
+		frame.getContentPane().add(lblGeraoDoArquivo);
 		
-		JPanel panelBanco = new JPanel();
-		panelBanco.setBorder(UIManager.getBorder("ComboBox.border"));
-		panelBanco.setBounds(20, 96, 635, 95);
-		frame.getContentPane().add(panelBanco);
-		panelBanco.setLayout(null);
+		panelDadosempresa = new JPanel();
+		panelDadosempresa.setLayout(null);
+		panelDadosempresa.setBorder(UIManager.getBorder("ComboBox.border"));
+		panelDadosempresa.setBounds(5, 63, 635, 106);
+		frame.getContentPane().add(panelDadosempresa);
 		
-		JLabel lbEmpresa = new JLabel("CNPJ da Empresa");
-		lbEmpresa.setFont(new Font("Calibri", Font.BOLD, 16));
-		lbEmpresa.setBounds(15, 16, 288, 24);
-		panelBanco.add(lbEmpresa);
+		lbcnpj = new JLabel("CNPJ");
+		lbcnpj.setFont(new Font("Calibri", Font.PLAIN, 16));
+		lbcnpj.setBounds(15, 30, 140, 20);
+		panelDadosempresa.add(lbcnpj);
 		
-		cnpjEmpresaConsulta = new JTextField();
-		cnpjEmpresaConsulta.setFont(new Font("Calibri", Font.PLAIN, 16));
-		cnpjEmpresaConsulta.setBounds(15, 49, 208, 25);
-		panelBanco.add(cnpjEmpresaConsulta);
-		cnpjEmpresaConsulta.setColumns(10);
+		lbdadosempresa = new JLabel("Dados do Empresa");
+		lbdadosempresa.setFont(new Font("Calibri", Font.BOLD, 16));
+		lbdadosempresa.setBounds(15, 5, 412, 20);
+		panelDadosempresa.add(lbdadosempresa);
 		
-		JButton btnPesquisar = new JButton("Pesquisar");
-		btnPesquisar.setFont(new Font("Calibri", Font.PLAIN, 16));
-		btnPesquisar.addActionListener(new ActionListener() {
+		lbtpinscricao = new JLabel("Tipo de Inscri\u00E7ao");
+		lbtpinscricao.setFont(new Font("Calibri", Font.PLAIN, 16));
+		lbtpinscricao.setBounds(320, 80, 140, 20);
+		panelDadosempresa.add(lbtpinscricao);
+		
+		lbconvenio = new JLabel("Convenio");
+		lbconvenio.setFont(new Font("Calibri", Font.PLAIN, 16));
+		lbconvenio.setBounds(15, 80, 140, 20);
+		panelDadosempresa.add(lbconvenio);
+		
+		lbempresa = new JLabel("Nome da Empresa");
+		lbempresa.setFont(new Font("Calibri", Font.PLAIN, 16));
+		lbempresa.setBounds(15, 55, 140, 20);
+		panelDadosempresa.add(lbempresa);
+		
+		JButton btnPesquisarcnpj = new JButton("Pesquisar");
+		btnPesquisarcnpj.setBounds(488, 30, 140, 20);
+		panelDadosempresa.add(btnPesquisarcnpj);
+		btnPesquisarcnpj.setFont(new Font("Calibri", Font.PLAIN, 16));
+		
+		txtCnpj = new JTextField();
+		txtCnpj.setHorizontalAlignment(SwingConstants.RIGHT);
+		txtCnpj.setBounds(170, 30, 310, 20);
+		panelDadosempresa.add(txtCnpj);
+		txtCnpj.setFont(new Font("Calibri", Font.PLAIN, 16));
+		txtCnpj.setColumns(10);
+		
+		txtEmpresa = new JTextField();
+		txtEmpresa.setBounds(170, 55, 458, 20);
+		panelDadosempresa.add(txtEmpresa);
+		txtEmpresa.setHorizontalAlignment(SwingConstants.CENTER);
+		txtEmpresa.setFont(new Font("Calibri", Font.PLAIN, 16));
+		txtEmpresa.setColumns(10);
+		txtEmpresa.setEditable(false);
+		
+		txtTpinscricao = new JTextField();
+		txtTpinscricao.setBounds(488, 80, 140, 20);
+		panelDadosempresa.add(txtTpinscricao);
+		txtTpinscricao.setHorizontalAlignment(SwingConstants.CENTER);
+		txtTpinscricao.setFont(new Font("Calibri", Font.PLAIN, 16));
+		txtTpinscricao.setColumns(10);
+		txtTpinscricao.setEditable(false);
+		
+		txtConvenio = new JTextField();
+		txtConvenio.setBounds(170, 80, 140, 20);
+		panelDadosempresa.add(txtConvenio);
+		txtConvenio.setHorizontalAlignment(SwingConstants.CENTER);
+		txtConvenio.setFont(new Font("Calibri", Font.PLAIN, 16));
+		txtConvenio.setColumns(10);
+		txtConvenio.setEditable(false);
+		btnPesquisarcnpj.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try
 			    {
 					
-					if (!FopagUtils.isCNPJValido(cnpjEmpresaConsulta.getText())) {
-						JOptionPane.showMessageDialog(null, "CNPJ invï¿½lido", "Erro", JOptionPane.ERROR_MESSAGE);
+					if (!FopagUtils.isCNPJValido(txtCnpj.getText())) {
+						JOptionPane.showMessageDialog(null, "CNPJ inválido", "Erro", JOptionPane.ERROR_MESSAGE);
 						return;
 					}
 					
-			    	ResultSet resultado = Fopag.connection.getData(String.format("SELECT * FROM fopagdb.empresatb WHERE cnpj LIKE '%s'", cnpjEmpresaConsulta.getText()));
+			    	ResultSet resultado = Fopag.connection.getData(String.format("SELECT * FROM fopagdb.empresatb WHERE cnpj LIKE '%s'", txtCnpj.getText()));
 			    	
 				    while (resultado.next())
 		            {
-		                txtcodigobco.setText(resultado.getString("codigobco")); // Apresentando os valores nos campos
-		                txtinscricao.setText(resultado.getString("inscricao"));
-		                txtcnpj.setText(resultado.getString("cnpj"));
-		                txtconvenio.setText(resultado.getString("convenio"));
-		                txtagencia.setText(resultado.getString("agencia"));
-		                txtconta.setText(resultado.getString("conta"));
-		                txtdv.setText(resultado.getString("dv"));
-		                txtempresa.setText(resultado.getString("empresa"));
-		                txtbanco.setText(resultado.getString("banco"));
-		                //txtremessa.setText(resultado.getString("remessa"));
-		                //txtnsa.setText(resultado.getString("nsa"));
+		                txtEmpresa.setText(resultado.getString("empresa"));
+		                txtConvenio.setText(resultado.getString("convenio"));
+		                txtTpinscricao.setText(resultado.getString("inscricao"));
+		                txtCodigobcoemp.setText(resultado.getString("codigobco"));
+		                txtAgenciaemp.setText(resultado.getString("agencia"));
+		                txtContacorrenteemp.setText(resultado.getString("conta"));
+		                txtDvemp.setText(resultado.getString("dv"));
+		                txtBancoemp.setText(resultado.getString("banco"));
 		            }
 			    }
 			    catch (Exception ex)
@@ -147,75 +235,144 @@ public class Abertura_Conta {
 				}
 			}
 		});
-		btnPesquisar.setBounds(386, 49, 117, 25);
-		panelBanco.add(btnPesquisar);
 		
-		JPanel panelColaborador = new JPanel();
-		panelColaborador.setLayout(null);
-		panelColaborador.setBorder(UIManager.getBorder("ComboBox.border"));
-		panelColaborador.setBounds(20, 207, 635, 181);
-		frame.getContentPane().add(panelColaborador);
+		panelDadosconta = new JPanel();
+		panelDadosconta.setLayout(null);
+		panelDadosconta.setBorder(UIManager.getBorder("ComboBox.border"));
+		panelDadosconta.setBounds(5, 173, 635, 106);
+		frame.getContentPane().add(panelDadosconta);
 		
-		JLabel lbColaborador = new JLabel("Selecione o(s) colaborador(es)");
-		lbColaborador.setFont(new Font("Calibri", Font.BOLD, 16));
-		lbColaborador.setBounds(15, 16, 288, 24);
-		panelColaborador.add(lbColaborador);
+		lbAgencia = new JLabel("Agencia");
+		lbAgencia.setHorizontalAlignment(SwingConstants.LEFT);
+		lbAgencia.setFont(new Font("Calibri", Font.PLAIN, 16));
+		lbAgencia.setBounds(320, 30, 140, 20);
+		panelDadosconta.add(lbAgencia);
 		
-		JTextArea txtcpf = new JTextArea();
-		txtcpf.setFont(new Font("Calibri", Font.PLAIN, 16));
-		txtcpf.setBounds(15, 92, 343, 25);
-		panelColaborador.add(txtcpf);
+		lbcontacorrenteemp = new JLabel("Dados da Conta Corrente da Empresa");
+		lbcontacorrenteemp.setFont(new Font("Calibri", Font.BOLD, 16));
+		lbcontacorrenteemp.setBounds(15, 5, 412, 20);
+		panelDadosconta.add(lbcontacorrenteemp);
 		
-		JLabel lblNewLabel = new JLabel("Digite o cpf do colaborador (apenas n\u00FAmeros)");
-		lblNewLabel.setFont(new Font("Calibri", Font.PLAIN, 16));
-		lblNewLabel.setBounds(15, 56, 343, 20);
-		panelColaborador.add(lblNewLabel);
+		lbdv = new JLabel("D\u00EDgito verificador");
+		lbdv.setFont(new Font("Calibri", Font.PLAIN, 16));
+		lbdv.setBounds(320, 55, 140, 20);
+		panelDadosconta.add(lbdv);
 		
-		JComboBox<Tpmovimento> comboTpmovimento = new JComboBox<Tpmovimento>();
-		comboTpmovimento.setFont(new Font("Calibri", Font.PLAIN, 16));
-		comboTpmovimento.addItem(new Tpmovimento("0", "Inclusao"));
-		comboTpmovimento.addItem(new Tpmovimento("5", "Alteraï¿½ao"));
-		comboTpmovimento.addItem(new Tpmovimento("7", "Liquidaï¿½ao"));
-		comboTpmovimento.addItem(new Tpmovimento("9", "Exclusao"));
-		comboTpmovimento.setBounds(160, 606, 140, 25);
-		frame.getContentPane().add(comboTpmovimento);
+		lbContacorrente = new JLabel("Conta Corrente");
+		lbContacorrente.setFont(new Font("Calibri", Font.PLAIN, 16));
+		lbContacorrente.setBounds(15, 55, 140, 20);
+		panelDadosconta.add(lbContacorrente);
 		
-		JButton btnPesqColaborador = new JButton("Pesquisar");
-		btnPesqColaborador.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e)
-			{	
+		lbCodbanco = new JLabel("C\u00F3digo do Banco");
+		lbCodbanco.setFont(new Font("Calibri", Font.PLAIN, 16));
+		lbCodbanco.setBounds(15, 30, 140, 20);
+		panelDadosconta.add(lbCodbanco);
+		
+		lbNomebanco = new JLabel("Nome do Banco");
+		lbNomebanco.setFont(new Font("Calibri", Font.PLAIN, 16));
+		lbNomebanco.setBounds(15, 80, 140, 20);
+		panelDadosconta.add(lbNomebanco);
+		
+		txtCodigobcoemp = new JTextField();
+		txtCodigobcoemp.setBounds(170, 30, 140, 20);
+		panelDadosconta.add(txtCodigobcoemp);
+		txtCodigobcoemp.setHorizontalAlignment(SwingConstants.CENTER);
+		txtCodigobcoemp.setFont(new Font("Calibri", Font.PLAIN, 16));
+		txtCodigobcoemp.setColumns(10);
+		
+		txtCodigobcoemp.setEditable(false);
+		
+		txtAgenciaemp = new JTextField();
+		txtAgenciaemp.setBounds(480, 30, 140, 20);
+		panelDadosconta.add(txtAgenciaemp);
+		txtAgenciaemp.setHorizontalAlignment(SwingConstants.CENTER);
+		txtAgenciaemp.setFont(new Font("Calibri", Font.PLAIN, 16));
+		txtAgenciaemp.setColumns(10);
+		txtAgenciaemp.setEditable(false);
+		
+		txtContacorrenteemp = new JTextField();
+		txtContacorrenteemp.setBounds(170, 55, 140, 20);
+		panelDadosconta.add(txtContacorrenteemp);
+		txtContacorrenteemp.setHorizontalAlignment(SwingConstants.CENTER);
+		txtContacorrenteemp.setFont(new Font("Calibri", Font.PLAIN, 16));
+		txtContacorrenteemp.setColumns(10);
+		txtContacorrenteemp.setEditable(false);
+		
+		txtDvemp = new JTextField();
+		txtDvemp.setBounds(480, 55, 140, 20);
+		panelDadosconta.add(txtDvemp);
+		txtDvemp.setHorizontalAlignment(SwingConstants.CENTER);
+		txtDvemp.setFont(new Font("Calibri", Font.PLAIN, 16));
+		txtDvemp.setColumns(10);
+		txtDvemp.setEditable(false);
+		
+		txtBancoemp = new JTextField();
+		txtBancoemp.setBounds(170, 80, 450, 20);
+		panelDadosconta.add(txtBancoemp);
+		txtBancoemp.setHorizontalAlignment(SwingConstants.CENTER);
+		txtBancoemp.setFont(new Font("Calibri", Font.PLAIN, 16));
+		txtBancoemp.setColumns(10);
+		txtBancoemp.setEditable(false);
+		
+		panelDadoscolab = new JPanel();
+		panelDadoscolab.setLayout(null);
+		panelDadoscolab.setBorder(UIManager.getBorder("ComboBox.border"));
+		panelDadoscolab.setBounds(5, 283, 635, 181);
+		frame.getContentPane().add(panelDadoscolab);
+		
+		lbdadosdobeneficiário = new JLabel("Dados do colaborador");
+		lbdadosdobeneficiário.setFont(new Font("Calibri", Font.BOLD, 16));
+		lbdadosdobeneficiário.setBounds(15, 5, 412, 20);
+		panelDadoscolab.add(lbdadosdobeneficiário);
+		
+		lbcpf = new JLabel("CPF");
+		lbcpf.setFont(new Font("Calibri", Font.PLAIN, 16));
+		lbcpf.setBounds(15, 30, 140, 20);
+		panelDadoscolab.add(lbcpf);
+		
+		txtCpf = new JTextField();
+		txtCpf.setHorizontalAlignment(SwingConstants.RIGHT);
+		txtCpf.setFont(new Font("Calibri", Font.PLAIN, 16));
+		txtCpf.setColumns(10);
+		txtCpf.setBounds(170, 30, 310, 20);
+		panelDadoscolab.add(txtCpf);
+		
+		btnPesquisarcpf = new JButton("Pesquisar");
+		btnPesquisarcpf.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
 				try
 				{
-					String query = ("SELECT * FROM fopagdb.cadastrotb WHERE `cpf` = " + txtcpf.getText()); 
+					if (!FopagUtils.isCPFValido(txtCpf.getText())) {
+						JOptionPane.showMessageDialog(null, "CPF inválido", "Dados inválidos", JOptionPane.ERROR_MESSAGE);
+						return;
+					}
+					
+					String query = ("SELECT * FROM fopagdb.cadastrotb WHERE `cpf` = " + txtCpf.getText()); 
 		            ResultSet resultado = Fopag.connection.getData(query);
 		            
 		            while (resultado.next())
 		            {
-		                txt_cpf.setText(resultado.getString("cpf")); // Apresentando os valores nos campos
-		                txtnome.setText(resultado.getString("nome"));
-		                txtufnasc.setText(resultado.getString("ufnasc"));
-		                txtrg.setText(resultado.getString("rg"));
-		                txtdn.setText(resultado.getString("dn"));
-		                txtsexo.setText(resultado.getString("sexo"));
-		                txtcivil.setText(resultado.getString("civil"));
-		                txtmae.setText(resultado.getString("mae"));
-		                txtrua.setText(resultado.getString("rua"));
-		                txtnresid.setText(resultado.getString("nresid"));
-		                txtcompresid.setText(resultado.getString("compresid"));
-		                txtbairro.setText(resultado.getString("bairro"));
-		                txtcidade.setText(resultado.getString("cidade"));
-		                txtestado.setText(resultado.getString("estado"));
-		                txtcep.setText(resultado.getString("cep"));
-		                txtemail.setText(resultado.getString("email"));
-		                txtddd.setText(resultado.getString("ddd"));
-		                txttelefone.setText(resultado.getString("telefone"));
-		                txtsalario.setText(resultado.getString("salario"));
-		                txtadmissao.setText(resultado.getString("admissao"));
-		                txtcargo.setText(resultado.getString("cargo"));
-		                txtagenciacolab.setText(resultado.getString("agencia"));
-		                txtcontacolab.setText(resultado.getString("conta"));
-		                txtdvcolab.setText(resultado.getString("dv"));
-		                
+		                txtColaborador.setText(resultado.getString("nome")); 
+		                txtRuacolab.setText(resultado.getString("rua"));
+		                txtNresidcolab.setText(resultado.getString("nresid"));
+		                txtCompresidcolab.setText(resultado.getString("compresid"));
+		                txtBairrocolab.setText(resultado.getString("bairro"));
+		                txtCidadecolab.setText(resultado.getString("cidade"));
+		                txtCepcolab.setText(resultado.getString("cep"));
+		                txtEstadocolab.setText(resultado.getString("estado"));
+		                txtUfnasc.setText(resultado.getString("ufnasc"));
+		                txtRg.setText(resultado.getString("rg"));
+		                txtDn.setText(resultado.getString("dn"));
+		                txtSexo.setText(resultado.getString("sexo"));
+		                txtMae.setText(resultado.getString("mae"));
+		                txtEmailcolab.setText(resultado.getString("email"));
+		                txtDddcolab.setText(resultado.getString("ddd"));
+		                txtTelefonecolab.setText(resultado.getString("telefone"));
+		                txtSalario.setText(resultado.getString("salario"));
+		                txtAdmissao.setText(resultado.getString("admissao"));
+		                txtCargo.setText(resultado.getString("cargo"));
+		                txtAgenciacolab.setText(resultado.getString("agencia"));
+		                txtContasalariocolab.setText(resultado.getString("conta"));
 		            }
 				}
 				catch (Exception ex)
@@ -224,480 +381,490 @@ public class Abertura_Conta {
 				}
 			}
 		});
-		btnPesqColaborador.setFont(new Font("Calibri", Font.PLAIN, 16));
-		btnPesqColaborador.setBounds(373, 92, 247, 30);
-		panelColaborador.add(btnPesqColaborador);
+		btnPesquisarcpf.setFont(new Font("Calibri", Font.PLAIN, 16));
+		btnPesquisarcpf.setBounds(488, 30, 140, 20);
+		panelDadoscolab.add(btnPesquisarcpf);
 		
-		JButton btnLimColaborador = new JButton("Limpar Sele\u00E7\u00E3o");
-		btnLimColaborador.setFont(new Font("Calibri", Font.PLAIN, 16));
-		btnLimColaborador.setBounds(318, 138, 302, 30);
-		panelColaborador.add(btnLimColaborador);
+		lbcolaborador = new JLabel("Colaborador");
+		lbcolaborador.setFont(new Font("Calibri", Font.PLAIN, 16));
+		lbcolaborador.setBounds(15, 55, 140, 20);
+		panelDadoscolab.add(lbcolaborador);
 		
-		JButton btnIncColaborador = new JButton("Incluir Colaborador");
-		btnIncColaborador.setBounds(15, 138, 302, 30);
-		panelColaborador.add(btnIncColaborador);
-		btnIncColaborador.setFont(new Font("Calibri", Font.PLAIN, 16));
+		lbruacolab = new JLabel("Rua");
+		lbruacolab.setFont(new Font("Calibri", Font.PLAIN, 16));
+		lbruacolab.setBounds(15, 80, 140, 20);
+		panelDadoscolab.add(lbruacolab);
 		
-		btnIncColaborador.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				System.out.println("Chamando cadastro");
-				
-				try
-				{
-				String query = "INSERT INTO `fopagdb`.`contastb`\n" +  // Aqui inicia a Query de cadastro
-			            "(`codigobco`,\n" +
-			            "`inscricao`,\n" +
-			            "`cnpj`,\n" +
-			            "`convenio`,\n" +
-			            "`agenciaemp`,\n" +
-			            "`contaemp`,\n" +
-			            "`dvemp`,\n" +
-			            "`empresa`,\n" +
-			            "`bancoemp`,\n" +
-			            //"`remessa`,\n" +
-			            //"`nsa`,\n" +
-			            "`nome`,\n" +
-			            "`cpf`,\n" +
-			            "`ufnasc`,\n" +
-			            "`rg`,\n" +
-			            "`dn`,\n" +
-			            "`sexo`,\n" +
-			            "`civil`,\n" +
-			            "`mae`,\n" +
-			            "`ruacolab`,\n" +
-			            "`nresidcolab`,\n" +
-			            "`compresidcolab`,\n" +
-			            "`bairrocolab`,\n" +
-			            "`cidadecolab`,\n" +
-			            "`estadocolab`,\n" +
-			            "`cepcolab`,\n" +
-			            "`emailcolab`,\n" +
-			            "`dddcolab`,\n" +
-			            "`telefonecolab`,\n" +
-			            "`salario`,\n" +
-			            "`admissao`,\n" +
-			            "`cargo`,\n" +
-			            "`agenciacolab`,\n" +
-			            "`contacolab`,\n" +
-			            "`dvcolab`,\n" +
-			            "`ocorrencias`,\n" +
-			            "`tpmovimento`,\n" +
-			            "`data`)\n" +
-			            "VALUES\n" +
-			            "('" + txtcodigobco.getText() + "',\n" +
-			            "'" + txtinscricao.getText() + "',\n" +
-			            "'" + txtcnpj.getText() + "',\n" +
-			            "'" + txtconvenio.getText() + "',\n" +
-			            "'" + txtagencia.getText() + "',\n" +
-			            "'" + txtconta.getText() + "',\n" +
-			            "'" + txtdv.getText() + "',\n" +
-			            "'" + txtempresa.getText() + "',\n" +
-			            "'" + txtbanco.getText() + "',\n" +
-			            //"'" + txtremessa.getText() + "',\n" +
-			            //"'" + txtnsa.getText() + "',\n" +
-			            "'" + txtnome.getText() + "',\n" +
-			            "'" + txt_cpf.getText() + "',\n" +
-			            "'" + txtufnasc.getText() + "',\n" +
-			            "'" + txtrg.getText() + "',\n" +
-			            "'" + txtdn.getText() + "',\n" +
-			            "'" + txtsexo.getText() + "',\n" +
-			            "'" + txtcivil.getText() + "',\n" +
-			            "'" + txtmae.getText() + "',\n" +
-			            "'" + txtrua.getText() + "',\n" +
-			            "'" + txtnresid.getText() + "',\n" +
-			            "'" + txtcompresid.getText() + "',\n" +
-			            "'" + txtbairro.getText() + "',\n" +
-			            "'" + txtcidade.getText() + "',\n" +
-			            "'" + txtestado.getText() + "',\n" +
-			            "'" + txtcep.getText() + "',\n" +
-			            "'" + txtemail.getText() + "',\n" +
-			            "'" + txtddd.getText() + "',\n" +
-			            "'" + txttelefone.getText() + "',\n" +
-			            "'" + txtsalario.getText() + "',\n" +
-			            "'" + txtadmissao.getText() + "',\n" +
-			            "'" + txtcargo.getText() + "',\n" +
-			            "'" + txtagenciacolab.getText() + "',\n" +
-			            "'" + txtcontacolab.getText() + "',\n" +
-			            "'" + txtdvcolab.getText() + "',\n" +
-			            "'" + txtocorrencias.getText() + "',\n" +
-			            "'" + ((Tpmovimento) comboTpmovimento.getSelectedItem()).getKey() + "',\n" +
-			            "'" + new SimpleDateFormat("ddMMYYYY").format(new Date()) + "')";
-			            
-			            
-				System.out.println(query);
-				
-				Fopag.connection.insertData(query);
-				JOptionPane.showMessageDialog(btnIncColaborador, "Colaborador inserido!!!!!!.");
-			}
-			catch (SQLException ex)
-			{
-				JOptionPane.showMessageDialog(btnIncColaborador, "Algo deu errado, confira as posiï¿½ï¿½es por favor!!!");
-            ex.printStackTrace();
-			}
-			  	txtcodigobco.setText("");  // Inicio do Limpa Campo
-			  	txtinscricao.setText("");   
-			  	txtcnpj.setText("");
-			  	txtconvenio.setText("");
-			  	txtagencia.setText("");
-			  	txtconta.setText("");
-			  	txtdv.setText("");
-			  	txtempresa.setText("");
-			  	txtbanco.setText("");
-			  	//txtremessa.setText("");
-			  	//txtnsa.setText("");
-			  	txtnome.setText("");
-			  	txt_cpf.setText("");
-			  	txtufnasc.setText("");
-			  	txtrg.setText("");
-			  	txtdn.setText("");
-			  	txtsexo.setText("");
-			  	txtcivil.setText("");
-			  	txtmae.setText("");
-			  	txtrua.setText("");
-			  	txtnresid.setText("");
-			  	txtcompresid.setText("");
-			  	txtbairro.setText("");
-			  	txtcidade.setText("");
-			  	txtestado.setText("");
-			  	txtcep.setText("");
-			  	txtemail.setText("");
-			  	txtddd.setText("");
-			  	txttelefone.setText("");
-			  	txtsalario.setText("");
-			  	txtadmissao.setText("");
-			  	txtcargo.setText("");
-			  	txtagenciacolab.setText("");
-			  	txtcontacolab.setText("");
-			  	txtdvcolab.setText("");
-			  	txtocorrencias.setText("");
-			  	comboTpmovimento.getSelectedItem();
-			}
-		});
+		lbnresidcolab = new JLabel("Numero");
+		lbnresidcolab.setFont(new Font("Calibri", Font.PLAIN, 16));
+		lbnresidcolab.setBounds(15, 105, 140, 20);
+		panelDadoscolab.add(lbnresidcolab);
 		
-		JButton btnGravar = new JButton("Gravar");
-		btnGravar.setFont(new Font("Calibri", Font.PLAIN, 16));
-		btnGravar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnGravar.setBounds(411, 679, 120, 30);
-		frame.getContentPane().add(btnGravar);
+		lbcompresidcolab = new JLabel("Complemento");
+		lbcompresidcolab.setFont(new Font("Calibri", Font.PLAIN, 16));
+		lbcompresidcolab.setBounds(340, 105, 140, 20);
+		panelDadoscolab.add(lbcompresidcolab);
 		
-		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.setFont(new Font("Calibri", Font.PLAIN, 16));
-		btnCancelar.setBounds(535, 679, 120, 30);
-		frame.getContentPane().add(btnCancelar);
+		lbcidadecolab = new JLabel("Cidade");
+		lbcidadecolab.setFont(new Font("Calibri", Font.PLAIN, 16));
+		lbcidadecolab.setBounds(340, 130, 140, 20);
+		panelDadoscolab.add(lbcidadecolab);
 		
-		JPanel panelSelecao = new JPanel();
-		panelSelecao.setBorder(UIManager.getBorder("ComboBox.border"));
-		panelSelecao.setBounds(20, 423, 635, 156);
-		frame.getContentPane().add(panelSelecao);
-		panelSelecao.setLayout(null);
+		lbcepcolab = new JLabel("CEP");
+		lbcepcolab.setFont(new Font("Calibri", Font.PLAIN, 16));
+		lbcepcolab.setBounds(15, 155, 140, 20);
+		panelDadoscolab.add(lbcepcolab);
 		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(789, 344, -785, -339);
-		scrollPane.setToolTipText("");
-		panelSelecao.add(scrollPane);
+		lbestadocolab = new JLabel("Estado");
+		lbestadocolab.setFont(new Font("Calibri", Font.PLAIN, 16));
+		lbestadocolab.setBounds(340, 155, 140, 20);
+		panelDadoscolab.add(lbestadocolab);
 		
-		txtinscricao = new JTextField();
-		txtinscricao.setHorizontalAlignment(SwingConstants.CENTER);
-		txtinscricao.setFont(new Font("Calibri", Font.PLAIN, 18));
-		txtinscricao.setBounds(106, 0, 105, 25);
-		panelSelecao.add(txtinscricao);
-		txtinscricao.setColumns(10);
+		txtColaborador = new JTextField();
+		txtColaborador.setBounds(170, 55, 458, 20);
+		panelDadoscolab.add(txtColaborador);
+		txtColaborador.setHorizontalAlignment(SwingConstants.CENTER);
+		txtColaborador.setFont(new Font("Calibri", Font.PLAIN, 16));
+		txtColaborador.setColumns(10);
+		txtColaborador.setEditable(false);
 		
-		txtcnpj = new JTextField();
-		txtcnpj.setHorizontalAlignment(SwingConstants.CENTER);
-		txtcnpj.setFont(new Font("Calibri", Font.PLAIN, 18));
-		txtcnpj.setBounds(212, 0, 105, 25);
-		panelSelecao.add(txtcnpj);
-		txtcnpj.setColumns(10);
+		txtRuacolab = new JTextField();
+		txtRuacolab.setHorizontalAlignment(SwingConstants.CENTER);
+		txtRuacolab.setFont(new Font("Calibri", Font.PLAIN, 16));
+		txtRuacolab.setEditable(false);
+		txtRuacolab.setColumns(10);
+		txtRuacolab.setBounds(170, 80, 458, 20);
+		panelDadoscolab.add(txtRuacolab);
 		
-		txtagencia = new JTextField();
-		txtagencia.setHorizontalAlignment(SwingConstants.CENTER);
-		txtagencia.setFont(new Font("Calibri", Font.PLAIN, 18));
-		txtagencia.setBounds(424, 0, 105, 25);
-		panelSelecao.add(txtagencia);
-		txtagencia.setColumns(10);
+		txtNresidcolab = new JTextField();
+		txtNresidcolab.setHorizontalAlignment(SwingConstants.CENTER);
+		txtNresidcolab.setFont(new Font("Calibri", Font.PLAIN, 16));
+		txtNresidcolab.setEditable(false);
+		txtNresidcolab.setColumns(10);
+		txtNresidcolab.setBounds(170, 105, 140, 20);
+		panelDadoscolab.add(txtNresidcolab);
 		
-		txtconta = new JTextField();
-		txtconta.setHorizontalAlignment(SwingConstants.CENTER);
-		txtconta.setFont(new Font("Calibri", Font.PLAIN, 18));
-		txtconta.setBounds(530, 0, 105, 25);
-		panelSelecao.add(txtconta);
-		txtconta.setColumns(10);
+		txtCompresidcolab = new JTextField();
+		txtCompresidcolab.setHorizontalAlignment(SwingConstants.CENTER);
+		txtCompresidcolab.setFont(new Font("Calibri", Font.PLAIN, 16));
+		txtCompresidcolab.setEditable(false);
+		txtCompresidcolab.setColumns(10);
+		txtCompresidcolab.setBounds(488, 105, 140, 20);
+		panelDadoscolab.add(txtCompresidcolab);
 		
-		txtconvenio = new JTextField();
-		txtconvenio.setHorizontalAlignment(SwingConstants.CENTER);
-		txtconvenio.setFont(new Font("Calibri", Font.PLAIN, 18));
-		txtconvenio.setBounds(318, 0, 105, 25);
-		panelSelecao.add(txtconvenio);
-		txtconvenio.setColumns(10);
+		txtCidadecolab = new JTextField();
+		txtCidadecolab.setHorizontalAlignment(SwingConstants.CENTER);
+		txtCidadecolab.setFont(new Font("Calibri", Font.PLAIN, 16));
+		txtCidadecolab.setEditable(false);
+		txtCidadecolab.setColumns(10);
+		txtCidadecolab.setBounds(488, 130, 140, 20);
+		panelDadoscolab.add(txtCidadecolab);
 		
-		txtdv = new JTextField();
-		txtdv.setHorizontalAlignment(SwingConstants.CENTER);
-		txtdv.setFont(new Font("Calibri", Font.PLAIN, 16));
-		txtdv.setColumns(10);
-		txtdv.setBounds(0, 26, 105, 25);
-		panelSelecao.add(txtdv);
+		txtCepcolab = new JTextField();
+		txtCepcolab.setHorizontalAlignment(SwingConstants.CENTER);
+		txtCepcolab.setFont(new Font("Calibri", Font.PLAIN, 16));
+		txtCepcolab.setEditable(false);
+		txtCepcolab.setColumns(10);
+		txtCepcolab.setBounds(170, 155, 140, 20);
+		panelDadoscolab.add(txtCepcolab);
 		
-		txtempresa = new JTextField();
-		txtempresa.setHorizontalAlignment(SwingConstants.CENTER);
-		txtempresa.setFont(new Font("Calibri", Font.PLAIN, 18));
-		txtempresa.setColumns(10);
-		txtempresa.setBounds(106, 26, 105, 25);
-		panelSelecao.add(txtempresa);
+		txtEstadocolab = new JTextField();
+		txtEstadocolab.setHorizontalAlignment(SwingConstants.CENTER);
+		txtEstadocolab.setFont(new Font("Calibri", Font.PLAIN, 16));
+		txtEstadocolab.setEditable(false);
+		txtEstadocolab.setColumns(10);
+		txtEstadocolab.setBounds(488, 155, 140, 20);
+		panelDadoscolab.add(txtEstadocolab);
 		
-		txtbanco = new JTextField();
-		txtbanco.setHorizontalAlignment(SwingConstants.CENTER);
-		txtbanco.setFont(new Font("Calibri", Font.PLAIN, 18));
-		txtbanco.setColumns(10);
-		txtbanco.setBounds(212, 26, 105, 25);
-		panelSelecao.add(txtbanco);
+		JLabel lbbairrocolab = new JLabel("Bairro");
+		lbbairrocolab.setBounds(15, 130, 140, 20);
+		panelDadoscolab.add(lbbairrocolab);
+		lbbairrocolab.setFont(new Font("Calibri", Font.PLAIN, 16));
 		
-		txtremessa = new JTextField();
-		txtremessa.setHorizontalAlignment(SwingConstants.CENTER);
-		txtremessa.setFont(new Font("Calibri", Font.PLAIN, 18));
-		txtremessa.setColumns(10);
-		txtremessa.setBounds(318, 26, 105, 25);
-		panelSelecao.add(txtremessa);
+		txtBairrocolab = new JTextField();
+		txtBairrocolab.setBounds(170, 129, 140, 20);
+		panelDadoscolab.add(txtBairrocolab);
+		txtBairrocolab.setHorizontalAlignment(SwingConstants.CENTER);
+		txtBairrocolab.setFont(new Font("Calibri", Font.PLAIN, 16));
+		txtBairrocolab.setEditable(false);
+		txtBairrocolab.setColumns(10);
 		
-		txtnsa = new JTextField();
-		txtnsa.setHorizontalAlignment(SwingConstants.CENTER);
-		txtnsa.setFont(new Font("Calibri", Font.PLAIN, 18));
-		txtnsa.setColumns(10);
-		txtnsa.setBounds(424, 26, 105, 25);
-		panelSelecao.add(txtnsa);
+		panelDadoscomplementarescolab = new JPanel();
+		panelDadoscomplementarescolab.setLayout(null);
+		panelDadoscomplementarescolab.setBorder(UIManager.getBorder("ComboBox.border"));
+		panelDadoscomplementarescolab.setBounds(5, 469, 635, 207);
+		frame.getContentPane().add(panelDadoscomplementarescolab);
 		
-		txtnome = new JTextField();
-		txtnome.setHorizontalAlignment(SwingConstants.CENTER);
-		txtnome.setFont(new Font("Calibri", Font.PLAIN, 18));
-		txtnome.setColumns(10);
-		txtnome.setBounds(530, 26, 105, 25);
-		panelSelecao.add(txtnome);
+		lbrg = new JLabel("Identidade");
+		lbrg.setHorizontalAlignment(SwingConstants.LEFT);
+		lbrg.setFont(new Font("Calibri", Font.PLAIN, 16));
+		lbrg.setBounds(320, 30, 140, 20);
+		panelDadoscomplementarescolab.add(lbrg);
 		
-		txt_cpf = new JTextField();
-		txt_cpf.setHorizontalAlignment(SwingConstants.CENTER);
-		txt_cpf.setFont(new Font("Calibri", Font.PLAIN, 16));
-		txt_cpf.setColumns(10);
-		txt_cpf.setBounds(0, 52, 105, 25);
-		panelSelecao.add(txt_cpf);
+		lbcotadestino = new JLabel("Dados complementares do colaborador");
+		lbcotadestino.setFont(new Font("Calibri", Font.BOLD, 16));
+		lbcotadestino.setBounds(15, 5, 412, 20);
+		panelDadoscomplementarescolab.add(lbcotadestino);
 		
-		txtufnasc = new JTextField();
-		txtufnasc.setHorizontalAlignment(SwingConstants.CENTER);
-		txtufnasc.setFont(new Font("Calibri", Font.PLAIN, 18));
-		txtufnasc.setColumns(10);
-		txtufnasc.setBounds(106, 52, 105, 25);
-		panelSelecao.add(txtufnasc);
+		lbsexo = new JLabel("Sexo");
+		lbsexo.setFont(new Font("Calibri", Font.PLAIN, 16));
+		lbsexo.setBounds(320, 55, 140, 20);
+		panelDadoscomplementarescolab.add(lbsexo);
 		
-		txtrg = new JTextField();
-		txtrg.setHorizontalAlignment(SwingConstants.CENTER);
-		txtrg.setFont(new Font("Calibri", Font.PLAIN, 18));
-		txtrg.setColumns(10);
-		txtrg.setBounds(212, 52, 105, 25);
-		panelSelecao.add(txtrg);
+		lbdatanascimento = new JLabel("Data de nascimento");
+		lbdatanascimento.setFont(new Font("Calibri", Font.PLAIN, 16));
+		lbdatanascimento.setBounds(15, 55, 140, 20);
+		panelDadoscomplementarescolab.add(lbdatanascimento);
 		
-		txtdn = new JTextField();
-		txtdn.setHorizontalAlignment(SwingConstants.CENTER);
-		txtdn.setFont(new Font("Calibri", Font.PLAIN, 18));
-		txtdn.setColumns(10);
-		txtdn.setBounds(318, 52, 105, 25);
-		panelSelecao.add(txtdn);
+		lbufnascimento = new JLabel("UF nascimento");
+		lbufnascimento.setFont(new Font("Calibri", Font.PLAIN, 16));
+		lbufnascimento.setBounds(15, 30, 140, 20);
+		panelDadoscomplementarescolab.add(lbufnascimento);
 		
-		txtsexo = new JTextField();
-		txtsexo.setHorizontalAlignment(SwingConstants.CENTER);
-		txtsexo.setFont(new Font("Calibri", Font.PLAIN, 18));
-		txtsexo.setColumns(10);
-		txtsexo.setBounds(424, 52, 105, 25);
-		panelSelecao.add(txtsexo);
+		lbmae = new JLabel("Nome da mae");
+		lbmae.setFont(new Font("Calibri", Font.PLAIN, 16));
+		lbmae.setBounds(15, 80, 140, 20);
+		panelDadoscomplementarescolab.add(lbmae);
 		
-		txtcivil = new JTextField();
-		txtcivil.setHorizontalAlignment(SwingConstants.CENTER);
-		txtcivil.setFont(new Font("Calibri", Font.PLAIN, 18));
-		txtcivil.setColumns(10);
-		txtcivil.setBounds(530, 52, 105, 25);
-		panelSelecao.add(txtcivil);
+		txtUfnasc = new JTextField();
+		txtUfnasc.setBounds(165, 29, 140, 20);
+		panelDadoscomplementarescolab.add(txtUfnasc);
+		txtUfnasc.setHorizontalAlignment(SwingConstants.CENTER);
+		txtUfnasc.setFont(new Font("Calibri", Font.PLAIN, 16));
+		txtUfnasc.setColumns(10);
+		txtUfnasc.setEditable(false);
 		
-		txtmae = new JTextField();
-		txtmae.setHorizontalAlignment(SwingConstants.CENTER);
-		txtmae.setFont(new Font("Calibri", Font.PLAIN, 16));
-		txtmae.setColumns(10);
-		txtmae.setBounds(0, 78, 105, 25);
-		panelSelecao.add(txtmae);
+		txtRg = new JTextField();
+		txtRg.setBounds(488, 30, 140, 20);
+		panelDadoscomplementarescolab.add(txtRg);
+		txtRg.setHorizontalAlignment(SwingConstants.CENTER);
+		txtRg.setFont(new Font("Calibri", Font.PLAIN, 16));
+		txtRg.setColumns(10);
+		txtRg.setEditable(false);
 		
-		txtrua = new JTextField();
-		txtrua.setHorizontalAlignment(SwingConstants.CENTER);
-		txtrua.setFont(new Font("Calibri", Font.PLAIN, 18));
-		txtrua.setColumns(10);
-		txtrua.setBounds(106, 78, 105, 25);
-		panelSelecao.add(txtrua);
+		txtDn = new JTextField();
+		txtDn.setHorizontalAlignment(SwingConstants.CENTER);
+		txtDn.setFont(new Font("Calibri", Font.PLAIN, 16));
+		txtDn.setEditable(false);
+		txtDn.setColumns(10);
+		txtDn.setBounds(165, 55, 140, 20);
+		panelDadoscomplementarescolab.add(txtDn);
 		
-		txtnresid = new JTextField();
-		txtnresid.setFont(new Font("Calibri", Font.PLAIN, 18));
-		txtnresid.setHorizontalAlignment(SwingConstants.CENTER);
-		txtnresid.setColumns(10);
-		txtnresid.setBounds(212, 78, 105, 25);
-		panelSelecao.add(txtnresid);
+		txtSexo = new JTextField();
+		txtSexo.setHorizontalAlignment(SwingConstants.CENTER);
+		txtSexo.setFont(new Font("Calibri", Font.PLAIN, 16));
+		txtSexo.setEditable(false);
+		txtSexo.setColumns(10);
+		txtSexo.setBounds(488, 55, 140, 20);
+		panelDadoscomplementarescolab.add(txtSexo);
 		
-		txtcompresid = new JTextField();
-		txtcompresid.setFont(new Font("Calibri", Font.PLAIN, 18));
-		txtcompresid.setColumns(10);
-		txtcompresid.setBounds(318, 78, 105, 25);
-		panelSelecao.add(txtcompresid);
+		txtMae = new JTextField();
+		txtMae.setHorizontalAlignment(SwingConstants.CENTER);
+		txtMae.setFont(new Font("Calibri", Font.PLAIN, 16));
+		txtMae.setEditable(false);
+		txtMae.setColumns(10);
+		txtMae.setBounds(165, 80, 463, 20);
+		panelDadoscomplementarescolab.add(txtMae);
 		
-		txtbairro = new JTextField();
-		txtbairro.setHorizontalAlignment(SwingConstants.CENTER);
-		txtbairro.setFont(new Font("Calibri", Font.PLAIN, 18));
-		txtbairro.setColumns(10);
-		txtbairro.setBounds(424, 78, 105, 25);
-		panelSelecao.add(txtbairro);
+		JLabel lbemail = new JLabel("Email");
+		lbemail.setFont(new Font("Calibri", Font.PLAIN, 16));
+		lbemail.setBounds(15, 105, 140, 20);
+		panelDadoscomplementarescolab.add(lbemail);
 		
-		txtcidade = new JTextField();
-		txtcidade.setFont(new Font("Calibri", Font.PLAIN, 18));
-		txtcidade.setHorizontalAlignment(SwingConstants.CENTER);
-		txtcidade.setColumns(10);
-		txtcidade.setBounds(530, 78, 105, 25);
-		panelSelecao.add(txtcidade);
+		txtEmailcolab = new JTextField();
+		txtEmailcolab.setHorizontalAlignment(SwingConstants.CENTER);
+		txtEmailcolab.setFont(new Font("Calibri", Font.PLAIN, 16));
+		txtEmailcolab.setEditable(false);
+		txtEmailcolab.setColumns(10);
+		txtEmailcolab.setBounds(165, 105, 463, 20);
+		panelDadoscomplementarescolab.add(txtEmailcolab);
 		
-		txtestado = new JTextField();
-		txtestado.setHorizontalAlignment(SwingConstants.CENTER);
-		txtestado.setFont(new Font("Calibri", Font.PLAIN, 16));
-		txtestado.setColumns(10);
-		txtestado.setBounds(0, 104, 105, 25);
-		panelSelecao.add(txtestado);
+		JLabel lbddd = new JLabel("DDD");
+		lbddd.setFont(new Font("Calibri", Font.PLAIN, 16));
+		lbddd.setBounds(15, 130, 140, 20);
+		panelDadoscomplementarescolab.add(lbddd);
 		
-		txtadmissao = new JTextField();
-		txtadmissao.setHorizontalAlignment(SwingConstants.CENTER);
-		txtadmissao.setFont(new Font("Calibri", Font.PLAIN, 16));
-		txtadmissao.setColumns(10);
-		txtadmissao.setBounds(0, 130, 105, 25);
-		panelSelecao.add(txtadmissao);
+		txtDddcolab = new JTextField();
+		txtDddcolab.setHorizontalAlignment(SwingConstants.CENTER);
+		txtDddcolab.setFont(new Font("Calibri", Font.PLAIN, 16));
+		txtDddcolab.setEditable(false);
+		txtDddcolab.setColumns(10);
+		txtDddcolab.setBounds(165, 130, 140, 20);
+		panelDadoscomplementarescolab.add(txtDddcolab);
 		
-		txtocorrencias = new JTextField();
-		txtocorrencias.setHorizontalAlignment(SwingConstants.CENTER);
-		txtocorrencias.setFont(new Font("Calibri", Font.PLAIN, 18));
-		txtocorrencias.setColumns(10);
-		txtocorrencias.setBounds(530, 130, 105, 25);
-		panelSelecao.add(txtocorrencias);
+		JLabel lbtelefone = new JLabel("Telefone");
+		lbtelefone.setFont(new Font("Calibri", Font.PLAIN, 16));
+		lbtelefone.setBounds(320, 130, 140, 20);
+		panelDadoscomplementarescolab.add(lbtelefone);
 		
-		txtsalario = new JTextField();
-		txtsalario.setHorizontalAlignment(SwingConstants.CENTER);
-		txtsalario.setFont(new Font("Calibri", Font.PLAIN, 18));
-		txtsalario.setColumns(10);
-		txtsalario.setBounds(530, 104, 105, 25);
-		panelSelecao.add(txtsalario);
+		txtTelefonecolab = new JTextField();
+		txtTelefonecolab.setHorizontalAlignment(SwingConstants.CENTER);
+		txtTelefonecolab.setFont(new Font("Calibri", Font.PLAIN, 16));
+		txtTelefonecolab.setEditable(false);
+		txtTelefonecolab.setColumns(10);
+		txtTelefonecolab.setBounds(488, 130, 140, 20);
+		panelDadoscomplementarescolab.add(txtTelefonecolab);
 		
-		txttelefone = new JTextField();
-		txttelefone.setHorizontalAlignment(SwingConstants.CENTER);
-		txttelefone.setFont(new Font("Calibri", Font.PLAIN, 18));
-		txttelefone.setColumns(10);
-		txttelefone.setBounds(424, 104, 105, 25);
-		panelSelecao.add(txttelefone);
+		JLabel lbsalario = new JLabel("Salario");
+		lbsalario.setFont(new Font("Calibri", Font.PLAIN, 16));
+		lbsalario.setBounds(15, 155, 140, 20);
+		panelDadoscomplementarescolab.add(lbsalario);
 		
-		txtdvcolab = new JTextField();
-		txtdvcolab.setHorizontalAlignment(SwingConstants.CENTER);
-		txtdvcolab.setFont(new Font("Calibri", Font.PLAIN, 18));
-		txtdvcolab.setColumns(10);
-		txtdvcolab.setBounds(424, 130, 105, 25);
-		panelSelecao.add(txtdvcolab);
+		txtSalario = new JTextField();
+		txtSalario.setHorizontalAlignment(SwingConstants.CENTER);
+		txtSalario.setFont(new Font("Calibri", Font.PLAIN, 16));
+		txtSalario.setEditable(false);
+		txtSalario.setColumns(10);
+		txtSalario.setBounds(165, 155, 140, 20);
+		panelDadoscomplementarescolab.add(txtSalario);
 		
-		txtcontacolab = new JTextField();
-		txtcontacolab.setHorizontalAlignment(SwingConstants.CENTER);
-		txtcontacolab.setFont(new Font("Calibri", Font.PLAIN, 18));
-		txtcontacolab.setColumns(10);
-		txtcontacolab.setBounds(318, 130, 105, 25);
-		panelSelecao.add(txtcontacolab);
+		JLabel lbadmissao = new JLabel("Data de admissao");
+		lbadmissao.setFont(new Font("Calibri", Font.PLAIN, 16));
+		lbadmissao.setBounds(320, 155, 140, 20);
+		panelDadoscomplementarescolab.add(lbadmissao);
 		
-		txtddd = new JTextField();
-		txtddd.setHorizontalAlignment(SwingConstants.CENTER);
-		txtddd.setFont(new Font("Calibri", Font.PLAIN, 18));
-		txtddd.setColumns(10);
-		txtddd.setBounds(318, 104, 105, 25);
-		panelSelecao.add(txtddd);
+		txtAdmissao = new JTextField();
+		txtAdmissao.setHorizontalAlignment(SwingConstants.CENTER);
+		txtAdmissao.setFont(new Font("Calibri", Font.PLAIN, 16));
+		txtAdmissao.setEditable(false);
+		txtAdmissao.setColumns(10);
+		txtAdmissao.setBounds(488, 155, 140, 20);
+		panelDadoscomplementarescolab.add(txtAdmissao);
 		
-		txtemail = new JTextField();
-		txtemail.setHorizontalAlignment(SwingConstants.CENTER);
-		txtemail.setFont(new Font("Calibri", Font.PLAIN, 18));
-		txtemail.setColumns(10);
-		txtemail.setBounds(212, 104, 105, 25);
-		panelSelecao.add(txtemail);
+		JLabel lbcargo = new JLabel("Cargo");
+		lbcargo.setFont(new Font("Calibri", Font.PLAIN, 16));
+		lbcargo.setBounds(15, 180, 140, 20);
+		panelDadoscomplementarescolab.add(lbcargo);
 		
-		txtagenciacolab = new JTextField();
-		txtagenciacolab.setHorizontalAlignment(SwingConstants.CENTER);
-		txtagenciacolab.setFont(new Font("Calibri", Font.PLAIN, 18));
-		txtagenciacolab.setColumns(10);
-		txtagenciacolab.setBounds(212, 130, 105, 25);
-		panelSelecao.add(txtagenciacolab);
+		txtCargo = new JTextField();
+		txtCargo.setHorizontalAlignment(SwingConstants.CENTER);
+		txtCargo.setFont(new Font("Calibri", Font.PLAIN, 16));
+		txtCargo.setEditable(false);
+		txtCargo.setColumns(10);
+		txtCargo.setBounds(165, 180, 140, 20);
+		panelDadoscomplementarescolab.add(txtCargo);
 		
-		txtcargo = new JTextField();
-		txtcargo.setHorizontalAlignment(SwingConstants.CENTER);
-		txtcargo.setFont(new Font("Calibri", Font.PLAIN, 18));
-		txtcargo.setColumns(10);
-		txtcargo.setBounds(106, 130, 105, 25);
-		panelSelecao.add(txtcargo);
+		lbestadocivil = new JLabel("Estado Civil");
+		lbestadocivil.setFont(new Font("Calibri", Font.PLAIN, 16));
+		lbestadocivil.setBounds(320, 180, 140, 20);
+		panelDadoscomplementarescolab.add(lbestadocivil);
 		
-		txtcep = new JTextField();
-		txtcep.setHorizontalAlignment(SwingConstants.CENTER);
-		txtcep.setFont(new Font("Calibri", Font.PLAIN, 18));
-		txtcep.setColumns(10);
-		txtcep.setBounds(106, 104, 105, 25);
-		panelSelecao.add(txtcep);
+		txtCivil = new JTextField();
+		txtCivil.setHorizontalAlignment(SwingConstants.CENTER);
+		txtCivil.setFont(new Font("Calibri", Font.PLAIN, 16));
+		txtCivil.setEditable(false);
+		txtCivil.setColumns(10);
+		txtCivil.setBounds(488, 180, 140, 20);
+		panelDadoscomplementarescolab.add(txtCivil);
 		
-		txtcodigobco = new JTextField();
-		txtcodigobco.setBounds(0, 0, 105, 25);
-		panelSelecao.add(txtcodigobco);
-		txtcodigobco.setHorizontalAlignment(SwingConstants.CENTER);
-		txtcodigobco.setFont(new Font("Calibri", Font.PLAIN, 16));
-		txtcodigobco.setColumns(10);
+		panelDadoscomplementaresCS = new JPanel();
+		panelDadoscomplementaresCS.setLayout(null);
+		panelDadoscomplementaresCS.setBorder(UIManager.getBorder("ComboBox.border"));
+		panelDadoscomplementaresCS.setBounds(5, 679, 635, 113);
+		frame.getContentPane().add(panelDadoscomplementaresCS);
+		
+		lbconta = new JLabel("Conta Sal\u00E1rio");
+		lbconta.setHorizontalAlignment(SwingConstants.LEFT);
+		lbconta.setFont(new Font("Calibri", Font.PLAIN, 16));
+		lbconta.setBounds(320, 30, 140, 20);
+		panelDadoscomplementaresCS.add(lbconta);
+		
+		lbdadospagto = new JLabel("Dados Complementares para a Conta Sal\u00E1rio (quando houver)");
+		lbdadospagto.setFont(new Font("Calibri", Font.BOLD, 16));
+		lbdadospagto.setBounds(15, 5, 464, 20);
+		panelDadoscomplementaresCS.add(lbdadospagto);
+		
+		lbdvcolab_1 = new JLabel("D\u00EDgito verificador");
+		lbdvcolab_1.setFont(new Font("Calibri", Font.PLAIN, 16));
+		lbdvcolab_1.setBounds(320, 141, 140, 25);
+		panelDadoscomplementaresCS.add(lbdvcolab_1);
+		
+		lbcccolab = new JLabel("Conta Corrente");
+		lbcccolab.setFont(new Font("Calibri", Font.PLAIN, 16));
+		lbcccolab.setBounds(15, 141, 140, 25);
+		panelDadoscomplementaresCS.add(lbcccolab);
+		
+		lbagencia = new JLabel("Agencia");
+		lbagencia.setFont(new Font("Calibri", Font.PLAIN, 16));
+		lbagencia.setBounds(15, 30, 140, 20);
+		panelDadoscomplementaresCS.add(lbagencia);
 		
 		JLabel lbtipomovimento = new JLabel("Tipo de Movimento");
-		lbtipomovimento.setFont(new Font("Calibri", Font.BOLD, 16));
-		lbtipomovimento.setBounds(20, 606, 140, 25);
-		frame.getContentPane().add(lbtipomovimento);
+		lbtipomovimento.setBounds(15, 55, 300, 20);
+		panelDadoscomplementaresCS.add(lbtipomovimento);
+		lbtipomovimento.setFont(new Font("Calibri", Font.PLAIN, 16));
 		
-		txtTpmovimento = new JTextField();
-		txtTpmovimento.setBounds(160, 606, 140, 25);
-		frame.getContentPane().add(txtTpmovimento);
-		txtTpmovimento.setColumns(10);
+		JComboBox<Tpmovimento> comboTpmovimento = new JComboBox<Tpmovimento>();
+		comboTpmovimento.setFont(new Font("Calibri", Font.PLAIN, 16));
+		comboTpmovimento.addItem(new Tpmovimento("0", "Inclusao"));
+		comboTpmovimento.addItem(new Tpmovimento("5", "Alteracao"));
+		comboTpmovimento.addItem(new Tpmovimento("7", "Liquidacao"));
+		comboTpmovimento.addItem(new Tpmovimento("9", "Exclusao"));
+		comboTpmovimento.setBounds(320, 55, 307, 20);
+		panelDadoscomplementaresCS.add(comboTpmovimento);
 		
-		txtcodigobco.setEditable(false);
-		txtinscricao.setEditable(false);
-		txtcnpj.setEditable(false);
-		txtagencia.setEditable(false);
-		txtconta.setEditable(false);
-		txtconvenio.setEditable(false);
-		txtdv.setEditable(false);
-		txtempresa.setEditable(false);
-		txtbanco.setEditable(false);
-		txtremessa.setEditable(false);
-		txtnsa.setEditable(false);
-		txtnome.setEditable(false);
-		txt_cpf.setEditable(false);
-		txtufnasc.setEditable(false);
-		txtrg.setEditable(false);
-		txtdn.setEditable(false);
-		txtsexo.setEditable(false);
-		txtcivil.setEditable(false);
-		txtmae.setEditable(false);
-		txtrua.setEditable(false);
-		txtnresid.setEditable(false);
-		txtcompresid.setEditable(false);
-		txtbairro.setEditable(false);
-		txtcidade.setEditable(false);
-		txtestado.setEditable(false);
-		txtadmissao.setEditable(false);
-		txtocorrencias.setEditable(false);
-		txtsalario.setEditable(false);
-		txttelefone.setEditable(false);
-		txtdvcolab.setEditable(false);
-		txtcontacolab.setEditable(false);
-		txtddd.setEditable(false);
-		txtemail.setEditable(false);
-		txtagenciacolab.setEditable(false);
-		txtcargo.setEditable(false);
-		txtcep.setEditable(false);
-		txtTpmovimento.setEditable(false);
+		
+		txtAgenciacolab = new JTextField();
+		txtAgenciacolab.setHorizontalAlignment(SwingConstants.CENTER);
+		txtAgenciacolab.setFont(new Font("Calibri", Font.PLAIN, 16));
+		txtAgenciacolab.setEditable(false);
+		txtAgenciacolab.setColumns(10);
+		txtAgenciacolab.setBounds(165, 30, 140, 20);
+		panelDadoscomplementaresCS.add(txtAgenciacolab);
+		
+		txtContasalariocolab = new JTextField();
+		txtContasalariocolab.setHorizontalAlignment(SwingConstants.CENTER);
+		txtContasalariocolab.setFont(new Font("Calibri", Font.PLAIN, 16));
+		txtContasalariocolab.setEditable(false);
+		txtContasalariocolab.setColumns(10);
+		txtContasalariocolab.setBounds(487, 30, 140, 20);
+		panelDadoscomplementaresCS.add(txtContasalariocolab);
+		
+		lbtpremessa = new JLabel("Tipo de Remessa");
+		lbtpremessa.setFont(new Font("Calibri", Font.PLAIN, 16));
+		lbtpremessa.setBounds(15, 80, 300, 20);
+		panelDadoscomplementaresCS.add(lbtpremessa);
+		
+		
+		JComboBox<Tpremessa> comboTpremessa = new JComboBox<Tpremessa>();
+		comboTpremessa.setFont(new Font("Calibri", Font.PLAIN, 16));
+		comboTpremessa.addItem(new Tpremessa("1", "Remessa (Cliente para Banco)"));
+		comboTpremessa.addItem(new Tpremessa("2", "Remessa (Banco para Cliente)"));
+		comboTpremessa.setBounds(320, 80, 307, 20);
+		panelDadoscomplementaresCS.add(comboTpremessa);
+		
+		btnGravarpagto = new JButton("Gravar");
+		btnGravarpagto.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try
+				{
+					String query = "INSERT INTO `fopagdb`.`contastb`\n" +
+		            "(`codigobco`,\n" +
+		            "`inscricao`,\n" +
+		            "`cnpj`,\n" +
+		            "`convenio`,\n" +
+		            "`agenciaemp`,\n" +
+		            "`contaemp`,\n" +
+		            "`dvemp`,\n" +
+		            "`empresa`,\n" +
+		            "`bancoemp`,\n" +
+		            "`nome`,\n" +
+		            "`cpf`,\n" +
+		            "`ufnasc`,\n" +
+		            "`rg`,\n" +
+		            "`dn`,\n" +
+		            "`sexo`,\n" +
+		            "`civil`,\n" +
+		            "`mae`,\n" +
+		            "`ruacolab`,\n" +
+		            "`nresidcolab`,\n" +
+		            "`ruacolab`,\n" +
+		            "`nresidcolab`,\n" +
+		            "`compresidcolab`,\n" +
+		            "`bairrocolab`,\n" +
+		            "`cidadecolab`,\n" +
+		            "`estadocolab`,\n" +
+		            "`cepcolab`,\n" +
+		            "`emailcolab`,\n" +
+		            "`dddcolab`,\n" +
+		            "`telefonecolab`,\n" +
+		            "`salario`,\n" +
+		            "`admissao`,\n" +
+		            "`cargo`,\n" +
+		            "`agenciacolab`,\n" +
+		            "`tpmovimento`,\n" +
+		            "`tpremessa`,\n" +
+		            "`data`)\n" +
+				    "VALUES\n" +
+				    "('" + txtCodigobcoemp.getText() + "',\n" +
+				    "'" + txtTpinscricao.getText() + "',\n" +
+				    "'" + txtCnpj.getText() + "',\n" +
+				    "'" + txtConvenio.getText() + "',\n" +
+				    "'" + txtAgenciaemp.getText() + "',\n" +
+				    "'" + txtContacorrenteemp.getText() + "',\n" +
+				    "'" + txtDvemp.getText() + "',\n" +
+				    "'" + txtEmpresa.getText() + "',\n" +
+				    "'" + txtBancoemp.getText() + "',\n" +
+				    "'" + txtColaborador.getText() + "',\n" +
+				    "'" + txtCpf.getText() + "',\n" +
+				    "'" + txtUfnasc.getText() + "',\n" +
+				    "'" + txtRg.getText() + "',\n" +
+				    "'" + txtDn.getText() + "',\n" +
+				    "'" + txtSexo.getText() + "',\n" +
+				    "'" + txtCivil.getText() + "',\n" +
+				    "'" + txtMae.getText() + "',\n" +
+				    "'" + txtRuacolab.getText() + "',\n" +
+				    "'" + txtNresidcolab.getText() + "',\n" +
+				    "'" + txtCompresidcolab.getText() + "',\n" +
+				    "'" + txtBairrocolab.getText() + "',\n" +
+				    "'" + txtCidadecolab.getText() + "',\n" +
+				    "'" + txtEstadocolab.getText() + "',\n" +
+				    "'" + txtCepcolab.getText() + "',\n" +
+				    "'" + txtEmailcolab.getText() + "',\n" +
+				    "'" + txtDddcolab.getText() + "',\n" +
+				    "'" + txtTelefonecolab.getText() + "',\n" +
+				    "'" + txtSalario.getText() + "',\n" +
+				    "'" + txtAdmissao.getText() + "',\n" +
+				    "'" + txtCargo.getText() + "',\n" +
+				    "'" + txtAgenciacolab.getText() + "',\n" +
+					"'" + ((Tpmovimento) comboTpmovimento.getSelectedItem()).getKey() + "',\n" +
+				    "'" + ((Tpremessa) comboTpremessa.getSelectedItem()).getKey() + "',\n" +
+				    "'" + new SimpleDateFormat("ddMMYYYY").format(new Date()) + "')";
+				   
+					System.out.println(query);
+					
+					Fopag.connection.insertData(query);
+					JOptionPane.showMessageDialog(btnGravarpagto, "Pagamento registrado.");
+					}
+					catch (SQLException ex)
+					{
+					JOptionPane.showMessageDialog(btnGravarpagto, "Alguma coisa está errada! Por favor, verifique as informaçoes digitadas ");
+					ex.printStackTrace();
+					}
+					
+			    txtCodigobcoemp.setText("");
+			    txtTpinscricao.setText("");
+			    txtCnpj.setText("");
+			    txtConvenio.setText("");
+			    txtAgenciaemp.setText("");
+			    txtContacorrenteemp.setText("");
+			    txtDvemp.setText("");
+			    txtEmpresa.setText("");
+			    txtColaborador.setText("");
+			    txtCpf.setText("");
+			    txtUfnasc.setText("");
+			    txtRg.setText("");
+			    txtDn.setText("");
+			    txtSexo.setText("");
+			    txtCivil.setText("");
+			    txtMae.setText("");
+			    txtRuacolab.setText("");
+			    txtNresidcolab.setText("");
+			    txtCompresidcolab.setText("");
+			    txtBairrocolab.setText("");
+			    txtCidadecolab.setText("");
+			    txtEstadocolab.setText("");
+			    txtCepcolab.setText("");
+			    txtEmailcolab.setText("");
+			    txtDddcolab.setText("");
+			    txtTelefonecolab.setText("");
+			    txtSalario.setText("");
+			    txtAdmissao.setText("");
+			    txtCargo.setText("");
+			    txtAgenciacolab.setText("");
+				comboTpmovimento.getSelectedItem();
+			    comboTpremessa.getSelectedItem();
+			    
+			}
+		});
+		btnGravarpagto.setFont(new Font("Calibri", Font.PLAIN, 16));
+		btnGravarpagto.setBounds(5, 840, 317, 30);
+		frame.getContentPane().add(btnGravarpagto);
+		
+		btnCancelarpagto = new JButton("Cancelar");
+		btnCancelarpagto.setFont(new Font("Calibri", Font.PLAIN, 16));
+		btnCancelarpagto.setBounds(321, 840, 317, 30);
+		frame.getContentPane().add(btnCancelarpagto);
 		
 	}
 }

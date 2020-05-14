@@ -190,13 +190,13 @@ public class InsEmpresa {
 		txtempresa = new JTextField();
 		txtempresa.setFont(new Font("Calibri", Font.PLAIN, 16));
 		txtempresa.setColumns(10);
-		txtempresa.setBounds(266, 155, 387, 25);
+		txtempresa.setBounds(268, 190, 387, 25);
 		frame.getContentPane().add(txtempresa);
 		
 		txtconvenio = new JTextField();
 		txtconvenio.setFont(new Font("Calibri", Font.PLAIN, 16));
 		txtconvenio.setColumns(10);
-		txtconvenio.setBounds(266, 190, 387, 25);
+		txtconvenio.setBounds(266, 155, 387, 25);
 		frame.getContentPane().add(txtconvenio);
 		
 		txtnresid = new JTextField();
@@ -288,10 +288,10 @@ public class InsEmpresa {
 		lblNewLabel.setBounds(145, 505, 120, 25);
 		frame.getContentPane().add(lblNewLabel);
 		
-		JComboBox<Inscricao> comboInscricao = new JComboBox<Inscricao>();
+		JComboBox<Tpinscricao> comboInscricao = new JComboBox<Tpinscricao>();
 		comboInscricao.setFont(new Font("Calibri", Font.PLAIN, 16));
-		comboInscricao.addItem(new Inscricao("1", "Pessoa Fisica"));
-		comboInscricao.addItem(new Inscricao("2", "Pessoa Juridica"));
+		comboInscricao.addItem(new Tpinscricao("1", "Pessoa Fisica"));
+		comboInscricao.addItem(new Tpinscricao("2", "Pessoa Juridica"));
 		comboInscricao.setBounds(266, 505, 120, 25);
 		frame.getContentPane().add(comboInscricao);
 		
@@ -347,12 +347,12 @@ public class InsEmpresa {
 		            "'" + txtdv.getText() + "',\n" +
 		            "'" + txtddd.getText() + "',\n" +
 		            "'" + txttelefone.getText() + "',\n" +
-		            "'" + ((Inscricao) comboInscricao.getSelectedItem()).getKey() + "',\n" +
+		            "'" + ((Tpinscricao) comboInscricao.getSelectedItem()).getKey() + "',\n" +
 		            "'" + ((Bancos) comboBancos.getSelectedItem()).getKey() + "',\n" +
 		            "'" + txtemail.getText() + "')";
 		            
 					Fopag.connection.insertData(query);
-					JOptionPane.showMessageDialog(btnGravar, "Opa... Tudo certo at� aqui!!!.");
+					JOptionPane.showMessageDialog(btnGravar, "Opa... Tudo certo ate aqui!!!.");
 				}
 				catch (SQLException ex)
 				{

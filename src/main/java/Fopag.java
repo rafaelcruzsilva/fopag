@@ -107,6 +107,12 @@ public class Fopag {
 		MenuRemessa.add(ItemRemConta);
 		
 		JMenuItem ItemRemPagto = new JMenuItem("Gerar remessa folha de Pagto");
+		ItemRemPagto.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Envio_Pagamento envio_pagamento = new Envio_Pagamento();
+				envio_pagamento.frame.setVisible(true);
+			}
+		});
 		ItemRemPagto.setFont(new Font("Calibri", Font.PLAIN, 16));
 		MenuRemessa.add(ItemRemPagto);
 		
@@ -129,6 +135,12 @@ public class Fopag {
 		MenuEnvio.add(EnvioConta);
 		
 		JMenuItem EnvioPagto = new JMenuItem("Folha de pagamento");
+		EnvioPagto.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Gera_Pagamento gera_pagamento = new Gera_Pagamento();
+				gera_pagamento.frame.setVisible(true);
+			}
+		});
 		EnvioPagto.setFont(new Font("Calibri", Font.PLAIN, 16));
 		MenuEnvio.add(EnvioPagto);
 		

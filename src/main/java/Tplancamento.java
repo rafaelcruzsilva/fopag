@@ -1,11 +1,11 @@
 
-public class Inscricao {
+public class Tplancamento {
 	
-	public Inscricao() {
+	public Tplancamento() {
 
 	}
 
-	public Inscricao(String key, String value) {
+	public Tplancamento(String key, String value) {
 		this.key = key;
 		this.value = value;
 	}

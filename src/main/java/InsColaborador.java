@@ -10,12 +10,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.text.MaskFormatter;
 
 public class InsColaborador {
 
@@ -64,6 +67,16 @@ public class InsColaborador {
 	}
 
 	private void initialize() {
+		
+		MaskFormatter dataMascara = null;
+		
+		try {
+			dataMascara = new MaskFormatter("##/##/####");
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 		
 		frame = new JFrame();
 		frame.setTitle("Inserir Colaboradores");
@@ -310,7 +323,7 @@ public class InsColaborador {
 		txtrg.setBounds(281, 200, 387, 25);
 		frame.getContentPane().add(txtrg);
 		
-		txtdn = new JTextField();
+		txtdn = new JFormattedTextField(dataMascara);
 		txtdn.setFont(new Font("Calibri", Font.PLAIN, 16));
 		txtdn.setColumns(10);
 		txtdn.setBounds(281, 240, 120, 25);
@@ -471,7 +484,7 @@ public class InsColaborador {
 		comboCargo.setBounds(281, 650, 120, 25);
 		frame.getContentPane().add(comboCargo);
 		
-		txtadmissao = new JTextField();
+		txtadmissao = new JFormattedTextField(dataMascara);
 		txtadmissao.setFont(new Font("Calibri", Font.PLAIN, 16));
 		txtadmissao.setColumns(10);
 		txtadmissao.setBounds(548, 650, 120, 25);
