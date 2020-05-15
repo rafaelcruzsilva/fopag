@@ -278,7 +278,7 @@ public class Gera_Conta {
 						 mae = StringUtils.rightPad(resultado.getString("mae"), 30, " ");
 						 ruacolab = StringUtils.rightPad(resultado.getString("ruacolab"), 30, " ");
 						 nresidcolab = StringUtils.leftPad(resultado.getString("nresidcolab"), 5, "0");
-						 compresidcolab = StringUtils.rightPad(resultado.getString("compresidcolab"), 15, " ");
+						 compresidcolab = StringUtils.leftPad(resultado.getString("compresidcolab") != null ? resultado.getString("compresidcolab") : "", 15, " ");
 						 bairrocolab = StringUtils.rightPad(resultado.getString("bairrocolab"), 15, " ");
 						 cidadecolab = StringUtils.rightPad(resultado.getString("cidadecolab"), 20, " ");
 						 estadocolab = StringUtils.leftPad(resultado.getString("estadocolab"), 2, "0");
@@ -289,10 +289,10 @@ public class Gera_Conta {
 						 salario = StringUtils.leftPad(resultado.getString("salario"), 9, "0");
 						 admissao = StringUtils.leftPad(resultado.getString("admissao"), 8, "0");
 						 cargo = StringUtils.leftPad(resultado.getString("cargo"), 4, "0");
-						 agenciacolab = StringUtils.leftPad(resultado.getString("agenciacolab"), 5, "0");
-						 contasalario = StringUtils.leftPad(resultado.getString("contacolab"), 12, "0");
-						 dvcolab = StringUtils.leftPad(resultado.getString("dvcolab"), 1, "0");
-						 ocorrencias = StringUtils.leftPad(resultado.getString("ocorrencias"), 10, " "); //
+						 agenciacolab = StringUtils.leftPad(resultado.getString("agenciacolab") != null ? resultado.getString("agenciacolab") : "", 5, "0");
+						 contasalario = StringUtils.leftPad(resultado.getString("contacolab") != null ? resultado.getString("contacolab") : "", 12, "0");
+						 dvcolab = StringUtils.leftPad(resultado.getString("dvcolab") != null ? resultado.getString("dvcolab") : "", 1, "0");
+						 ocorrencias = StringUtils.leftPad(resultado.getString("ocorrencias") != null ? resultado.getString("ocorrencias") : "", 10, " ");
 						 tpmovimento = StringUtils.leftPad(resultado.getString("tpmovimento"), 1, "0");
 						 
 						 lotesvcheader = "0000";							

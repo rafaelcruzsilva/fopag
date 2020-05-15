@@ -346,9 +346,11 @@ public class Abertura_Conta {
 						JOptionPane.showMessageDialog(null, "CPF inválido", "Dados inválidos", JOptionPane.ERROR_MESSAGE);
 						return;
 					}
-					
-					String query = ("SELECT * FROM fopagdb.cadastrotb WHERE `cpf` = " + txtCpf.getText()); 
-		            ResultSet resultado = Fopag.connection.getData(query);
+	
+//ResultSet resultado = Fopag.connection.getData(String.format("SELECT * FROM fopagdb.empresatb WHERE cnpj LIKE '%s'", txtCnpj.getText()));
+					ResultSet resultado = Fopag.connection.getData(String.format("SELECT * FROM fopagdb.cadastrotb WHERE cpf LIKE '%s'", txtCpf.getText()));
+					//String query = ("SELECT * FROM fopagdb.cadastrotb WHERE `cpf` = " + txtCpf.getText()); 
+		            //ResultSet resultado = Fopag.connection.getData(query);
 		            
 		            while (resultado.next())
 		            {
@@ -756,8 +758,6 @@ public class Abertura_Conta {
 		            "`sexo`,\n" +
 		            "`civil`,\n" +
 		            "`mae`,\n" +
-		            "`ruacolab`,\n" +
-		            "`nresidcolab`,\n" +
 		            "`ruacolab`,\n" +
 		            "`nresidcolab`,\n" +
 		            "`compresidcolab`,\n" +

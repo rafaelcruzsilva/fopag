@@ -68,16 +68,6 @@ public class InsColaborador {
 
 	private void initialize() {
 		
-		MaskFormatter dataMascara = null;
-		
-		try {
-			dataMascara = new MaskFormatter("##/##/####");
-		} catch (ParseException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		
-		
 		frame = new JFrame();
 		frame.setTitle("Inserir Colaboradores");
 		frame.getContentPane().setFont(new Font("Calibri", Font.PLAIN, 16));
@@ -323,7 +313,7 @@ public class InsColaborador {
 		txtrg.setBounds(281, 200, 387, 25);
 		frame.getContentPane().add(txtrg);
 		
-		txtdn = new JFormattedTextField(dataMascara);
+		txtdn = new JTextField();
 		txtdn.setFont(new Font("Calibri", Font.PLAIN, 16));
 		txtdn.setColumns(10);
 		txtdn.setBounds(281, 240, 120, 25);
@@ -484,7 +474,7 @@ public class InsColaborador {
 		comboCargo.setBounds(281, 650, 120, 25);
 		frame.getContentPane().add(comboCargo);
 		
-		txtadmissao = new JFormattedTextField(dataMascara);
+		txtadmissao = new JTextField();
 		txtadmissao.setFont(new Font("Calibri", Font.PLAIN, 16));
 		txtadmissao.setColumns(10);
 		txtadmissao.setBounds(548, 650, 120, 25);
