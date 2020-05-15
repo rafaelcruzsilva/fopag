@@ -87,7 +87,6 @@ public class Retorno_Conta {
 		
 		btnImportar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
 				final JFileChooser fileChooser = new JFileChooser();
 				final FileNameExtensionFilter fileChooserFilter = new FileNameExtensionFilter("Somente arquivo .txt", "txt");
 				fileChooser.setFileFilter(fileChooserFilter);
@@ -144,5 +143,6 @@ public class Retorno_Conta {
 				
 			}
 		});
+
 	}		
 }
