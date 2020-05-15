@@ -68,7 +68,7 @@ public class Gera_Conta {
 		}
 		
 		frame = new JFrame();
-		frame.setTitle("Abertura de conta sal\u00E1rio");
+		frame.setTitle("Abertura de Conta - Banco Original");
 		frame.setBounds(100, 100, 700, 780);
 		frame.getContentPane().setLayout(null);
 		

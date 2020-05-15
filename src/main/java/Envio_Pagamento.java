@@ -85,7 +85,7 @@ public class Envio_Pagamento {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setTitle("Gerando Arquivo de Pagamento");
+		frame.setTitle("Remessa de Pagamento - Banco Original");
 		frame.setBounds(100, 100, 660, 930);
 		frame.getContentPane().setLayout(null);
 		

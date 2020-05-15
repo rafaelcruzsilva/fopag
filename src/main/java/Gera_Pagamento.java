@@ -65,7 +65,7 @@ public class Gera_Pagamento {
 //		}
 		
 		frame = new JFrame();
-		frame.setTitle("Abertura de conta sal\u00E1rio");
+		frame.setTitle("Remessa de Pagamento - Banco Original");
 		frame.setBounds(100, 100, 700, 780);
 		frame.getContentPane().setLayout(null);
 		
@@ -170,12 +170,12 @@ public class Gera_Pagamento {
 					String empresa = null;
 					String convenio = null;
 					String tpinscricao = null;
-					String ruaemp = null;
-					String nresidemp = null;
-					String compresidemp = null;
-					String cidadeemp = null;
-					String cepemp = null;
-					String estadoemp = null;
+//					String ruaemp = null;
+//					String nresidemp = null;
+//					String compresidemp = null;
+//					String cidadeemp = null;
+//					String cepemp = null;
+//					String estadoemp = null;
 					String codigobcoemp = null;
 					String agenciaemp = null;
 					String contaemp = null;
@@ -197,7 +197,7 @@ public class Gera_Pagamento {
 					String agenciacolab = null;
 					String contacolab = null;
 					String dvcolab = null;
-					String bancocolab = null;
+//					String bancocolab = null;
 					String valor = null;
 					String datapagto = null;
 					String tplancamento = null;
@@ -272,6 +272,7 @@ public class Gera_Pagamento {
 						 tpservico = StringUtils.leftPad(resultado.getString("tpservico"), 2, " ");
 						 tplancamento = StringUtils.leftPad(resultado.getString("tplancamento"), 1, "0");
 						 tpidentificacao = StringUtils.rightPad(resultado.getString("tpidentificacao"), 20, " ");
+						 tpmovimento = StringUtils.rightPad(resultado.getString("tpmovimento"), 1, " ");
 						 ruacolab = StringUtils.rightPad(resultado.getString("ruacolab"), 30, " ");
 						 nresidcolab = StringUtils.leftPad(resultado.getString("nresidcolab"), 5, "0");
 						 compresidcolab = StringUtils.rightPad(resultado.getString("compresidcolab"), 15, " ");
@@ -282,10 +283,10 @@ public class Gera_Pagamento {
 						 agenciacolab = StringUtils.leftPad(resultado.getString("agenciacolab"), 5, "0");
 						 contacolab = StringUtils.leftPad(resultado.getString("contacolab"), 12, "0");
 						 dvcolab = StringUtils.leftPad(resultado.getString("dvcolab"), 1, "0");
-						 colaborador = StringUtils.rightPad(resultado.getString("colaborador"), 40, " ");
+						 colaborador = StringUtils.rightPad(resultado.getString("colaborador"), 30, " ");
 						 datapagto = StringUtils.leftPad(resultado.getString("datapagto"), 8, "0");
 						 valor = StringUtils.leftPad(resultado.getString("valor"), 15, "0");
-						 cpf = StringUtils.leftPad(resultado.getString("cpf"), 14, "0");
+						 cpf = StringUtils.rightPad(resultado.getString("cpf"), 14, " ");
 						 
 						 // Campos fixos
 						 
@@ -405,8 +406,7 @@ public class Gera_Pagamento {
 			 			fileWriter.write(tpregsegmentoa);
 			 			fileWriter.write(nrseqregistrolotea);
 			 			fileWriter.write(segmentoa);
-			 			tpmovimento = ""; // vai fazer com que pare de dar erro
-			 			fileWriter.write(tpmovimento); // mesmo erro de antes, o objeto está como null, não é possível escrever um objeto nulo
+			 			fileWriter.write(tpmovimento);
 			 			fileWriter.write(filler5);
 			 			fileWriter.write(codigobcocolab );
 			 			fileWriter.write(agenciacolab);
@@ -457,27 +457,6 @@ public class Gera_Pagamento {
 			 			fileWriter.write(filler100);
 			 			fileWriter.write(filler2);
 			 			fileWriter.write(filler1);
-			 			fileWriter.write(ocorrencias);
-			 			fileWriter.write(lotesvcheaderlote);
-			 			fileWriter.write(tpregsegmentob);
-			 			fileWriter.write(filler5);
-			 			fileWriter.write(filler2);
-			 			fileWriter.write(filler2);
-			 			fileWriter.write(StringUtils.leftPad(String.valueOf(contador), 6, "0"));
-			 			fileWriter.write(filler10); // será substituido pela soma dos valores
-			 			fileWriter.write(filler5); // será substituido pela soma dos valores
-			 			fileWriter.write(filler2); // será substituido pela soma dos valores
-			 			fileWriter.write(filler1); // será substituido pela soma dos valores
-			 			fileWriter.write(filler5); 
-			 			fileWriter.write(filler2); 
-			 			fileWriter.write(filler1); 
-			 			fileWriter.write(filler5); //será substituido pelo aviso de débito
-			 			fileWriter.write(filler1); //será substituido pelo aviso de débito
-			 			fileWriter.write(filler100);
-			 			fileWriter.write(filler20);
-			 			fileWriter.write(filler20);
-			 			fileWriter.write(filler20);
-			 			fileWriter.write(filler5);
 			 			fileWriter.write(ocorrencias);
 			 
 			 			fileWriter.write("\r\n");

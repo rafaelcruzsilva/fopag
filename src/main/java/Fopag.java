@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.sql.SQLException;
 import javax.swing.JLabel;
+import javax.swing.SwingConstants;
 
 public class Fopag {
 
@@ -48,7 +49,7 @@ public class Fopag {
 
 	private void initialize() {
 		frmFolhaDePagamento = new JFrame();
-		frmFolhaDePagamento.setTitle("Folha de Pagamento - OriginalApp");
+		frmFolhaDePagamento.setTitle("Folha de Pagamento - Banco Original");
 		frmFolhaDePagamento.setBounds(100, 100, 700, 780);
 		frmFolhaDePagamento.getContentPane().setLayout(null);
 		
@@ -61,6 +62,7 @@ public class Fopag {
 		frmFolhaDePagamento.setJMenuBar(menuBar);
 		
 		JMenu MenuArquivo = new JMenu("Iniciar");
+		MenuArquivo.setHorizontalAlignment(SwingConstants.RIGHT);
 		MenuArquivo.setFont(new Font("Calibri", Font.PLAIN, 16));
 		menuBar.add(MenuArquivo);
 		
@@ -96,7 +98,7 @@ public class Fopag {
 		MenuRemessa.setFont(new Font("Calibri", Font.PLAIN, 16));
 		menuBar.add(MenuRemessa);
 		
-		JMenuItem ItemRemConta = new JMenuItem("Gerar remessa abertura de conta");
+		JMenuItem ItemRemConta = new JMenuItem("Gerar Arquivo Remessa de Abertura de Conta");
 		ItemRemConta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Abertura_Conta abertura_conta = new Abertura_Conta();
@@ -106,7 +108,7 @@ public class Fopag {
 		ItemRemConta.setFont(new Font("Calibri", Font.PLAIN, 16));
 		MenuRemessa.add(ItemRemConta);
 		
-		JMenuItem ItemRemPagto = new JMenuItem("Gerar remessa folha de Pagto");
+		JMenuItem ItemRemPagto = new JMenuItem("Gerar Arquivo Remessa de Pagamento");
 		ItemRemPagto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Envio_Pagamento envio_pagamento = new Envio_Pagamento();
@@ -116,7 +118,7 @@ public class Fopag {
 		ItemRemPagto.setFont(new Font("Calibri", Font.PLAIN, 16));
 		MenuRemessa.add(ItemRemPagto);
 		
-		JMenuItem ItemRemRetorno = new JMenuItem("Retorno de remessa");
+		JMenuItem ItemRemRetorno = new JMenuItem("Retorno de Arquivo de Remessa");
 		ItemRemRetorno.setFont(new Font("Calibri", Font.PLAIN, 16));
 		MenuRemessa.add(ItemRemRetorno);
 		
@@ -124,7 +126,7 @@ public class Fopag {
 		MenuEnvio.setFont(new Font("Calibri", Font.PLAIN, 16));
 		menuBar.add(MenuEnvio);
 		
-		JMenuItem EnvioConta = new JMenuItem("Abertura de conta");
+		JMenuItem EnvioConta = new JMenuItem("Remessa de Abertura de Conta");
 		EnvioConta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Gera_Conta gera_conta = new Gera_Conta();
@@ -134,7 +136,7 @@ public class Fopag {
 		EnvioConta.setFont(new Font("Calibri", Font.PLAIN, 16));
 		MenuEnvio.add(EnvioConta);
 		
-		JMenuItem EnvioPagto = new JMenuItem("Folha de pagamento");
+		JMenuItem EnvioPagto = new JMenuItem("Remessa de Pagamentos");
 		EnvioPagto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Gera_Pagamento gera_pagamento = new Gera_Pagamento();

@@ -120,7 +120,7 @@ public class Abertura_Conta {
 
 	private void initialize() {
 		frame = new JFrame();
-		frame.setTitle("Abertura de Conta");
+		frame.setTitle("Abertura de Conta - Banco Original");
 		frame.setBounds(100, 100, 660, 930);
 		frame.getContentPane().setLayout(null);
 		
