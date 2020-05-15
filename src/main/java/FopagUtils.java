@@ -1,7 +1,11 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
+import java.util.ArrayList;
+import java.util.List;
 
 import br.com.caelum.stella.validation.CNPJValidator;
 import br.com.caelum.stella.validation.CPFValidator;
@@ -53,6 +57,30 @@ public class FopagUtils {
 	    catch (DateTimeParseException e) {
 	       return false;
 	    } 
+	}
+	
+	public static List<String> retornarLinhasArquivo (final String filePath) {		
+		try {			
+			final List<String> linhas = new ArrayList<String>();
+			
+			final BufferedReader br = new BufferedReader(new FileReader(filePath));
+		    
+		    String line = br.readLine();
+		    
+		    while (line != null) {
+		    	linhas.add(line);    	
+		    	line = br.readLine();
+		    }
+		    
+		    br.close();
+		    
+		    return linhas;
+		}
+		catch(Exception e) {
+		   System.out.println("ERRO");
+		   System.out.println(e);
+		   return null;
+		}
 	}
 
 }
