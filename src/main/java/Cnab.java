@@ -5,6 +5,8 @@ public class Cnab {
 	private String numeroConta;
 	private String digitoVerificador;
 	private String tipoRetorno;
+	private String cpf;
+	private String numeroAgencia;
 
 	public Cnab() {
 	}
@@ -40,11 +42,28 @@ public class Cnab {
 	public void setTipoRetorno(String tipoRetorno) {
 		this.tipoRetorno = tipoRetorno;
 	}
+	
+	public String getcpf() {
+		return cpf;
+	}
+
+	public void setcpf(String cpf) {
+		this.cpf = cpf;
+	}
+	
+	public String getNumeroAgencia() {
+		return numeroAgencia;
+	}
+
+	public void setNumeroAgencia(String numeroAgencia) {
+		this.numeroAgencia = numeroAgencia;
+	}
+
 
 	@Override
 	public String toString() {
 		return "Cnab [nomeColaborador=" + nomeColaborador + ", numeroConta=" + numeroConta + ", digitoVerificador="
-				+ digitoVerificador + ", tipoRetorno=" + tipoRetorno + "]";
+				+ digitoVerificador + ", tipoRetorno=" + tipoRetorno + ", cpf=" + cpf + ", numeroAgencia=" + numeroAgencia + "]";
 	}
 
 }

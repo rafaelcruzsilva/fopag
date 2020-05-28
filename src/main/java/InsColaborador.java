@@ -10,15 +10,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.ParseException;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFormattedTextField;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.text.MaskFormatter;
 
 public class InsColaborador {
 
@@ -107,6 +104,11 @@ public class InsColaborador {
 		frame.getContentPane().add(btnExcluir);
 		
 		JButton btnFechar = new JButton("Fechar");
+		btnFechar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
 		btnFechar.setFont(new Font("Calibri", Font.PLAIN, 16));
 		btnFechar.setBounds(15, 257, 120, 30);
 		frame.getContentPane().add(btnFechar);

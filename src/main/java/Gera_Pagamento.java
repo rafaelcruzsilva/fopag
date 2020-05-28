@@ -5,7 +5,10 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileWriter;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -55,15 +58,6 @@ public class Gera_Pagamento {
 
 	private void initialize() {
 		
-//		MaskFormatter dataMascara = null;
-//		
-//		try {
-//			dataMascara = new MaskFormatter("##/##/####");
-//		} catch (ParseException e1) {
-//			// TODO Auto-generated catch block
-//			e1.printStackTrace();
-//		}
-		
 		frame = new JFrame();
 		frame.setTitle("Remessa de Pagamento - Banco Original");
 		frame.setBounds(100, 100, 700, 780);
@@ -106,36 +100,60 @@ public class Gera_Pagamento {
 
 		btnEnviar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// INICIO DO CLICK DO BOTÂO
-				
-				
-				// IMPLEMENTAR INSERT NA TABELA NSA
-				
-				
-				
-						//try {
-				
-			            //String query = "INSERT INTO `fopagdb`.`nsatb`\n" +  // Aqui inicia a Query de cadastro
-			            //"data)\n" +
-			            //"VALUES\n" +
-			            //"('now()')";
-			            
-			            //Fopag.connection.insertData(query);
-						//JOptionPane.showMessageDialog(btnEnviar, "Opa... Tudo certo ate aqui!!!.");
-						//}
-						//catch (SQLException ex)
-						//{
-						//JOptionPane.showMessageDialog(btnEnviar, "Hum... algo deu errado!!!");
-		            	//ex.printStackTrace();
-						//}
+
+				try {String query = "INSERT INTO `fopagdb`.`nsa2tb`\n" +
+			            "(`data`)\n" +
+					    "VALUES\n" +
+					    "('" + new SimpleDateFormat("ddMMYYYY").format(new Date()) + "')";
+		            
+		            Fopag.connection.insertData(query);
+					JOptionPane.showMessageDialog(btnEnviar, "O sistema gerou um novo Numero Sequencial (NSA)");
+					}
+			
+				catch (SQLException ex){
 					
-						//comboTpregistro.getSelectedItem();
+						JOptionPane.showMessageDialog(btnEnviar, "O sistema nao gerou um novo Numero Sequencial (NSA) automáticamente! Por Favor, refaça a operaçao!");
+						ex.printStackTrace();
+					}
+	
+			try {
 				
-				// SELECT * FROM nsatb WHERE id = MAX(id)
+				String queryNSA = ("SELECT MAX(id) FROM fopagdb.nsa2tb");
+				ResultSet resultadoNSA = Fopag.connection.getData(queryNSA);
 				
-				
-				try {
+				String nsa = null;
+				String maxID = "";
+				while(resultadoNSA.next())
 					
+				{
+				 	System.out.println("next");
+					maxID = resultadoNSA.getString("MAX(id)");
+				}
+				
+				String queryNSA2 = ("SELECT * FROM fopagdb.nsa2tb where id='" + maxID + "'");
+				ResultSet resultadoNSA2 = Fopag.connection.getData(queryNSA2);
+				
+				while (resultadoNSA2.next())
+				{
+					nsa = resultadoNSA2.getString("id");
+				}
+				
+					String somafinal = "";
+					
+					DateTimeFormatter dtf = DateTimeFormatter.ofPattern("ddMMYYYY");  
+				    LocalDateTime now = LocalDateTime.now();  
+				    String dataAtual = dtf.format(now);  
+					String queryVALOR = ("SELECT Sum(valor) FROM fopagdb.pagamentostb WHERE data LIKE '" + dataAtual + "'");
+					ResultSet resultadoSOMA = Fopag.connection.getData(queryVALOR);
+					
+					while(resultadoSOMA.next())
+					{
+						System.out.println("next");
+						somafinal = resultadoSOMA.getString("Sum(valor)");
+					}
+					
+					somafinal = somafinal.substring(0, somafinal.indexOf('.'));
+								
 					final JFileChooser fileChooser = new JFileChooser();					
 					fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 					final Integer directoryOption = fileChooser.showOpenDialog(frame);
@@ -150,7 +168,7 @@ public class Gera_Pagamento {
 						return;
 					}
 					
-					final String nomeArquivo = String.format("TCSYS_REMESSAPAGAMENTO_%s%s%s.txt", DATE_FORMAT_US.format(new Date()), "3224", "1");
+					final String nomeArquivo = String.format("TCSYS_REMESSAPAGAMENTO_%s%s%s%s.txt", DATE_FORMAT_US.format(new Date()), HH_MM_SS_FORMAT.format(new Date()), "1", nsa);
 					
 					final File file = new File(fileChooser.getSelectedFile(), nomeArquivo);
 					
@@ -163,8 +181,6 @@ public class Gera_Pagamento {
 					System.out.println(query);
 					
 					ResultSet resultado = Fopag.connection.getData(query);
-					
-					// Strings variáveis
 					
 					String cnpj = null;
 					String empresa = null;
@@ -203,10 +219,7 @@ public class Gera_Pagamento {
 					String tplancamento = null;
 					String data = null;
 					String hora = null;
-					String nsa = null;
 					String ocorrencias = null;
-					
-					// Strings fixas
 					
 					String lotesvcheader = null;
 					String lotesvctrailerarquivo = null;
@@ -238,7 +251,6 @@ public class Gera_Pagamento {
 					String filler15 = null;
 					String filler20 = null;
 					String filler100 = null;
-					
 						
 					final FileWriter fileWriter = new FileWriter(file);
 					
@@ -254,8 +266,6 @@ public class Gera_Pagamento {
 						 
 						 contador++;
 						 
-						 // Campos variáveis
-						 
 						 data = StringUtils.leftPad(resultado.getString("data"), 8, "0");
 						 codigobcoemp = StringUtils.leftPad(resultado.getString("codigobcoemp"), 3, "0");
 						 tpinscricao = StringUtils.leftPad(resultado.getString("tpinscricao"), 1, " ");
@@ -267,7 +277,8 @@ public class Gera_Pagamento {
 						 empresa = StringUtils.rightPad(resultado.getString("empresa"), 30, " ");
 						 bancoemp = StringUtils.rightPad(resultado.getString("bancoemp"), 30, " ");
 						 tpremessa = StringUtils.rightPad(resultado.getString("tpremessa"), 1, " ");
-						 //nsa = StringUtils.leftPad(resultado.getString("nsa") == null ? "1" : resultado.getString("nsa"), 6, "0");
+						 nsa = StringUtils.leftPad(nsa, 6, "0");
+						 somafinal = StringUtils.leftPad(somafinal, 18, "0");
 						 ocorrencias = StringUtils.leftPad(resultado.getString("ocorrencias") != null ? resultado.getString("ocorrencias") : "", 10, " "); // Então neste caso é porque o retorno do banco está sendo NULL						 
 						 tpservico = StringUtils.leftPad(resultado.getString("tpservico"), 2, " ");
 						 tplancamento = StringUtils.leftPad(resultado.getString("tplancamento"), 1, "0");
@@ -287,8 +298,6 @@ public class Gera_Pagamento {
 						 datapagto = StringUtils.leftPad(resultado.getString("datapagto"), 8, "0");
 						 valor = StringUtils.leftPad(resultado.getString("valor"), 15, "0");
 						 cpf = StringUtils.rightPad(resultado.getString("cpf"), 14, " ");
-						 
-						 // Campos fixos
 						 
 						 lotesvcheader = "0000";
 						 tprgheader = "0";
@@ -312,7 +321,6 @@ public class Gera_Pagamento {
 						 moeda = "BRL";
 						 tpinscricaoFavorecido = "1";
 						 finalidadeted = "00010";
-						 nsa = "000001";
 						 filler1 = StringUtils.leftPad(" ", 1, " "); 		
 						 filler2 = StringUtils.leftPad(" ", 2, " "); 		
 						 filler5 = StringUtils.leftPad(" ", 5, " "); 		
@@ -327,8 +335,6 @@ public class Gera_Pagamento {
 						 if (setFileHeader) {
 							 
 							 setFileHeader = Boolean.FALSE;
-							 
-							 //Header do arquivo
 							 
 							 fileWriter.write(codigobcoemp); 		
 							 fileWriter.write(lotesvcheader); 	
@@ -363,8 +369,6 @@ public class Gera_Pagamento {
 						 
 						 if (setBatchHeader) {
 							setBatchHeader = Boolean.FALSE;
-							
-							//Header do lote
 							 
 							fileWriter.write(codigobcoemp);		
 							fileWriter.write(lotesvcheaderlote); 
@@ -398,8 +402,6 @@ public class Gera_Pagamento {
 							
 							fileWriter.write("\r\n");
 						 }
-						 
-						 //Segmento A
 						 						 
 			 			fileWriter.write(codigobcoemp);
 			 			fileWriter.write(lotesvcsegmentoa);
@@ -435,8 +437,6 @@ public class Gera_Pagamento {
 			 			fileWriter.write(ocorrencias);
 			 
 			 			fileWriter.write("\r\n");
-			 			
-			 			//Segmento B
 			 
 			 			fileWriter.write(codigobcoemp);
 			 			fileWriter.write(lotesvcsegmentob);
@@ -463,8 +463,6 @@ public class Gera_Pagamento {
 					 }
 					
 					 if (hasLines) {
-						 
-						// Trailer do lote
 					
 				 		fileWriter.write(codigobcoemp);			
 				 		fileWriter.write(lotesvctrailerlote);	 
@@ -473,10 +471,7 @@ public class Gera_Pagamento {
 				 		fileWriter.write(filler2);				
 				 		fileWriter.write(filler2);				
 				 		fileWriter.write(StringUtils.leftPad(String.valueOf(contador), 6, "0"));			//linhas acima dele (conta com ele) exceto o header
-				 		fileWriter.write(filler10); // será substituido pela soma dos valores
-			 			fileWriter.write(filler5); // será substituido pela soma dos valores
-			 			fileWriter.write(filler2); // será substituido pela soma dos valores
-			 			fileWriter.write(filler1); // será substituido pela soma dos valores
+				 		fileWriter.write(somafinal);
 			 			fileWriter.write(filler10); 
 			 			fileWriter.write(filler5); 
 			 			fileWriter.write(filler2); 
@@ -491,8 +486,6 @@ public class Gera_Pagamento {
 				 		fileWriter.write(ocorrencias);			
 				 		
 				 		fileWriter.write("\r\n");
-						 
-				 		//Trailer do arquivo
 				 		
 					 	fileWriter.write(codigobcoemp);		
 					 	fileWriter.write(lotesvctrailerarquivo);	
@@ -528,6 +521,11 @@ public class Gera_Pagamento {
 		panelBanco.add(btnEnviar);
 		
 		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
 		btnCancelar.setFont(new Font("Calibri", Font.PLAIN, 16));
 		btnCancelar.setBounds(340, 678, 315, 30);
 		frame.getContentPane().add(btnCancelar);

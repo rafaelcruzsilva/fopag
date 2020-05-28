@@ -5,13 +5,13 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileWriter;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
-import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -63,7 +63,6 @@ public class Gera_Conta {
 		try {
 			dataMascara = new MaskFormatter("##/##/####");
 		} catch (ParseException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		
@@ -94,7 +93,7 @@ public class Gera_Conta {
 		rdbtnInserirdata.setBounds(307, 60, 120, 25);
 		panelBanco.add(rdbtnInserirdata);
 		
-		txtData = new JFormattedTextField(dataMascara);
+		txtData = new JTextField();
 		txtData.setHorizontalAlignment(SwingConstants.CENTER);
 		txtData.setFont(new Font("Calibri", Font.PLAIN, 16));
 		txtData.setBounds(441, 60, 184, 25);
@@ -109,35 +108,42 @@ public class Gera_Conta {
 
 		btnEnviar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// INICIO DO CLICK DO BOTÂO
 				
-				
-				// IMPLEMENTAR INSERT NA TABELA NSA
-				
-				
-				
-						//try {
-				
-			            //String query = "INSERT INTO `fopagdb`.`nsatb`\n" +  // Aqui inicia a Query de cadastro
-			            //"data)\n" +
-			            //"VALUES\n" +
-			            //"('now()')";
+					try {String query = "INSERT INTO `fopagdb`.`nsatb`\n" +
+				            "(`data`)\n" +
+						    "VALUES\n" +
+						    "('" + new SimpleDateFormat("ddMMYYYY").format(new Date()) + "')";
 			            
-			            //Fopag.connection.insertData(query);
-						//JOptionPane.showMessageDialog(btnEnviar, "Opa... Tudo certo ate aqui!!!.");
-						//}
-						//catch (SQLException ex)
-						//{
-						//JOptionPane.showMessageDialog(btnEnviar, "Hum... algo deu errado!!!");
-		            	//ex.printStackTrace();
-						//}
-					
-						//comboTpregistro.getSelectedItem();
+			            Fopag.connection.insertData(query);
+						JOptionPane.showMessageDialog(btnEnviar, "O sistema gerou um novo Numero Sequencial (NSA)");
+						}
 				
-				// SELECT * FROM nsatb WHERE id = MAX(id)
-				
-				
+					catch (SQLException ex){
+						
+							JOptionPane.showMessageDialog(btnEnviar, "O sistema nao gerou um novo Numero Sequencial (NSA) automáticamente! Por Favor, refaça a operaçao!");
+							ex.printStackTrace();
+						}
+		
 				try {
+					
+					String queryNSA = "SELECT MAX(id) FROM fopagdb.nsatb";
+					ResultSet resultadoNSA = Fopag.connection.getData(queryNSA);
+					
+					String nsa = null;
+					String maxID = "";
+					while(resultadoNSA.next())
+					{
+						System.out.println("next");
+						maxID = resultadoNSA.getString("MAX(id)");
+					}
+					
+					String queryNSA2 = "SELECT * FROM fopagdb.nsatb where id='" + maxID + "'";
+					ResultSet resultadoNSA2 = Fopag.connection.getData(queryNSA2);
+					
+					while (resultadoNSA2.next())
+					{
+						nsa = resultadoNSA2.getString("id");
+					}
 					
 					final JFileChooser fileChooser = new JFileChooser();					
 					fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
@@ -153,10 +159,7 @@ public class Gera_Conta {
 						return;
 					}
 					
-					//String teste = String.format("Olï¿½ %s. Sua conta ï¿½ %s, seu saldo ï¿½ %s", "Iago", conta, saldo);					
-					//"Olï¿½ Iago. Sua conta ï¿½ 123, seu saldo ï¿½ 500";
-					
-					final String nomeArquivo = String.format("TCSYS_REMESSAAGENDAMENTO_%s%s%s.txt", DATE_FORMAT_US.format(new Date()), "3224", "1");
+					final String nomeArquivo = String.format("TCSYS_REMESSAAGENDAMENTO_%s%s%s%s.txt", DATE_FORMAT_US.format(new Date()), HH_MM_SS_FORMAT.format(new Date()), "1", nsa);
 					
 					final File file = new File(fileChooser.getSelectedFile(), nomeArquivo);
 					
@@ -196,7 +199,6 @@ public class Gera_Conta {
 					String empresa = null;
 					String banco = null;
 					String remessa = null;
-					String nsa = null;
 					String layout = null;
 					String colaborador = null;
 					String cpf = null;
@@ -267,12 +269,12 @@ public class Gera_Conta {
 						 empresa = StringUtils.rightPad(resultado.getString("empresa"), 30, " "); //
 						 banco = StringUtils.rightPad(resultado.getString("bancoemp"), 30, " "); //
 						 remessa = StringUtils.leftPad(resultado.getString("remessa") == null ? "1" : resultado.getString("remessa"), 1, "0"); //
-						 nsa = StringUtils.leftPad(resultado.getString("nsa") == null ? "1" : resultado.getString("nsa"), 6, "0"); //
 						 colaborador = StringUtils.rightPad(resultado.getString("nome"), 40, " ");
 						 cpf = StringUtils.leftPad(resultado.getString("cpf"), 11, "0");
 						 ufnasc = StringUtils.leftPad(resultado.getString("ufnasc"), 2, "0");
 						 rg = StringUtils.rightPad(resultado.getString("rg"), 20, " ");
 						 dn = StringUtils.leftPad(resultado.getString("dn"), 8, "0");
+						 nsa = StringUtils.leftPad(nsa, 6, "0");
 						 sexo = StringUtils.leftPad(resultado.getString("sexo"), 1, "0");
 						 civil = StringUtils.leftPad(resultado.getString("civil"), 2, "0");
 						 mae = StringUtils.rightPad(resultado.getString("mae"), 30, " ");
@@ -326,7 +328,6 @@ public class Gera_Conta {
 						 filler15 = StringUtils.leftPad(" ", 15, " "); 		
 						 filler20 = StringUtils.leftPad(" ", 20, " "); 		
 						 filler100 = StringUtils.leftPad(" ", 100, " "); 	
-						 
 						 
 						 if (setFileHeader) {
 							 
@@ -388,7 +389,6 @@ public class Gera_Conta {
 							fileWriter.write(filler1);			
 							fileWriter.write(ocorrencias);		
 							
-							
 							fileWriter.write("\r\n");
 						 }
 						 						 
@@ -445,7 +445,6 @@ public class Gera_Conta {
 			 
 			 			fileWriter.write("\r\n");
 					 }
-					 
 					
 					 if (hasLines) {
 					
@@ -464,7 +463,6 @@ public class Gera_Conta {
 				 		
 				 		fileWriter.write("\r\n");
 						 
-				 		
 					 	fileWriter.write(codigobco);		
 					 	fileWriter.write(lotesvctrailer);	
 					 	fileWriter.write(tptrailer);		
@@ -499,6 +497,11 @@ public class Gera_Conta {
 		panelBanco.add(btnEnviar);
 		
 		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
 		btnCancelar.setFont(new Font("Calibri", Font.PLAIN, 16));
 		btnCancelar.setBounds(340, 678, 315, 30);
 		frame.getContentPane().add(btnCancelar);

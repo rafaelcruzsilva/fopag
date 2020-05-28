@@ -2,9 +2,9 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -12,17 +12,13 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
-import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class Retorno_Conta {
 
-	private JFrame frame;
+	public JFrame frame;
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -39,17 +35,15 @@ public class Retorno_Conta {
 	/**
 	 * OriginalApp
 	 */
+	
 	public Retorno_Conta() {
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	private void initialize() {
 		
 		frame = new JFrame();
-		frame.setTitle("Retornode Arquivos de Remessa - Banco Original");
+		frame.setTitle("Retorno de Arquivos de Remessa - Banco Original");
 		frame.setBounds(100, 100, 660, 780);
 		frame.getContentPane().setLayout(null);
 		
@@ -71,10 +65,6 @@ public class Retorno_Conta {
 		JRadioButton rdbtnOutrospagamentos = new JRadioButton("Outros Pagamentos");
 		rdbtnOutrospagamentos.setBounds(28, 228, 455, 29);
 		frame.getContentPane().add(rdbtnOutrospagamentos);
-		
-		JTextArea txtArea = new JTextArea();
-		txtArea.setBounds(15, 572, 262, 136);
-		frame.getContentPane().add(txtArea);
 		
 		ButtonGroup buttonGroup = new ButtonGroup();
 		buttonGroup.add(rdbtnRemessaconta);
@@ -111,11 +101,12 @@ public class Retorno_Conta {
 			    	
 			    	if (contador % 2 == 0) {
 			    		cnab = new Cnab();
-			    		cnab.setNomeColaborador(linhas.get(contador).substring(105, 132));
+			    		cnab.setNomeColaborador(linhas.get(contador).substring(15, 45));
+			    		cnab.setcpf(linhas.get(contador).substring(55, 66));
 			    		cnab.setTipoRetorno(linhas.get(contador).substring(230, 232));
 			    		continue;
 			    	}
-			    	
+			    	cnab.setNumeroAgencia(linhas.get(contador).substring(211, 216));
 			    	cnab.setDigitoVerificador(linhas.get(contador).substring(229, 230));
 			    	cnab.setNumeroConta(linhas.get(contador).substring(217, 229));		    	
 			    	
@@ -128,19 +119,22 @@ public class Retorno_Conta {
 			    	
 			    	final StringBuilder sb = new StringBuilder();
 			    	
-			    	sb.append("INSERT INTO NOME_DA_TABELA(nome_colaborador, tipo_retorno, digito_verificador, numero_conta)");
-			    	
-			    	sb.append("VALUES");
 			    	
 			    	for (int i = 0; i < cnabs.size(); i++) {
-			    		String insert = String.format("('%s', '%s', '%s', '%s')", cnabs.get(i).getNomeColaborador().trim(), cnabs.get(i).getTipoRetorno().trim(), cnabs.get(i).getDigitoVerificador().trim(), cnabs.get(i).getNumeroConta().trim());			    		
-			    		sb.append(insert);
-			    		sb.append(i < (cnabs.size() - 1) ? "," : ";");
+			    		sb.append("UPDATE fopagdb.cadastrotb SET agencia = '" + cnabs.get(i).getNumeroAgencia().trim() + "', conta = '" + cnabs.get(i).getNumeroConta().trim() + "', dv = '" + cnabs.get(i).getDigitoVerificador().trim() + "' WHERE cpf = '" + cnabs.get(i).getcpf().trim() + "'");
+			    		
+			    		try
+			    		{
+			    			Fopag.connection.insertData(sb.toString());
+			    		}
+			    		catch (SQLException ex)
+			    		{
+			    			ex.printStackTrace();
+			    		}
+			    		System.out.println(sb.toString());
 			    	}
 			    	
-			    	System.out.println(sb.toString());
 			    }
-				
 			}
 		});
 

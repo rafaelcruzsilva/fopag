@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JButton;
@@ -16,8 +15,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
-import javax.swing.text.MaskFormatter;
-import javax.swing.JFormattedTextField;
 
 public class Abertura_Conta {
 
@@ -123,15 +120,6 @@ public class Abertura_Conta {
 		frame.setTitle("Abertura de Conta - Banco Original");
 		frame.setBounds(100, 100, 660, 930);
 		frame.getContentPane().setLayout(null);
-		
-//		MaskFormatter dataMascara = null;
-		
-//		try {
-//			dataMascara = new MaskFormatter("##/##/####");
-//		} catch (ParseException e1) {
-//			// TODO Auto-generated catch block
-//			e1.printStackTrace();
-//		}
 		
 		lblGeraoDoArquivo = new JLabel("Gera\u00E7\u00E3o do Arquivo CNAB 240 - Abertura de Conta Sal\u00E1rio");
 		lblGeraoDoArquivo.setHorizontalAlignment(SwingConstants.CENTER);
@@ -346,11 +334,8 @@ public class Abertura_Conta {
 						JOptionPane.showMessageDialog(null, "CPF inválido", "Dados inválidos", JOptionPane.ERROR_MESSAGE);
 						return;
 					}
-	
-//ResultSet resultado = Fopag.connection.getData(String.format("SELECT * FROM fopagdb.empresatb WHERE cnpj LIKE '%s'", txtCnpj.getText()));
+
 					ResultSet resultado = Fopag.connection.getData(String.format("SELECT * FROM fopagdb.cadastrotb WHERE cpf LIKE '%s'", txtCpf.getText()));
-					//String query = ("SELECT * FROM fopagdb.cadastrotb WHERE `cpf` = " + txtCpf.getText()); 
-		            //ResultSet resultado = Fopag.connection.getData(query);
 		            
 		            while (resultado.next())
 		            {
@@ -373,6 +358,7 @@ public class Abertura_Conta {
 		                txtSalario.setText(resultado.getString("salario"));
 		                txtAdmissao.setText(resultado.getString("admissao"));
 		                txtCargo.setText(resultado.getString("cargo"));
+		                txtCivil.setText(resultado.getString("civil"));
 		                txtAgenciacolab.setText(resultado.getString("agencia"));
 		                txtContasalariocolab.setText(resultado.getString("conta"));
 		            }
@@ -771,7 +757,6 @@ public class Abertura_Conta {
 		            "`salario`,\n" +
 		            "`admissao`,\n" +
 		            "`cargo`,\n" +
-		            "`agenciacolab`,\n" +
 		            "`tpmovimento`,\n" +
 		            "`tpremessa`,\n" +
 		            "`data`)\n" +
@@ -806,7 +791,6 @@ public class Abertura_Conta {
 				    "'" + txtSalario.getText() + "',\n" +
 				    "'" + txtAdmissao.getText() + "',\n" +
 				    "'" + txtCargo.getText() + "',\n" +
-				    "'" + txtAgenciacolab.getText() + "',\n" +
 					"'" + ((Tpmovimento) comboTpmovimento.getSelectedItem()).getKey() + "',\n" +
 				    "'" + ((Tpremessa) comboTpremessa.getSelectedItem()).getKey() + "',\n" +
 				    "'" + new SimpleDateFormat("ddMMYYYY").format(new Date()) + "')";
@@ -851,7 +835,6 @@ public class Abertura_Conta {
 			    txtSalario.setText("");
 			    txtAdmissao.setText("");
 			    txtCargo.setText("");
-			    txtAgenciacolab.setText("");
 				comboTpmovimento.getSelectedItem();
 			    comboTpremessa.getSelectedItem();
 			    
@@ -862,6 +845,11 @@ public class Abertura_Conta {
 		frame.getContentPane().add(btnGravarpagto);
 		
 		btnCancelarpagto = new JButton("Cancelar");
+		btnCancelarpagto.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.exit(0);
+			}
+		});
 		btnCancelarpagto.setFont(new Font("Calibri", Font.PLAIN, 16));
 		btnCancelarpagto.setBounds(321, 840, 317, 30);
 		frame.getContentPane().add(btnCancelarpagto);

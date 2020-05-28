@@ -24,7 +24,7 @@ public class Fopag {
 		try
 		{
 			connection = new SQLConnection();
-			connection.connect("jdbc:mysql://localhost:3306/fopagdb?useTimezone=true&serverTimezone=UTC", "root", "");
+			connection.connect("jdbc:mysql://localhost:3306/fopagdb?useTimezone=true&serverTimezone=UTC", "root", "root");
 		}
 		catch (SQLException | ClassNotFoundException ex)
 		{
@@ -52,6 +52,7 @@ public class Fopag {
 		frmFolhaDePagamento.setTitle("Folha de Pagamento - Banco Original");
 		frmFolhaDePagamento.setBounds(100, 100, 700, 780);
 		frmFolhaDePagamento.getContentPane().setLayout(null);
+		
 		
 		JLabel jldata = new JLabel("");
 		jldata.setFont(new Font("Calibri", Font.PLAIN, 18));
@@ -87,10 +88,21 @@ public class Fopag {
 		MenuArquivo.add(ItemEmpresa);
 		
 		JMenuItem ItemImprimir = new JMenuItem("Imprimir");
+		ItemImprimir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Imprime_Formulario imprime_formulario = new Imprime_Formulario();
+				imprime_formulario.frame.setVisible(true);
+			}
+		});
 		ItemImprimir.setFont(new Font("Calibri", Font.PLAIN, 16));
 		MenuArquivo.add(ItemImprimir);
 		
 		JMenuItem ItemSair = new JMenuItem("Sair");
+		ItemSair.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
 		ItemSair.setFont(new Font("Calibri", Font.PLAIN, 16));
 		MenuArquivo.add(ItemSair);
 		
@@ -119,6 +131,12 @@ public class Fopag {
 		MenuRemessa.add(ItemRemPagto);
 		
 		JMenuItem ItemRemRetorno = new JMenuItem("Retorno de Arquivo de Remessa");
+		ItemRemRetorno.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Retorno_Conta retorno_conta = new Retorno_Conta();
+				retorno_conta.frame.setVisible(true);
+			}
+		});
 		ItemRemRetorno.setFont(new Font("Calibri", Font.PLAIN, 16));
 		MenuRemessa.add(ItemRemRetorno);
 		
@@ -153,6 +171,14 @@ public class Fopag {
 		JMenuItem ItemContatos = new JMenuItem("Contatos");
 		ItemContatos.setFont(new Font("Calibri", Font.PLAIN, 16));
 		MenuAjuda.add(ItemContatos);
+		
+		JMenu mnMenuManuais = new JMenu("Manuais");
+		mnMenuManuais.setFont(new Font("Calibri", Font.PLAIN, 16));
+		MenuAjuda.add(mnMenuManuais);
+		
+		JMenuItem mnManualCnab = new JMenuItem("Manual CNAB240");
+		mnManualCnab.setFont(new Font("Calibri", Font.PLAIN, 16));
+		mnMenuManuais.add(mnManualCnab);
 		
 		JMenuItem ItemDocumentacao = new JMenuItem("Documenta\u00E7\u00E3o");
 		ItemDocumentacao.setFont(new Font("Calibri", Font.PLAIN, 16));

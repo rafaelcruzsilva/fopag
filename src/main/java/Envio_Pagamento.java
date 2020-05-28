@@ -18,11 +18,11 @@ import javax.swing.UIManager;
 
 public class Envio_Pagamento {
 	
-	private static final SimpleDateFormat DATE_FORMAT_BR = new SimpleDateFormat("ddMMYYYY");
+private static final SimpleDateFormat DATE_FORMAT_BR = new SimpleDateFormat("ddMMYYYY");
 	
-	private static final SimpleDateFormat DATE_FORMAT_US = new SimpleDateFormat("YYYYMMdd");
+private static final SimpleDateFormat DATE_FORMAT_US = new SimpleDateFormat("YYYYMMdd");
 	
-	private static final SimpleDateFormat HH_MM_SS_FORMAT = new SimpleDateFormat("HHmmss");
+private static final SimpleDateFormat HH_MM_SS_FORMAT = new SimpleDateFormat("HHmmss");
 
 
 	public JFrame frame;
@@ -88,15 +88,6 @@ public class Envio_Pagamento {
 		frame.setTitle("Remessa de Pagamento - Banco Original");
 		frame.setBounds(100, 100, 660, 930);
 		frame.getContentPane().setLayout(null);
-		
-//		MaskFormatter dataMascara = null;
-		
-//		try {
-//			dataMascara = new MaskFormatter("##/##/####");
-//		} catch (ParseException e1) {
-//			// TODO Auto-generated catch block
-//			e1.printStackTrace();
-//		}
 		
 		JLabel lblGeraoDoArquivo = new JLabel("Gera\u00E7\u00E3o do Arquivo CNAB 240 - Pagamento de Sal\u00E1rio");
 		lblGeraoDoArquivo.setHorizontalAlignment(SwingConstants.CENTER);
@@ -816,6 +807,11 @@ public class Envio_Pagamento {
 		frame.getContentPane().add(btnGravarpagto);
 		
 		JButton btnCancelarpagto = new JButton("Cancelar");
+		btnCancelarpagto.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
 		btnCancelarpagto.setFont(new Font("Calibri", Font.PLAIN, 16));
 		btnCancelarpagto.setBounds(321, 842, 317, 30);
 		frame.getContentPane().add(btnCancelarpagto);

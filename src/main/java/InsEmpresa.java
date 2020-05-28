@@ -87,6 +87,11 @@ public class InsEmpresa {
 		frame.getContentPane().add(btnExcluir);
 		
 		JButton btfechar = new JButton("Fechar");
+		btfechar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
 		btfechar.setFont(new Font("Calibri", Font.PLAIN, 18));
 		btfechar.setBounds(10, 256, 120, 30);
 		frame.getContentPane().add(btfechar);
@@ -352,15 +357,15 @@ public class InsEmpresa {
 		            "'" + txtemail.getText() + "')";
 		            
 					Fopag.connection.insertData(query);
-					JOptionPane.showMessageDialog(btnGravar, "Opa... Tudo certo ate aqui!!!.");
+					JOptionPane.showMessageDialog(btnGravar, "Empresa cadastrada com sucesso!");
 				}
 				catch (SQLException ex)
 				{
 					JOptionPane.showMessageDialog(btnGravar, "Hum... algo deu errado!!!");
 	            ex.printStackTrace();
 				}
-				  	txtcnpj.setText("");  		// Criei todos os campos
-				  	txtempresa.setText("");   	// Verificar onde adicionar 
+				  	txtcnpj.setText("");  		
+				  	txtempresa.setText("");   	
 				  	txtconvenio.setText(""); 
 				  	txtrua.setText("");
 				  	txtnresid.setText("");
